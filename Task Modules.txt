@@ -1,0 +1,24 @@
+** Frontend File.
+- Real Estate
+
+** Backend
+
+Admin Panel
+----------------
+1. Customer 
+	* Create
+	* Verify
+	* Edit
+
+
+Custom Panel
+-------------
+* Registration
+	* Google / Facebook
+	* Payment 
+	* Email
+
+
+* Property => Rent / Buying List
+
+
