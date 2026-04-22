@@ -2507,3 +2507,49 @@ input:checked + .geist-slider:before {
     0%, 100% { transform: translateY(0) rotate(0deg); }
     50% { transform: translateY(-30px) rotate(5deg); }
 }
+
+
+
+.building-card {
+  background: #ffffff;
+  border: 1px solid var(--accents-2);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-medium);
+}
+
+.form-label {
+  font-weight: 600;
+  color: var(--primary-navy);
+  font-size: 0.9rem;
+}
+
+.form-control,
+.form-select {
+  border: 1.5px solid var(--accents-2);
+  border-radius: 8px;
+  padding: 0.6rem 1rem;
+}
+
+.form-control:focus {
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 0 3px rgba(43, 123, 232, 0.1);
+}
+
+.btn-primary {
+  background-color: var(--accent-blue);
+  border: none;
+  font-weight: 600;
+  padding: 0.6rem 1.5rem;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-navy);
+}
+
+.image-upload-wrapper {
+  background: var(--light-blue-bg);
+  border: 2px dashed var(--accent-blue);
+  border-radius: var(--radius-md);
+  padding: 2rem;
+  text-align: center;
+}

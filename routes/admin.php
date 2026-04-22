@@ -9,4 +9,10 @@ Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashb
 
 
 // Building
-Route::get('/building', [BuildingController::class, 'index'])->name('building.index');
+
+Route::prefix('/building')->name('building.')->controller(BuildingController::class)->group(function(){
+    Route::get('/', 'index')->name('index');
+    Route::get('/create', 'create')->name('create');
+    Route::post('/store', 'store')->name('store');
+
+});
