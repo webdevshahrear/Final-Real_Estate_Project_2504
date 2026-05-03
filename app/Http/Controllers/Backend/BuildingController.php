@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreBuildingRequest;
 use App\Models\Building;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use League\Uri\Builder;
 
 class BuildingController extends Controller
@@ -13,7 +14,7 @@ class BuildingController extends Controller
     function index()
     {
         $buildings = Building::where('user_id', auth()->id())->orderBy('status', 'desc')->get();
-        
+
         return view('backend.building.index', compact('buildings'));
     }
 
@@ -32,7 +33,7 @@ class BuildingController extends Controller
                 $images[] =  $img->store('buildings', 'public');
             }
         }
-        
+
         $building = Building::create([
             "user_id" => auth()->id(),
             'name' => $request->name,
@@ -46,8 +47,24 @@ class BuildingController extends Controller
         ]);
 
         return to_route('admin.building.index');
+    }
 
 
+    function delete($id)
+    {
+        $building = Building::find($id);
+        $images = $building->images;
 
+        if ($images) {
+            $imgArray = json_decode($images  ?? '');
+            foreach ($imgArray as $img) {
+                if (Storage::disk('public')->exists($img)) {
+                    // delete
+                    Storage::disk('public')->delete($img);
+                }
+            }
+        }
+        $building->delete();
+        return back();
     }
 }

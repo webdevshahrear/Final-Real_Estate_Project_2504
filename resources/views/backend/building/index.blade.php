@@ -98,13 +98,13 @@
             </div>
         </div>
     </div>
-    
- 
+
+
 
     <div class="row g-4">
         @foreach($buildings as $building)
         @php
-            $gallImg = json_decode($building->images ?? '')[0] ?? null;
+        $gallImg = json_decode($building->images ?? '')[0] ?? null;
         @endphp
         <div class="col-md-6 col-xl-4">
             <div class="bg-white border rounded-4 shadow-sm h-100 overflow-hidden transition-hover">
@@ -113,7 +113,8 @@
                     <div class="position-absolute top-0 end-0 p-3">
                         <span
                             class="badge bg-{{ $building->status ? 'success' : 'warning' }}-subtle text-{{ $building->status ? 'success' : 'warning' }} border border-{{ $building->status ? 'success' : 'warning' }}-subtle px-3 py-2 rounded-pill extra-small fw-bold">
-                            <i class="bi bi-check-circle-fill me-1"></i> {{ $building->status ? 'Active' : "Maintenance" }}
+                            <i class="bi bi-check-circle-fill me-1"></i> {{ $building->status ? 'Active' : "Maintenance"
+                            }}
                         </span>
                     </div>
                 </div>
@@ -133,8 +134,15 @@
                             <ul class="dropdown-menu dropdown-menu-end border-0 shadow-lg rounded-3 extra-small">
                                 <li><a class="dropdown-item py-2" href="#"><i class="bi bi-pencil me-2"></i> Edit
                                         Details</a></li>
-                                <li><a class="dropdown-item py-2 text-danger" href="#"><i
-                                            class="bi bi-archive me-2"></i> Retire Asset</a></li>
+                                <li>
+                                    <a class="dropdown-item py-2 text-danger deleteBuilding"
+                                        href="{{ route('admin.building.delete', $building->id) }}"><i class="bi bi-archive me-2"></i>
+                                        Retire Asset</a>
+                                    <form action="{{ route('admin.building.delete', $building->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                    </form>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -155,7 +163,8 @@
                     </div>
 
                     <div class="d-flex flex-wrap gap-1 mb-4">
-                        <span class="badge bg-light text-secondary border fw-normal extra-small">{{ $building->amenities }}</span>
+                        <span class="badge bg-light text-secondary border fw-normal extra-small">{{ $building->amenities
+                            }}</span>
                     </div>
 
                     <div class="d-flex justify-content-between align-items-center pt-3 border-top">
@@ -184,6 +193,7 @@
     </div>
 </div>
 
+@push('css')
 <style>
     .transition-hover {
         transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -209,4 +219,13 @@
         background: var(--light-blue-bg) !important;
     }
 </style>
+@endpush
+@push('script')
+<script>
+    $('.deleteBuilding').click(function(event){
+        event.preventDefault();
+       $(this).next('form').submit()
+    })
+</script>
+@endpush
 @endsection

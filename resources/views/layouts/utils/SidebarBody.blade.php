@@ -3,7 +3,7 @@
     <p class="nav-category">Primary</p>
     <a href="{{ route('admin.dashboard') }}" class="nav-item-geist {{ getActiveLink('admin.dashboard') }}"><i class="bi bi-grid-1x2-fill"></i> Overview</a>
     <a href="{{ route('admin.building.index') }}" class="nav-item-geist {{ getActiveLink('admin.building.*') }}"><i class="bi bi-buildings"></i> Buildings</a>
-    <a href="units.html" class="nav-item-geist"><i class="bi bi-door-closed "></i> Units</a>
+    <a href="{{ route('admin.units.index') }}" class="nav-item-geist {{ getActiveLink('admin.units.*') }}"><i class="bi bi-door-closed "></i> Units</a>
 
     <p class="nav-category">Stakeholders</p>
     <a href="owners.html" class="nav-item-geist"><i class="bi bi-person-badge"></i> Owners</a>

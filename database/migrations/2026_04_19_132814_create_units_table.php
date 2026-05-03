@@ -21,6 +21,7 @@ return new class extends Migration
             $table->float('amount')->default(0);
             $table->float('security_deposit')->default(0);
             $table->mediumText('details');
+            $table->json('images')->nullable();
             $table->boolean('status')->default(true);
             $table->timestamps();
         });
