@@ -19,6 +19,22 @@
         </div>
         @endif
 
+        {{-- Filter Tabs --}}
+        <div class="d-flex gap-2 mb-4">
+            <a href="{{ route('admin.properties.index') }}" 
+               class="btn rounded-pill px-4 {{ !request('type') ? 'btn-primary' : 'btn-outline-secondary' }}">
+                All
+            </a>
+            <a href="{{ route('admin.properties.index', ['type' => 'rent']) }}" 
+               class="btn rounded-pill px-4 {{ request('type') == 'rent' ? 'btn-primary' : 'btn-outline-secondary' }}">
+                For Rent
+            </a>
+            <a href="{{ route('admin.properties.index', ['type' => 'buy']) }}" 
+               class="btn rounded-pill px-4 {{ request('type') == 'buy' ? 'btn-primary' : 'btn-outline-secondary' }}">
+                For Sale
+            </a>
+        </div>
+
         <div class="bg-white border rounded-4 shadow-sm p-4 mt-4">
             <div class="table-responsive">
                 <table class="table table-hover align-middle mb-0">
@@ -75,7 +91,7 @@
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="9" class="text-center text-muted py-4">No properties found. Add your first property!</td>
+                            <td colspan="9" class="text-center text-muted py-4">No properties found!</td>
                         </tr>
                         @endforelse
                     </tbody>
