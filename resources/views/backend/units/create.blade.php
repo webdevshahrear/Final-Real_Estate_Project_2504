@@ -30,7 +30,7 @@
                     <p class="text-muted small">Define a new unit and assign it to a registered building.</p>
                 </header>
 
-                <form action="{{ route('admin.units.store') }}" method="POST">
+                <form action="{{ route('admin.units.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row g-4">
                         {{-- Building Assignment --}}
@@ -119,6 +119,17 @@
                         </div>
 
                         {{-- Details --}}
+                        <div class="col-12">
+                            <label for="images" class="form-label">Unit Images</label>
+                            <input id="images" name="images[]" type="file" accept=".jpg,.jpeg,.webp,.png" multiple
+                                class="form-control">
+                                
+                            @if($errors->has('images.*'))
+                            <div class="invalid-feedback d-block">
+                                {{ $errors->first('images.*') }}
+                            </div>
+                            @endif
+                        </div>
                         <div class="col-12">
                             <label for="details" class="form-label">Unit Specifications & Details</label>
                             <textarea class="form-control @error('details') is-invalid @enderror" id="details"

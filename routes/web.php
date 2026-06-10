@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RentController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -11,7 +12,10 @@ Route::view('/about', 'frontend.about')->name('about');
 Route::view('/contact', 'frontend.contact')->name('contact');
 Route::view('/services', 'frontend.services')->name('services');
 Route::view('/flats-for-sale', 'frontend.flats-for-sale')->name('flats-for-sale');
-Route::view('/flats-for-rent', 'frontend.flats-for-rent')->name('flats-for-rent');
+
+Route::get('/flats-for-rent', [RentController::class,'showFlatsForRent'])->name('flats-for-rent');
+
+
 Route::view('/commercial-spaces', 'frontend.commercial-spaces')->name('commercial-spaces');
 Route::view('/property-detail', 'frontend.property-detail')->name('property-detail');
 Route::view('/property-detail-commercial', 'frontend.property-detail-commercial')->name('property-detail-commercial');

@@ -1,24 +1,4 @@
-** Frontend File.
-- Real Estate
-
-** Backend
-
-Admin Panel
-----------------
-1. Customer 
-	* Create
-	* Verify
-	* Edit
-
-
-Custom Panel
--------------
-* Registration
-	* Google / Facebook
-	* Payment 
-	* Email
-
-
-* Property => Rent / Buying List
-
-
+10/06/2026
+=============
+1. Property fix == images, two remove 
+2. Property listing frontend 
