@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Knowledge Hub - The Imperial Support</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+    <!-- Floating Pill Navbar -->
+    <nav class="navbar-geist">
+        <!-- Left: Hamburger (Mobile) & Logo (Desktop) -->
+        <div class="d-flex align-items-center position-relative z-1">
+            <button class="navbar-mobile-toggle d-md-none me-3 btn btn-light rounded-circle shadow-sm border border-light-subtle d-flex align-items-center justify-content-center transition" style="width: 44px; height: 44px;" aria-label="Toggle Menu">
+                <i class="bi bi-list text-primary-navy" style="font-size: 1.5rem;"></i>
+            </button>
+            <a href="{{ url('/') }}" class="navbar-brand text-decoration-none d-none d-md-flex align-items-center font-cinzel text-primary-navy fw-bold tracking-wide">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" style="margin-right: 8px;">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2L2 19.5H22L12 2Z" fill="#1E3A5F"/>
+                </svg>
+                THE IMPERIAL
+            </a>
+        </div>
+        
+        <!-- Desktop Nav Links -->
+        <ul class="nav-links d-none d-md-flex mb-0 mx-auto position-relative z-1">
+            <li><a href="{{ url('/') }}" class="nav-link">Home</a></li>
+            <li><a href="{{ route('about') }}" class="nav-link">About</a></li>
+            <li><a href="{{ route('services') }}" class="nav-link">Services</a></li>
+            <li><a href="{{ route('flats-for-sale') }}" class="nav-link">Properties</a></li>
+        </ul>
+
+        <!-- Mobile Centered Logo -->
+        <a href="{{ url('/') }}" class="navbar-brand text-decoration-none d-flex d-md-none align-items-center position-absolute top-50 start-50 translate-middle z-0 font-cinzel text-primary-navy fw-bold tracking-wide">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" style="margin-right: 6px;">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2L2 19.5H22L12 2Z" fill="#1E3A5F"/>
+            </svg>
+            IMPERIAL
+        </a>
+
+        <!-- Right: Actions -->
+        <div class="d-flex align-items-center gap-2 position-relative z-1">
+            <a href="{{ route('login') }}" class="btn-geist-secondary d-none d-sm-block text-uppercase fw-bold" style="padding: 0.5rem 1.2rem; font-size: 0.75rem; letter-spacing: 1px;">Portal</a>
+            <a href="{{ route('contact') }}" class="btn-geist text-uppercase fw-bold" style="padding: 0.5rem 1.2rem; font-size: 0.75rem; letter-spacing: 1px;">Inquiry</a>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay d-lg-none">
+        <button class="navbar-mobile-toggle position-absolute top-0 end-0 m-4 btn btn-outline-light rounded-circle shadow-lg d-flex align-items-center justify-content-center" style="width: 48px; height: 48px; border-width: 2px;" aria-label="Close Menu">
+            <i class="bi bi-x-lg fs-5"></i>
+        </button>
+        
+        <!-- Elegant Crest inside menu -->
+        <div class="mb-5 text-center mobile-nav-link" style="transition-delay: 0.1s;">
+            <svg width="42" height="42" viewBox="0 0 24 24" fill="none" class="mb-3 drop-shadow">
+                 <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2L2 19.5H22L12 2Z" fill="#ffffff"/>
+            </svg>
+            <div class="font-cinzel text-white fs-4 tracking-wide fw-bold">THE IMPERIAL</div>
+            <div class="text-white-50 mt-1" style="font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase;">Residences & Suites</div>
+        </div>
+
+        <div class="d-flex flex-column align-items-center flex-grow-1 justify-content-center w-100">
+            <a href="{{ url('/') }}" class="mobile-nav-link" style="transition-delay: 0.1s;">Home</a>
+            <a href="{{ route('about') }}" class="mobile-nav-link" style="transition-delay: 0.2s;">About</a>
+            <a href="{{ route('services') }}" class="mobile-nav-link" style="transition-delay: 0.3s;">Services</a>
+            <a href="{{ route('flats-for-sale') }}" class="mobile-nav-link" style="transition-delay: 0.4s;">Properties</a>
+        </div>
+
+        <div class="w-100 px-4 pb-5 mobile-nav-link" style="transition-delay: 0.5s; max-width: 320px;">
+            <a href="{{ route('contact') }}" class="btn btn-light rounded-pill py-3 fw-bold border-0 shadow-lg w-100 text-primary-navy tracking-wide mb-3">SCHEDULE VIEWING</a>
+            <a href="{{ route('login') }}" class="btn btn-outline-light rounded-pill py-3 fw-bold w-100 tracking-wide border-2 bg-dark bg-opacity-25 backdrop-blur">RESIDENT PORTAL</a>
+        </div>
+    </div>
+
+    <!-- Page Header -->
+    <header class="page-header" style="padding-top: 180px; padding-bottom: 100px; background: linear-gradient(to bottom, var(--light-blue-bg) 0%, #fff 100%);">
+        <div class="container text-center" data-aos="fade-down">
+            <span class="geist-badge mb-3">Intelligence Hub</span>
+            <h1 class="display-4 fw-bold text-primary-navy mb-4">How can we assist?</h1>
+            
+            <div class="mx-auto mt-5 px-3" style="max-width: 600px;">
+                <div class="position-relative">
+                    <i class="bi bi-search position-absolute top-50 start-0 translate-middle-y ms-4 text-muted"></i>
+                    <input type="text" class="form-control rounded-pill py-3 ps-5 border-light-subtle shadow-sm" placeholder="Search keywords (e.g. 'late fees', 'renovation', 'billing')">
+                </div>
+                <div class="d-flex justify-content-center gap-3 mt-4 flex-wrap">
+                    <span class="small text-muted">Popular:</span>
+                    <a href="#" class="text-primary-navy text-decoration-none small fw-bold">Billing Cycle</a>
+                    <a href="#" class="text-primary-navy text-decoration-none small fw-bold">Maintenance Priority</a>
+                    <a href="#" class="text-primary-navy text-decoration-none small fw-bold">Guest Access</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container py-5">
+        <div class="row g-5">
+            <!-- Questions List -->
+            <div class="col-lg-8">
+                
+                <div class="mb-5" data-aos="fade-up">
+                    <h4 class="fw-bold mb-4 text-primary-navy d-flex align-items-center gap-2">
+                        <i class="bi bi-shield-check text-accent-blue"></i> Resident Compliance
+                    </h4>
+                    <div class="accordion accordion-geist" id="faqCompliance">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#q1">
+                                    How is the security deposit managed?
+                                </button>
+                            </h2>
+                            <div id="q1" class="accordion-collapse collapse show" data-bs-parent="#faqCompliance">
+                                <div class="accordion-body">
+                                    Security deposits are held in a protected escrow. Upon lease termination, a digital inspection is cross-referenced with your initial move-in timestamp. Refunds are processed within 7 business days following final clearance.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#q2">
+                                    How do I renew my lease agreement electronically?
+                                </button>
+                            </h2>
+                            <div id="q2" class="accordion-collapse collapse" data-bs-parent="#faqCompliance">
+                                <div class="accordion-body">
+                                    Imperial OS triggers a renewal intent 60 days before expiry. You can sign the updated digital agreement via the Resident Portal's 'Documents' tab using our secure e-signature integration.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-5" data-aos="fade-up">
+                    <h4 class="fw-bold mb-4 text-primary-navy d-flex align-items-center gap-2">
+                        <i class="bi bi-credit-card text-accent-blue"></i> Financial Operations
+                    </h4>
+                    <div class="accordion accordion-geist" id="faqFinance">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#q3">
+                                    When is rent due and how are late fees calculated?
+                                </button>
+                            </h2>
+                            <div id="q3" class="accordion-collapse collapse" data-bs-parent="#faqFinance">
+                                <div class="accordion-body">
+                                    Rent cycles close on the 5th of each month. Late fees are automated at 2.5% daily following the 48-hour grace period unless a deferral is filed via the Financial Helpdesk.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#q4">
+                                    Can I automate my utility and maintenance payments?
+                                </button>
+                            </h2>
+                            <div id="q4" class="accordion-collapse collapse" data-bs-parent="#faqFinance">
+                                <div class="accordion-body">
+                                    Yes. Activate 'Autoscale Payments' in your dashboard to bundle rent, utilities, and concierge services into a single monthly transaction with automated receipt generation.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-5" data-aos="fade-up">
+                    <h4 class="fw-bold mb-4 text-primary-navy d-flex align-items-center gap-2">
+                        <i class="bi bi-tools text-accent-blue"></i> Maintenance Desk
+                    </h4>
+                    <div class="accordion accordion-geist" id="faqMaintenance">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#q5">
+                                    What constitutes an "Emergency" maintenance request?
+                                </button>
+                            </h2>
+                            <div id="q5" class="accordion-collapse collapse" data-bs-parent="#faqMaintenance">
+                                <div class="accordion-body">
+                                    Emergencies include total loss of power (not city-wide), major water leaks that cannot be isolated, or security breaches of the unit shell. These trigger immediate 30-minute response protocols.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Support Sidebar -->
+            <div class="col-lg-4">
+                <div class="detail-side-card" data-aos="fade-left">
+                    <h5 class="fw-bold mb-3">Still have questions?</h5>
+                    <p class="text-muted small mb-4">If you couldn't find what you were looking for, our concierge team is standing by.</p>
+                    
+                    <div class="d-flex flex-column gap-3 mb-4">
+                        <a href="{{ route('contact') }}" class="btn-geist w-100 py-3 d-flex align-items-center justify-content-center gap-2">
+                            <i class="bi bi-chat-dots-fill"></i> Contact Concierge
+                        </a>
+                        <button class="btn-geist-secondary w-100 py-3">
+                            <i class="bi bi-headset me-2"></i> Join Live Waitlist
+                        </button>
+                    </div>
+
+                    <div class="bg-light p-3 rounded-4 border mb-4">
+                        <div class="d-flex align-items-center gap-3 mb-3">
+                            <div class="bg-white rounded-circle p-2 border">
+                                <i class="bi bi-clock-history text-accent-blue fs-5"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-0 fw-bold">Live Resolution Pulse</h6>
+                                <p class="mb-0 small text-muted">Avg. <strong class="text-dark">12.4m</strong> this hour</p>
+                            </div>
+                        </div>
+                        <div class="progress" style="height: 4px; background: rgba(0,0,0,0.05);">
+                            <div class="progress-bar bg-success" style="width: 92%;"></div>
+                        </div>
+                    </div>
+
+                    <!-- Emergency Protocol Bento -->
+                    <div class="p-4 rounded-4 bg-danger bg-opacity-10 border border-danger border-opacity-25" data-aos="zoom-in">
+                        <div class="d-flex align-items-center gap-2 mb-3 text-danger">
+                            <i class="bi bi-exclamation-triangle-fill"></i>
+                            <h6 class="fw-bold mb-0">Emergency Protocols</h6>
+                        </div>
+                        <p class="extra-small text-danger-emphasis mb-3">For immediate threat to life or property infrastructure (Leaks/Fire/Security Breach).</p>
+                        <a href="tel:+8801700000000" class="btn btn-danger w-100 py-3 fw-bold shadow-sm">
+                            <i class="bi bi-lightning-charge-fill me-2"></i> INITIALIZE SOS
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- NEW: Premium Footer Section -->
+    <footer class="footer-premium">
+        <div class="container">
+            <div class="row g-5">
+                <!-- Column 1: Brand & Social -->
+                <div class="col-lg-4">
+                    <a href="{{ url('/') }}" class="navbar-brand text-decoration-none d-flex align-items-center mb-4">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" class="me-2">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2L2 19.5H22L12 2Z" fill="#1E3A5F"/>
+                        </svg>
+                        <span class="fs-4 fw-bold text-primary-navy">The Imperial</span>
+                    </a>
+                    <p class="mb-4 lh-lg">Empowering luxury real estate with the world's most advanced property management operating system. Experience the future of living.</p>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="footer-social-link"><i class="bi bi-linkedin"></i></a>
+                        <a href="#" class="footer-social-link"><i class="bi bi-twitter-x"></i></a>
+                        <a href="#" class="footer-social-link"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="footer-social-link"><i class="bi bi-facebook"></i></a>
+                    </div>
+                </div>
+
+                <!-- Column 2: Platform -->
+                <div class="col-6 col-lg-2">
+                    <h6 class="footer-title-modern">Resources</h6>
+                    <nav>
+                        <a href="{{ route('login') }}" class="footer-link-modern">Resident Portal</a>
+                        <a href="{{ route('faq') }}" class="footer-link-modern">Knowledge Base</a>
+                        <a href="{{ route('contact') }}" class="footer-link-modern">Contact Support</a>
+                        <a href="{{ route('about') }}" class="footer-link-modern">Corporate Info</a>
+                        <a href="{{ route('terms-conditions') }}" class="footer-link-modern">Legal Terms</a>
+                    </nav>
+                </div>
+
+                <!-- Column 3: Inventory -->
+                <div class="col-6 col-lg-2">
+                    <h6 class="footer-title-modern">Inventory</h6>
+                    <nav>
+                        <a href="{{ url('/#inventory') }}" class="footer-link-modern">All Units</a>
+                        <a href="{{ route('flats-for-sale') }}" class="footer-link-modern">For Sale</a>
+                        <a href="{{ route('flats-for-rent') }}" class="footer-link-modern">For Rent</a>
+                        <a href="{{ route('commercial-spaces') }}" class="footer-link-modern">Commercial</a>
+                        <a href="{{ route('admin.building.index') }}" class="footer-link-modern">Project View</a>
+                    </nav>
+                </div>
+
+                <!-- Column 4: Corporate -->
+                <div class="col-lg-4">
+                    <h6 class="footer-title-modern">Direct Inquiry</h6>
+                    <p class="small mb-4">Stay updated with the latest off-plan releases and project milestones globally.</p>
+                    <div class="position-relative">
+                        <input type="email" class="newsletter-input" placeholder="Your executive email...">
+                        <button class="btn btn-primary rounded-circle position-absolute end-0 top-0 mt-1 me-1 shadow-sm" style="width: 36px; height: 36px; padding: 0; display: flex; align-items: center; justify-content: center;">
+                            <i class="bi bi-arrow-right"></i>
+                        </button>
+                    </div>
+                    <div class="mt-4 pt-2">
+                        <a href="{{ route('about') }}" class="footer-link-modern d-inline-block me-3">About Us</a>
+                        <a href="{{ route('contact') }}" class="footer-link-modern d-inline-block">Contact</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center border-top mt-5 pt-4" style="border-color: rgba(30, 58, 95, 0.08) !important;">
+                <p class="small mb-0">&copy; 2026 Imperial Inc. All rights reserved.</p>
+                <div class="d-flex gap-4 mt-3 mt-md-0">
+                    <a href="{{ route('privacy-policy') }}" class="footer-link-modern small mb-0">Privacy Policy</a>
+                    <a href="{{ route('terms-conditions') }}" class="footer-link-modern small mb-0">Terms & Conditions</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="assets/js/main.js"></script>
+
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/8801711223344" class="wa-float" target="_blank" title="Chat on WhatsApp">
+        <span class="wa-tooltip">Chat with us!</span>
+        <i class="bi bi-whatsapp"></i>
+    </a>
+</body>
+</html>
+
+

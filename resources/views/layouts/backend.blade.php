@@ -32,7 +32,7 @@
         <!-- Sidebar -->
         <aside class="sidebar-geist">
             <div class="px-3 mb-5">
-                <a href="index.html" class="navbar-brand text-decoration-none d-flex align-items-center">
+                <a href="{{ url('/') }}" class="navbar-brand text-decoration-none d-flex align-items-center">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" style="margin-right: 8px;">
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2L2 19.5H22L12 2Z" fill="#1E3A5F" />
                     </svg>
@@ -59,28 +59,6 @@
 
         <!-- Main Content -->
         <main class="main-content-geist">
-            <!-- Top Header -->
-            <div class="d-flex justify-content-between align-items-center mb-5">
-                <div data-aos="fade-right">
-                    <h2 class="fw-bold mb-1">Welcome, {{ auth()->user()->name }}.</h2>
-                    <p class="text-muted mb-0">System operational. 12 units awaiting financial clearance.</p>
-                </div>
-                <div class="d-flex gap-3" data-aos="fade-left">
-                    <div class="position-relative">
-                        <button class="btn border bg-white rounded-4 p-2 px-3 shadow-sm">
-                            <i class="bi bi-bell text-muted"></i>
-                            <span
-                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-                                style="font-size: 0.6rem;">8</span>
-                        </button>
-                    </div>
-                    <button class="btn btn-geist-secondary rounded-4 px-4 py-2 border shadow-sm" data-action="create"
-                        data-id="NEW_ASSET">
-                        <i class="bi bi-plus-lg me-2"></i> New Asset
-                    </button>
-                </div>
-            </div>
-
             {{-- Dynamic Content Here .... --}}
             @yield('content')
             {{-- Dynamic Content Here .... --}}
@@ -89,23 +67,23 @@
 
     <!-- Mobile Bottom Navigation -->
     <nav class="mobile-bottom-nav d-lg-none">
-        <a href="dashboard.html" class="bottom-nav-item active">
+        <a href="{{ route('admin.dashboard') }}" class="bottom-nav-item active">
             <i class="bi bi-grid-1x2-fill"></i>
             <span>Overview</span>
         </a>
-        <a href="buildings.html" class="bottom-nav-item">
+        <a href="{{ route('admin.building.index') }}" class="bottom-nav-item">
             <i class="bi bi-buildings"></i>
             <span>Properties</span>
         </a>
-        <a href="billing.html" class="bottom-nav-item">
+        <a href="{{ route('admin.billing') }}" class="bottom-nav-item">
             <i class="bi bi-receipt"></i>
             <span>Finance</span>
         </a>
-        <a href="maintenance.html" class="bottom-nav-item">
+        <a href="{{ route('admin.maintenance') }}" class="bottom-nav-item">
             <i class="bi bi-tools"></i>
             <span>Ops</span>
         </a>
-        <a href="settings.html" class="bottom-nav-item">
+        <a href="{{ route('admin.settings') }}" class="bottom-nav-item">
             <i class="bi bi-person-circle"></i>
             <span>Profile</span>
         </a>
