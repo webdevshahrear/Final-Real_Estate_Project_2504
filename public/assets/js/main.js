@@ -565,6 +565,26 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
+    // Sidebar Toggle for Mobile
+    const initSidebarToggle = () => {
+        const toggleBtn = document.querySelector('.btn-toggle-sidebar');
+        const sidebar = document.querySelector('.sidebar-geist');
+        const overlay = document.querySelector('.sidebar-overlay');
+        
+        if (!toggleBtn || !sidebar || !overlay) return;
+
+        const toggleSidebar = () => {
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+            document.body.style.overflow = sidebar.classList.contains('active') ? 'hidden' : '';
+        };
+
+        toggleBtn.addEventListener('click', toggleSidebar);
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) toggleSidebar();
+        });
+    };
+
     // Run Initializers
     initNavbar();
     initFeatureTabs();
@@ -573,9 +593,10 @@ document.addEventListener('DOMContentLoaded', () => {
     initVisitorPass();
     initNoticeBoard();
     initPropertyGrid();
-    initInventoryFilter(); // Newly added
+    initInventoryFilter();
     initCounters();
     initDashboardActions();
+    initSidebarToggle();
 });
 
 /**

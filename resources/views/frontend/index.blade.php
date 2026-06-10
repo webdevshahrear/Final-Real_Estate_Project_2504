@@ -9,6 +9,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/main.css">
@@ -42,6 +44,45 @@
             70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(43, 123, 232, 0); }
             100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(43, 123, 232, 0); }
         }
+
+        /* Slick Slider Custom Styles */
+        .slick-prev:before, .slick-next:before {
+            color: var(--primary-navy);
+            font-size: 30px;
+        }
+        .slick-prev { left: -40px; z-index: 1; }
+        .slick-next { right: -40px; z-index: 1; }
+        .inventory-slider .inventory-item {
+            padding: 15px;
+        }
+        .slick-dots li button:before {
+            color: var(--cyber-blue);
+            font-size: 12px;
+        }
+        .slick-dots li.slick-active button:before {
+            color: var(--primary-navy);
+        }
+
+        /* Hero Slider Custom Arrows Fix */
+        .hero-main-slider .slick-prev:before, 
+        .hero-main-slider .slick-next:before {
+            display: none !important;
+        }
+        .hero-main-slider .slick-prev, 
+        .hero-main-slider .slick-next {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+        }
+        .hero-main-slider .slick-prev { left: 30px; }
+        .hero-main-slider .slick-next { right: 30px; }
     </style>
 </head>
 <body class="bg-white">
@@ -53,7 +94,7 @@
             <button class="navbar-mobile-toggle d-md-none me-3 btn btn-light rounded-circle shadow-sm border border-light-subtle d-flex align-items-center justify-content-center transition" style="width: 44px; height: 44px;" aria-label="Toggle Menu">
                 <i class="bi bi-list text-primary-navy" style="font-size: 1.5rem;"></i>
             </button>
-            <a href="index.html" class="navbar-brand text-decoration-none d-none d-md-flex align-items-center font-cinzel text-primary-navy fw-bold tracking-wide">
+            <a href="{{ url('/') }}" class="navbar-brand text-decoration-none d-none d-md-flex align-items-center font-cinzel text-primary-navy fw-bold tracking-wide">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" style="margin-right: 8px;">
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2L2 19.5H22L12 2Z" fill="#1E3A5F"/>
                 </svg>
@@ -63,14 +104,14 @@
         
         <!-- Desktop Nav Links -->
         <ul class="nav-links d-none d-md-flex mb-0 mx-auto position-relative z-1">
-            <li><a href="index.html" class="nav-link active">Home</a></li>
-            <li><a href="about.html" class="nav-link">About</a></li>
-            <li><a href="services.html" class="nav-link">Services</a></li>
-            <li><a href="flats-for-sale.html" class="nav-link">Properties</a></li>
+            <li><a href="{{ route('welcome') }}" class="nav-link active">Home</a></li>
+            <li><a href="{{ route('about') }}" class="nav-link">About</a></li>
+            <li><a href="{{ route('services') }}" class="nav-link">Services</a></li>
+            <li><a href="{{ route('flats-for-sale') }}" class="nav-link">Properties</a></li>
         </ul>
 
         <!-- Mobile Centered Logo -->
-        <a href="index.html" class="navbar-brand text-decoration-none d-flex d-md-none align-items-center position-absolute top-50 start-50 translate-middle z-0 font-cinzel text-primary-navy fw-bold tracking-wide">
+        <a href="{{ url('/') }}" class="navbar-brand text-decoration-none d-flex d-md-none align-items-center position-absolute top-50 start-50 translate-middle z-0 font-cinzel text-primary-navy fw-bold tracking-wide">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" style="margin-right: 6px;">
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2L2 19.5H22L12 2Z" fill="#1E3A5F"/>
             </svg>
@@ -79,8 +120,8 @@
 
         <!-- Right: Actions -->
         <div class="d-flex align-items-center gap-2 position-relative z-1">
-            <a href="login.html" class="btn-geist-secondary d-none d-sm-block text-uppercase fw-bold" style="padding: 0.5rem 1.2rem; font-size: 0.75rem; letter-spacing: 1px;">Portal</a>
-            <a href="contact.html" class="btn-geist text-uppercase fw-bold" style="padding: 0.5rem 1.2rem; font-size: 0.75rem; letter-spacing: 1px;">Inquiry</a>
+            <a href="{{ route('login') }}" class="btn-geist-secondary d-none d-sm-block text-uppercase fw-bold" style="padding: 0.5rem 1.2rem; font-size: 0.75rem; letter-spacing: 1px;">Portal</a>
+            <a href="{{ route('contact') }}" class="btn-geist text-uppercase fw-bold" style="padding: 0.5rem 1.2rem; font-size: 0.75rem; letter-spacing: 1px;">Inquiry</a>
         </div>
     </nav>
 
@@ -100,73 +141,122 @@
         </div>
 
         <div class="d-flex flex-column align-items-center flex-grow-1 justify-content-center w-100">
-            <a href="index.html" class="mobile-nav-link" style="transition-delay: 0.1s;">Home</a>
-            <a href="about.html" class="mobile-nav-link" style="transition-delay: 0.2s;">About</a>
-            <a href="services.html" class="mobile-nav-link" style="transition-delay: 0.3s;">Services</a>
-            <a href="flats-for-sale.html" class="mobile-nav-link" style="transition-delay: 0.4s;">Properties</a>
+            <a href="{{ route('welcome') }}" class="mobile-nav-link" style="transition-delay: 0.1s;">Home</a>
+            <a href="{{ route('about') }}" class="mobile-nav-link" style="transition-delay: 0.2s;">About</a>
+            <a href="{{ route('services') }}" class="mobile-nav-link" style="transition-delay: 0.3s;">Services</a>
+            <a href="{{ route('flats-for-sale') }}" class="mobile-nav-link" style="transition-delay: 0.4s;">Properties</a>
         </div>
 
         <div class="w-100 px-4 pb-5 mobile-nav-link" style="transition-delay: 0.5s; max-width: 320px;">
-            <a href="contact.html" class="btn btn-light rounded-pill py-3 fw-bold border-0 shadow-lg w-100 text-primary-navy tracking-wide mb-3">SCHEDULE VIEWING</a>
-            <a href="login.html" class="btn btn-outline-light rounded-pill py-3 fw-bold w-100 tracking-wide border-2 bg-dark bg-opacity-25 backdrop-blur">RESIDENT PORTAL</a>
+            <a href="{{ route('contact') }}" class="btn btn-light rounded-pill py-3 fw-bold border-0 shadow-lg w-100 text-primary-navy tracking-wide mb-3">SCHEDULE VIEWING</a>
+            <a href="{{ route('login') }}" class="btn btn-outline-light rounded-pill py-3 fw-bold w-100 tracking-wide border-2 bg-dark bg-opacity-25 backdrop-blur">RESIDENT PORTAL</a>
         </div>
     </div>
 
     <!-- Mobile Floating Action Button (FAB) -->
-    <a href="contact.html" class="fab-inquiry d-md-none shadow-lg">
+    <a href="{{ route('contact') }}" class="fab-inquiry d-md-none shadow-lg">
         <i class="bi bi-chat-dots-fill"></i>
     </a>
 
-    <!-- NEW: Premium Hero Cinema Section -->
-    <header class="hero-cinema">
-        <div class="hero-cinema-bg"></div>
-        
-        <!-- Floating Ambient Elements -->
-        <div class="hero-floating-shard" style="top: 20%; left: 10%; width: 150px; height: 150px; animation-delay: 0s;"></div>
-        <div class="hero-floating-shard" style="top: 60%; right: 5%; width: 200px; height: 200px; animation-delay: -5s;"></div>
-        <div class="hero-floating-shard" style="bottom: 10%; left: 15%; width: 100px; height: 100px; animation-delay: -2s;"></div>
+    <!-- NEW: Premium Hero Cinema Slider Section -->
+    <div class="hero-slider-wrapper">
+        <div class="hero-main-slider">
+            <!-- Slide 1 -->
+            <div class="hero-cinema">
+                <div class="hero-cinema-bg" style="background-image: url('https://images.unsplash.com/photo-1577495508048-b635879837f1?auto=format&fit=crop&w=1920&q=80');"></div>
+                
+                <!-- Floating Ambient Elements -->
+                <div class="hero-floating-shard" style="top: 20%; left: 10%; width: 150px; height: 150px; animation-delay: 0s;"></div>
+                <div class="hero-floating-shard" style="top: 60%; right: 5%; width: 200px; height: 200px; animation-delay: -5s;"></div>
+                <div class="hero-floating-shard" style="bottom: 10%; left: 15%; width: 100px; height: 100px; animation-delay: -2s;"></div>
 
-        <div class="hero-glass-hud" data-aos="zoom-out" data-aos-duration="2000">
-            <div class="hero-tag">
-                <span class="pulse-light"></span>
-                SYSTEM STATUS: OPTIMAL • TOWER A V.4.3
-            </div>
-            
-            <h1 class="display-sovereign text-white mb-4">
-                The Pinnacle of <br>
-                <span class="text-shimmer">Smart Luxury.</span>
-            </h1>
+                <div class="hero-glass-hud">
+                    <div class="hero-tag">
+                        <span class="pulse-light"></span>
+                        SYSTEM STATUS: OPTIMAL • TOWER A V.4.3
+                    </div>
+                    
+                    <h1 class="display-sovereign text-white mb-4">
+                        The Pinnacle of <br>
+                        <span class="text-shimmer">Smart Luxury.</span>
+                    </h1>
 
-            <p class="text-white-50 fs-5 mt-4 mx-auto fw-light" style="max-width: 650px; line-height: 1.8;">
-                Experience a meticulously managed ecosystem where architectural brilliance meets intelligent, automated living powered by PropManage OS.
-            </p>
+                    <p class="text-white-50 fs-5 mt-4 mx-auto fw-light" style="max-width: 650px; line-height: 1.8;">
+                        Experience a meticulously managed ecosystem where architectural brilliance meets intelligent, automated living.
+                    </p>
 
-            <div class="d-flex justify-content-center gap-4 mt-5">
-                <a href="#overview" class="btn-geist py-3 px-5 border-0" style="background: var(--accent-blue); box-shadow: 0 20px 40px rgba(43, 123, 232, 0.3);">
-                    Explore Building
-                </a>
-                <a href="flats-for-sale.html" class="btn-geist-secondary py-3 px-5 text-white border-white-50">
-                    <i class="bi bi-door-open me-2"></i> View Inventory
-                </a>
-            </div>
-
-            <!-- Hero Data Matrix Overlay (Subtle) -->
-            <div class="row g-4 mt-5 pt-4 border-top border-white-50 border-opacity-10 text-start">
-                <div class="col-4">
-                    <div class="small text-white-50 font-mono text-uppercase mb-1" style="font-size: 0.65rem; letter-spacing: 1px;">Security Pulse</div>
-                    <div class="text-white fw-bold">ENCRYPTED</div>
+                    <div class="d-flex justify-content-center gap-4 mt-5">
+                        <a href="#overview" class="btn-geist py-3 px-5 border-0" style="background: var(--accent-blue); box-shadow: 0 20px 40px rgba(43, 123, 232, 0.3);">
+                            Explore Building
+                        </a>
+                        <a href="{{ route('flats-for-sale') }}" class="btn-geist-secondary py-3 px-5 text-white border-white-50">
+                            <i class="bi bi-door-open me-2"></i> View Inventory
+                        </a>
+                    </div>
                 </div>
-                <div class="col-4 border-start border-white-50 border-opacity-10 ps-4">
-                    <div class="small text-white-50 font-mono text-uppercase mb-1" style="font-size: 0.65rem; letter-spacing: 1px;">Resident App</div>
-                    <div class="text-white fw-bold">ACTIVE</div>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="hero-cinema">
+                <div class="hero-cinema-bg" style="background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1920&q=80');"></div>
+                
+                <div class="hero-glass-hud">
+                    <div class="hero-tag">
+                        <span class="pulse-light"></span>
+                        GLOBAL PORTFOLIO • Q3 UPDATE
+                    </div>
+                    
+                    <h1 class="display-sovereign text-white mb-4">
+                        Architecture Meets <br>
+                        <span class="text-shimmer">Intelligence.</span>
+                    </h1>
+
+                    <p class="text-white-50 fs-5 mt-4 mx-auto fw-light" style="max-width: 650px; line-height: 1.8;">
+                        Every unit is powered by Imperial OS, ensuring seamless automation and 24/7 technical concierge.
+                    </p>
+
+                    <div class="d-flex justify-content-center gap-4 mt-5">
+                        <a href="{{ route('flats-for-sale') }}" class="btn-geist py-3 px-5 border-0" style="background: var(--accent-blue);">
+                            Premium Listings
+                        </a>
+                        <a href="{{ route('services') }}" class="btn-geist-secondary py-3 px-5 text-white border-white-50">
+                            Automation Specs
+                        </a>
+                    </div>
                 </div>
-                <div class="col-4 border-start border-white-50 border-opacity-10 ps-4">
-                    <div class="small text-white-50 font-mono text-uppercase mb-1" style="font-size: 0.65rem; letter-spacing: 1px;">Maintenance</div>
-                    <div class="text-white fw-bold">ON-DEMAND</div>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="hero-cinema">
+                <div class="hero-cinema-bg" style="background-image: url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1920&q=80');"></div>
+                
+                <div class="hero-glass-hud">
+                    <div class="hero-tag">
+                        <span class="pulse-light"></span>
+                        LIFESTYLE CURATION • V.2.0
+                    </div>
+                    
+                    <h1 class="display-sovereign text-white mb-4">
+                        Beyond the <br>
+                        <span class="text-shimmer">Threshold.</span>
+                    </h1>
+
+                    <p class="text-white-50 fs-5 mt-4 mx-auto fw-light" style="max-width: 650px; line-height: 1.8;">
+                        Curated amenities and elite management services tailored for the modern enterprise lifestyle.
+                    </p>
+
+                    <div class="d-flex justify-content-center gap-4 mt-5">
+                        <a href="{{ route('contact') }}" class="btn-geist py-3 px-5 border-0" style="background: var(--accent-blue);">
+                            Inquire Now
+                        </a>
+                        <a href="#lifestyle" class="btn-geist-secondary py-3 px-5 text-white border-white-50">
+                            Explore Amenities
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
-    </header>
+    </div>
 
     <!-- RESTORED: Animated Stats Bar -->
     <section id="overview" class="building-facts position-relative bg-white z-2">
@@ -233,7 +323,7 @@
             </div>
 
             <div class="mt-5 pt-3 text-center" data-aos="fade-up">
-                <a href="flats-for-sale.html" class="btn-geist py-3 px-5 fs-6 shadow-lg text-decoration-none">
+                <a href="{{ route('flats-for-sale') }}" class="btn-geist py-3 px-5 fs-6 shadow-lg text-decoration-none">
                     View Complete Inventory <i class="bi bi-arrow-right ms-2"></i>
                 </a>
             </div>
@@ -376,7 +466,7 @@
                                 <div class="col-md-6 pe-md-4">
                                     <h4 class="fw-bold mb-3">Self-Healing Infrastructure</h4>
                                     <p class="text-muted mb-4">IoT sensors integrated into the HVAC and plumbing systems automatically raise tickets when anomalies are detected, dispatching technicians before residents even notice the issue.</p>
-                                    <a href="login.html" class="btn-geist-secondary btn-sm">View Ticket Dashboard</a>
+                                    <a href="{{ route('login') }}" class="btn-geist-secondary btn-sm">View Ticket Dashboard</a>
                                 </div>
                                 <div class="col-md-6 text-center mt-4 mt-md-0">
                                     <div class="bento-card bg-dark p-4 rounded-4 text-start">
@@ -446,9 +536,9 @@
                 <button class="filter-tab" data-filter="rent">For Rent</button>
             </div>
             
-            <div class="row g-4 inventory-container">
+            <div class="inventory-slider inventory-container" data-aos="fade-up" data-aos-delay="200">
                 <!-- Unit 1 -->
-                <div class="col-md-4 inventory-item" data-category="sale" data-type="residential" data-aos="fade-up">
+                <div class="inventory-item" data-category="sale" data-type="residential">
                     <div class="inventory-card">
                         <div class="inventory-img-wrapper">
                             <div class="inventory-badge-overlay">
@@ -466,14 +556,14 @@
                             </div>
                             <div class="d-flex justify-content-between align-items-center mt-auto">
                                 <div class="inventory-price">$4.2M</div>
-                                <a href="property-detail.html" class="btn-geist py-2 px-4 shadow-none">Explore</a>
+                                <a href="{{ route('property-detail') }}" class="btn-geist py-2 px-4 shadow-none">Explore</a>
                             </div>
                         </div>
                     </div>
                 </div>
                 
                 <!-- Unit 2 -->
-                <div class="col-md-4 inventory-item" data-category="rent" data-type="commercial" data-aos="fade-up" data-aos-delay="100">
+                <div class="inventory-item" data-category="rent" data-type="commercial">
                     <div class="inventory-card">
                         <div class="inventory-img-wrapper">
                             <div class="inventory-badge-overlay">
@@ -491,14 +581,14 @@
                             </div>
                             <div class="d-flex justify-content-between align-items-center mt-auto">
                                 <div class="inventory-price">$8,500 <small>/mo</small></div>
-                                <a href="property-detail-commercial.html" class="btn-geist py-2 px-4 shadow-none">Explore</a>
+                                <a href="{{ route('property-detail-commercial') }}" class="btn-geist py-2 px-4 shadow-none">Explore</a>
                             </div>
                         </div>
                     </div>
                 </div>
                 
                 <!-- Unit 3 -->
-                <div class="col-md-4 inventory-item" data-category="sale" data-type="residential" data-aos="fade-up" data-aos-delay="200">
+                <div class="inventory-item" data-category="sale" data-type="residential">
                     <div class="inventory-card">
                         <div class="inventory-img-wrapper">
                             <div class="inventory-badge-overlay">
@@ -516,14 +606,14 @@
                             </div>
                             <div class="d-flex justify-content-between align-items-center mt-auto">
                                 <div class="inventory-price">$2.8M</div>
-                                <a href="property-detail.html" class="btn-geist py-2 px-4 shadow-none">Explore</a>
+                                <a href="{{ route('property-detail') }}" class="btn-geist py-2 px-4 shadow-none">Explore</a>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Unit 4 -->
-                <div class="col-md-4 inventory-item" data-category="rent" data-type="residential" data-aos="fade-up">
+                <div class="inventory-item" data-category="rent" data-type="residential">
                     <div class="inventory-card">
                         <div class="inventory-img-wrapper">
                             <div class="inventory-badge-overlay">
@@ -541,14 +631,14 @@
                             </div>
                             <div class="d-flex justify-content-between align-items-center mt-auto">
                                 <div class="inventory-price">$3,200 <small>/mo</small></div>
-                                <a href="property-detail-rent.html" class="btn-geist py-2 px-4 shadow-none">Explore</a>
+                                <a href="{{ route('property-detail-rent') }}" class="btn-geist py-2 px-4 shadow-none">Explore</a>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Unit 5 -->
-                <div class="col-md-4 inventory-item" data-category="sale" data-type="commercial" data-aos="fade-up" data-aos-delay="100">
+                <div class="inventory-item" data-category="sale" data-type="commercial">
                     <div class="inventory-card">
                         <div class="inventory-img-wrapper">
                             <div class="inventory-badge-overlay">
@@ -566,14 +656,14 @@
                             </div>
                             <div class="d-flex justify-content-between align-items-center mt-auto">
                                 <div class="inventory-price">$12.5M</div>
-                                <a href="property-detail-commercial.html" class="btn-geist py-2 px-4 shadow-none">Explore</a>
+                                <a href="{{ route('property-detail-commercial') }}" class="btn-geist py-2 px-4 shadow-none">Explore</a>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Unit 6 -->
-                <div class="col-md-4 inventory-item" data-category="rent" data-type="residential" data-aos="fade-up" data-aos-delay="200">
+                <div class="inventory-item" data-category="rent" data-type="residential">
                     <div class="inventory-card">
                         <div class="inventory-img-wrapper">
                             <div class="inventory-badge-overlay">
@@ -591,7 +681,56 @@
                             </div>
                             <div class="d-flex justify-content-between align-items-center mt-auto">
                                 <div class="inventory-price">$1,800 <small>/mo</small></div>
-                                <a href="property-detail-rent.html" class="btn-geist py-2 px-4 shadow-none">Explore</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Unit 7 (Extra for Slider) -->
+                <div class="inventory-item" data-category="sale" data-type="residential">
+                    <div class="inventory-card">
+                        <div class="inventory-img-wrapper">
+                            <div class="inventory-badge-overlay">
+                                <span class="badge bg-primary-navy px-3 py-2 rounded-pill">FOR SALE</span>
+                            </div>
+                            <div class="inventory-glass-overlay"></div>
+                            <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80" alt="Crystal Waterfront" class="inventory-img">
+                        </div>
+                        <div class="inventory-details">
+                            <h4 class="fw-bold mb-2">Crystal Waterfront</h4>
+                            <p class="text-muted small mb-4"><i class="bi bi-geo-alt me-1"></i> Marina District, Level 12</p>
+                            <div class="inventory-meta">
+                                <div class="meta-item"><i class="bi bi-aspect-ratio"></i> 4,500 sqft</div>
+                                <div class="meta-item"><i class="bi bi-door-open"></i> 5 Bed</div>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <div class="inventory-price">$6.5M</div>
+                                <a href="{{ route('property-detail') }}" class="btn-geist py-2 px-4 shadow-none">Explore</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Unit 8 (Extra for Slider) -->
+                <div class="inventory-item" data-category="rent" data-type="commercial">
+                    <div class="inventory-card">
+                        <div class="inventory-img-wrapper">
+                            <div class="inventory-badge-overlay">
+                                <span class="badge bg-cyber-blue px-3 py-2 rounded-pill">FOR RENT</span>
+                            </div>
+                            <div class="inventory-glass-overlay"></div>
+                            <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80" alt="Nebula Tech Suites" class="inventory-img">
+                        </div>
+                        <div class="inventory-details">
+                            <h4 class="fw-bold mb-2">Nebula Tech Suites</h4>
+                            <p class="text-muted small mb-4"><i class="bi bi-geo-alt me-1"></i> Innovation Park, Block C</p>
+                            <div class="inventory-meta">
+                                <div class="meta-item"><i class="bi bi-aspect-ratio"></i> 5,200 sqft</div>
+                                <div class="meta-item"><i class="bi bi-briefcase"></i> Office Space</div>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <div class="inventory-price">$15,000 <small>/mo</small></div>
+                                <a href="{{ route('property-detail-commercial') }}" class="btn-geist py-2 px-4 shadow-none">Explore</a>
                             </div>
                         </div>
                     </div>
@@ -599,7 +738,7 @@
             </div>
             
             <div class="text-center mt-5" data-aos="fade-up">
-                <a href="flats-for-sale.html" class="btn-geist-secondary py-3 px-5 border-2">
+                <a href="{{ route('flats-for-sale') }}" class="btn-geist-secondary py-3 px-5 border-2">
                     View Complete Inventory <i class="bi bi-arrow-right ms-2"></i>
                 </a>
             </div>
@@ -720,9 +859,8 @@
                 <h2 class="display-6 fw-bold text-primary-navy" style="letter-spacing: -0.04em;">The Residents' Perspective.</h2>
             </div>
             
-            <div class="swiper swiper-geist" data-aos="fade-up">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
+            <div class="testimonials-slider" data-aos="fade-up">
+                <div class="testimonial-slide">
                         <div class="testimonial-card">
                             <div class="d-flex align-items-center mb-4">
                                 <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80" class="rounded-circle me-3" style="width: 60px; height: 60px; object-fit: cover;">
@@ -736,8 +874,8 @@
                                 <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
                             </div>
                         </div>
-                    </div>
-                    <div class="swiper-slide">
+                </div>
+                <div class="testimonial-slide">
                         <div class="testimonial-card">
                             <div class="d-flex align-items-center mb-4">
                                 <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&q=80" class="rounded-circle me-3" style="width: 60px; height: 60px; object-fit: cover;">
@@ -751,8 +889,8 @@
                                 <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
                             </div>
                         </div>
-                    </div>
-                    <div class="swiper-slide">
+                </div>
+                <div class="testimonial-slide">
                         <div class="testimonial-card">
                             <div class="d-flex align-items-center mb-4">
                                 <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&q=80" class="rounded-circle me-3" style="width: 60px; height: 60px; object-fit: cover;">
@@ -766,10 +904,7 @@
                                 <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
                             </div>
                         </div>
-                    </div>
                 </div>
-                <!-- Add Pagination -->
-                <div class="swiper-pagination"></div>
             </div>
         </div>
     </section>
@@ -833,8 +968,8 @@
             <h2 class="display-4 fw-bold text-white mb-4" style="letter-spacing: -0.05em;">Ready to Experience <br>The Imperial?</h2>
             <p class="text-white-50 fs-5 mb-5 mx-auto" style="max-width: 600px;">Join the elite community of owners and residents powered by the most advanced property management ecosystem.</p>
             <div class="d-flex flex-column flex-md-row justify-content-center gap-3">
-                <a href="contact.html" class="btn-geist bg-white text-primary-navy border-white py-3 px-5 fs-5">Schedule Private Tour</a>
-                <a href="login.html" class="btn-geist-secondary border-white text-white py-3 px-5 fs-5">Partner Portal Login</a>
+                <a href="{{ route('contact') }}" class="btn-geist bg-white text-primary-navy border-white py-3 px-5 fs-5">Schedule Private Tour</a>
+                <a href="{{ route('login') }}" class="btn-geist-secondary border-white text-white py-3 px-5 fs-5">Partner Portal Login</a>
             </div>
             <p class="mt-4 text-white-50 small font-mono">24/7 Support Desk Available for Enterprise Partners</p>
         </div>
@@ -846,7 +981,7 @@
             <div class="row g-5">
                 <!-- Column 1: Brand & Social -->
                 <div class="col-lg-4">
-                    <a href="index.html" class="navbar-brand text-decoration-none d-flex align-items-center mb-4">
+                    <a href="{{ url('/') }}" class="navbar-brand text-decoration-none d-flex align-items-center mb-4">
                         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" class="me-2">
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2L2 19.5H22L12 2Z" fill="#1E3A5F"/>
                         </svg>
@@ -865,11 +1000,11 @@
                 <div class="col-6 col-lg-2">
                     <h6 class="footer-title-modern">Resources</h6>
                     <nav>
-                        <a href="login.html" class="footer-link-modern">Resident Portal</a>
-                        <a href="faq.html" class="footer-link-modern">Knowledge Base</a>
-                        <a href="contact.html" class="footer-link-modern">Contact Support</a>
-                        <a href="about.html" class="footer-link-modern">Corporate Info</a>
-                        <a href="terms-conditions.html" class="footer-link-modern">Legal Terms</a>
+                        <a href="{{ route('login') }}" class="footer-link-modern">Resident Portal</a>
+                        <a href="{{ route('faq') }}" class="footer-link-modern">Knowledge Base</a>
+                        <a href="{{ route('contact') }}" class="footer-link-modern">Contact Support</a>
+                        <a href="{{ route('about') }}" class="footer-link-modern">Corporate Info</a>
+                        <a href="{{ route('terms-conditions') }}" class="footer-link-modern">Legal Terms</a>
                     </nav>
                 </div>
 
@@ -877,11 +1012,11 @@
                 <div class="col-6 col-lg-2">
                     <h6 class="footer-title-modern">Inventory</h6>
                     <nav>
-                        <a href="index.html#inventory" class="footer-link-modern">All Units</a>
-                        <a href="flats-for-sale.html" class="footer-link-modern">For Sale</a>
-                        <a href="flats-for-rent.html" class="footer-link-modern">For Rent</a>
-                        <a href="commercial-spaces.html" class="footer-link-modern">Commercial</a>
-                        <a href="buildings.html" class="footer-link-modern">Project View</a>
+                        <a href="{{ url('/#inventory') }}" class="footer-link-modern">All Units</a>
+                        <a href="{{ route('flats-for-sale') }}" class="footer-link-modern">For Sale</a>
+                        <a href="{{ route('flats-for-rent') }}" class="footer-link-modern">For Rent</a>
+                        <a href="{{ route('commercial-spaces') }}" class="footer-link-modern">Commercial</a>
+                        <a href="{{ route('admin.building.index') }}" class="footer-link-modern">Project View</a>
                     </nav>
                 </div>
 
@@ -896,8 +1031,8 @@
                         </button>
                     </div>
                     <div class="mt-4 pt-2">
-                        <a href="about.html" class="footer-link-modern d-inline-block me-3">About Us</a>
-                        <a href="contact.html" class="footer-link-modern d-inline-block">Contact</a>
+                        <a href="{{ route('about') }}" class="footer-link-modern d-inline-block me-3">About Us</a>
+                        <a href="{{ route('contact') }}" class="footer-link-modern d-inline-block">Contact</a>
                     </div>
                 </div>
             </div>
@@ -906,18 +1041,114 @@
             <div class="d-flex flex-column flex-md-row justify-content-between align-items-center border-top mt-5 pt-4" style="border-color: rgba(30, 58, 95, 0.08) !important;">
                 <p class="small mb-0">&copy; 2026 Imperial Inc. All rights reserved.</p>
                 <div class="d-flex gap-4 mt-3 mt-md-0">
-                    <a href="privacy-policy.html" class="footer-link-modern small mb-0">Privacy Policy</a>
-                    <a href="terms-conditions.html" class="footer-link-modern small mb-0">Terms & Conditions</a>
+                    <a href="{{ route('privacy-policy') }}" class="footer-link-modern small mb-0">Privacy Policy</a>
+                    <a href="{{ route('terms-conditions') }}" class="footer-link-modern small mb-0">Terms & Conditions</a>
                 </div>
             </div>
         </div>
     </footer>
 
     <!-- JS Bundles -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script src="assets/js/main.js"></script>
+
+    <script>
+        $(document).ready(function(){
+            // Hero Slider
+            $('.hero-main-slider').slick({
+                dots: true,
+                infinite: true,
+                speed: 1200,
+                fade: true,
+                cssEase: 'linear',
+                autoplay: true,
+                autoplaySpeed: 6000,
+                pauseOnHover: false,
+                arrows: true,
+                prevArrow: '<button type="button" class="slick-prev"><i class="bi bi-chevron-left text-white" style="font-size: 2rem;"></i></button>',
+                nextArrow: '<button type="button" class="slick-next"><i class="bi bi-chevron-right text-white" style="font-size: 2rem;"></i></button>'
+            });
+
+            $('.inventory-slider').slick({
+                dots: true,
+                infinite: true,
+                speed: 800,
+                slidesToShow: 3,
+                slidesToScroll: 1,
+                autoplay: true,
+                autoplaySpeed: 3000,
+                pauseOnHover: true,
+                responsive: [
+                    {
+                        breakpoint: 1024,
+                        settings: {
+                            slidesToShow: 2,
+                            slidesToScroll: 1
+                        }
+                    },
+                    {
+                        breakpoint: 768,
+                        settings: {
+                            slidesToShow: 1,
+                            slidesToScroll: 1,
+                            arrows: false
+                        }
+                    }
+                ]
+            });
+
+            // Testimonials Slider
+            $('.testimonials-slider').slick({
+                dots: true,
+                infinite: true,
+                speed: 1000,
+                slidesToShow: 3,
+                slidesToScroll: 1,
+                autoplay: true,
+                autoplaySpeed: 5000,
+                arrows: false,
+                responsive: [
+                    {
+                        breakpoint: 1024,
+                        settings: {
+                            slidesToShow: 2
+                        }
+                    },
+                    {
+                        breakpoint: 768,
+                        settings: {
+                            slidesToShow: 1
+                        }
+                    }
+                ]
+            });
+
+            // Re-initialize filter logic to work with Slick
+            $('.filter-tab').on('click', function() {
+                const filter = $(this).data('filter');
+                $('.filter-tab').removeClass('active');
+                $(this).addClass('active');
+
+                $('.inventory-slider').slick('slickUnfilter');
+                
+                if (filter !== 'all') {
+                    $('.inventory-slider').slick('slickFilter', function() {
+                        const cat = $(this).data('category');
+                        const type = $(this).data('type');
+                        
+                        if (filter === 'residential') return type === 'residential';
+                        if (filter === 'commercial') return type === 'commercial';
+                        if (filter === 'sale') return cat === 'sale';
+                        if (filter === 'rent') return cat === 'rent';
+                    });
+                }
+            });
+        });
+    </script>
 
     <!-- WhatsApp Floating Button -->
     <a href="https://wa.me/8801711223344" class="wa-float" target="_blank" title="Chat on WhatsApp">
@@ -926,3 +1157,5 @@
     </a>
 </body>
 </html>
+
+

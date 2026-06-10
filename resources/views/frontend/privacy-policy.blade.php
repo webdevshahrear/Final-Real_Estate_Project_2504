@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - The Imperial</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Cinzel:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <style>
+        .legal-content {
+            padding-top: 150px;
+            padding-bottom: 100px;
+        }
+        .legal-card {
+            background: #fff;
+            border: 1px solid var(--accents-2);
+            border-radius: 24px;
+            padding: 4rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+        }
+        h2 { color: var(--primary-navy); font-weight: 700; margin-top: 2.5rem; margin-bottom: 1.5rem; }
+        p, li { color: var(--accents-5); line-height: 1.8; }
+    </style>
+</head>
+<body class="bg-light">
+
+    <!-- Floating Pill Navbar -->
+    <nav class="navbar-geist">
+        <!-- Left: Hamburger (Mobile) & Logo (Desktop) -->
+        <div class="d-flex align-items-center position-relative z-1">
+            <button class="navbar-mobile-toggle d-md-none me-3 btn btn-light rounded-circle shadow-sm border border-light-subtle d-flex align-items-center justify-content-center transition" style="width: 44px; height: 44px;" aria-label="Toggle Menu">
+                <i class="bi bi-list text-primary-navy" style="font-size: 1.5rem;"></i>
+            </button>
+            <a href="{{ url('/') }}" class="navbar-brand text-decoration-none d-none d-md-flex align-items-center font-cinzel text-primary-navy fw-bold tracking-wide">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" style="margin-right: 8px;">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2L2 19.5H22L12 2Z" fill="#1E3A5F"/>
+                </svg>
+                THE IMPERIAL
+            </a>
+        </div>
+        
+        <!-- Desktop Nav Links -->
+        <ul class="nav-links d-none d-md-flex mb-0 mx-auto position-relative z-1">
+            <li><a href="{{ url('/') }}" class="nav-link">Home</a></li>
+            <li><a href="{{ route('about') }}" class="nav-link">About</a></li>
+            <li><a href="{{ route('services') }}" class="nav-link">Services</a></li>
+            <li><a href="{{ route('flats-for-sale') }}" class="nav-link">Properties</a></li>
+        </ul>
+
+        <!-- Mobile Centered Logo -->
+        <a href="{{ url('/') }}" class="navbar-brand text-decoration-none d-flex d-md-none align-items-center position-absolute top-50 start-50 translate-middle z-0 font-cinzel text-primary-navy fw-bold tracking-wide">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" style="margin-right: 6px;">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2L2 19.5H22L12 2Z" fill="#1E3A5F"/>
+            </svg>
+            IMPERIAL
+        </a>
+
+        <!-- Right: Actions -->
+        <div class="d-flex align-items-center gap-2 position-relative z-1">
+            <a href="{{ route('login') }}" class="btn-geist-secondary d-none d-sm-block text-uppercase fw-bold" style="padding: 0.5rem 1.2rem; font-size: 0.75rem; letter-spacing: 1px;">Portal</a>
+            <a href="{{ route('contact') }}" class="btn-geist text-uppercase fw-bold" style="padding: 0.5rem 1.2rem; font-size: 0.75rem; letter-spacing: 1px;">Inquiry</a>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay d-lg-none">
+        <button class="navbar-mobile-toggle position-absolute top-0 end-0 m-4 btn btn-outline-light rounded-circle shadow-lg d-flex align-items-center justify-content-center" style="width: 48px; height: 48px; border-width: 2px;" aria-label="Close Menu">
+            <i class="bi bi-x-lg fs-5"></i>
+        </button>
+        
+        <!-- Elegant Crest inside menu -->
+        <div class="mb-5 text-center mobile-nav-link" style="transition-delay: 0.1s;">
+            <svg width="42" height="42" viewBox="0 0 24 24" fill="none" class="mb-3 drop-shadow">
+                 <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2L2 19.5H22L12 2Z" fill="#ffffff"/>
+            </svg>
+            <div class="font-cinzel text-white fs-4 tracking-wide fw-bold">THE IMPERIAL</div>
+            <div class="text-white-50 mt-1" style="font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase;">Residences & Suites</div>
+        </div>
+
+        <div class="d-flex flex-column align-items-center flex-grow-1 justify-content-center w-100">
+            <a href="{{ url('/') }}" class="mobile-nav-link" style="transition-delay: 0.1s;">Home</a>
+            <a href="{{ route('about') }}" class="mobile-nav-link" style="transition-delay: 0.2s;">About</a>
+            <a href="{{ route('services') }}" class="mobile-nav-link" style="transition-delay: 0.3s;">Services</a>
+            <a href="{{ route('flats-for-sale') }}" class="mobile-nav-link" style="transition-delay: 0.4s;">Properties</a>
+        </div>
+
+        <div class="w-100 px-4 pb-5 mobile-nav-link" style="transition-delay: 0.5s; max-width: 320px;">
+            <a href="{{ route('contact') }}" class="btn btn-light rounded-pill py-3 fw-bold border-0 shadow-lg w-100 text-primary-navy tracking-wide mb-3">SCHEDULE VIEWING</a>
+            <a href="{{ route('login') }}" class="btn btn-outline-light rounded-pill py-3 fw-bold w-100 tracking-wide border-2 bg-dark bg-opacity-25 backdrop-blur">RESIDENT PORTAL</a>
+        </div>
+    </div>
+
+    <div class="container legal-content">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="legal-card">
+                    <span class="geist-badge mb-3">LAST UPDATED: OCTOBER 2026</span>
+                    <h1 class="display-4 fw-bold text-primary-navy mb-4">Privacy Policy</h1>
+                    <p class="lead">At The Imperial, we respect your privacy and are committed to protecting the personal data of our residents, owners, and visitors.</p>
+                    
+                    <hr class="my-5">
+
+                    <h2>1. Information We Collect</h2>
+                    <p>We collect information to provide better services to all our users. The types of personal information we collect include:</p>
+                    <ul>
+                        <li><strong>Identity Data:</strong> Full name, biometric data (facial recognition for access control), and national identification.</li>
+                        <li><strong>Contact Data:</strong> Email address, phone number, and emergency contact details.</li>
+                        <li><strong>Property Data:</strong> Unit numbers, rental history, and utility consumption patterns.</li>
+                        <li><strong>Financial Data:</strong> Bank account details and payment history via Imperial OS.</li>
+                    </ul>
+
+                    <h2>2. How We Use Your Data</h2>
+                    <p>Your data is used solely for the operational efficiency of The Imperial ecosystem, including:</p>
+                    <ul>
+                        <li>Processing monthly rent and service charge payments.</li>
+                        <li>Managing automated access control and security protocols.</li>
+                        <li>Facilitating predictive maintenance requests.</li>
+                        <li>Sending urgent building notifications and HOA announcements.</li>
+                    </ul>
+
+                    <h2>3. Data Security</h2>
+                    <p>We implement enterprise-grade encryption (AES-256) for all stored data. Biometric data is hashed and stored in isolated "Cold Nodes" that are disconnected from the public internet.</p>
+
+                    <h2>4. Your Rights</h2>
+                    <p>Under global data protection regulations (GDPR/CCPA), you have the right to access, correct, or request the deletion of your personal data at any time via the Partner Portal or by contacting our Data Protection Officer.</p>
+
+                    <div class="mt-5 p-4 bg-light rounded-4 border">
+                        <h6 class="fw-bold mb-2">Need Clarification?</h6>
+                        <p class="small mb-0">Our legal team is available for private consultations regarding data sovereignty. Contact <a href="mailto:legal@imperial.com">legal@imperial.com</a>.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- NEW: Premium Footer Section -->
+    <footer class="footer-premium">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-lg-4">
+                    <a href="{{ url('/') }}" class="navbar-brand text-decoration-none d-flex align-items-center mb-4">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" class="me-2">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2L2 19.5H22L12 2Z" fill="#1E3A5F"/>
+                        </svg>
+                        <span class="fs-4 fw-bold text-primary-navy">The Imperial</span>
+                    </a>
+                    <p class="mb-4 lh-lg">Empowering luxury real estate with the world's most advanced property management operating system.</p>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="footer-social-link"><i class="bi bi-linkedin"></i></a>
+                        <a href="#" class="footer-social-link"><i class="bi bi-twitter-x"></i></a>
+                        <a href="#" class="footer-social-link"><i class="bi bi-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-2">
+                    <h6 class="footer-title-modern">Resources</h6>
+                    <nav>
+                        <a href="{{ route('login') }}" class="footer-link-modern">Resident Portal</a>
+                        <a href="{{ route('faq') }}" class="footer-link-modern">Knowledge Base</a>
+                        <a href="{{ route('contact') }}" class="footer-link-modern">Contact Support</a>
+                        <a href="{{ route('about') }}" class="footer-link-modern">Corporate Info</a>
+                        <a href="{{ route('terms-conditions') }}" class="footer-link-modern">Legal Terms</a>
+                    </nav>
+                </div>
+                <div class="col-6 col-lg-2">
+                    <h6 class="footer-title-modern">Inventory</h6>
+                    <nav>
+                        <a href="{{ url('/#inventory') }}" class="footer-link-modern">All Units</a>
+                        <a href="{{ route('flats-for-sale') }}" class="footer-link-modern">For Sale</a>
+                        <a href="{{ route('commercial-spaces') }}" class="footer-link-modern">Commercial</a>
+                    </nav>
+                </div>
+                <div class="col-lg-4">
+                    <h6 class="footer-title-modern">Corporate</h6>
+                    <nav>
+                        <a href="{{ route('about') }}" class="footer-link-modern">About Us</a>
+                        <a href="{{ route('contact') }}" class="footer-link-modern">Contact</a>
+                        <a href="{{ route('privacy-policy') }}" class="footer-link-modern active">Privacy Policy</a>
+                        <a href="{{ route('terms-conditions') }}" class="footer-link-modern">Terms & Conditions</a>
+                    </nav>
+                </div>
+            </div>
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center border-top mt-5 pt-4" style="border-color: rgba(30, 58, 95, 0.08) !important;">
+                <p class="small mb-0">&copy; 2026 Imperial Inc. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>AOS.init();</script>
+</body>
+</html>
+
+

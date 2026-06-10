@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Commercial Insights - The Imperial</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        .property-gallery-main {
+            height: 500px;
+            object-fit: cover;
+            border-radius: 12px;
+            width: 100%;
+        }
+        .property-gallery-thumb {
+            height: 110px;
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            width: 100%;
+        }
+        .property-gallery-thumb:hover {
+            opacity: 0.8;
+            transform: scale(0.98);
+        }
+        .detail-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 2rem;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+    </style>
+</head>
+<body class="bg-light">
+
+    <!-- Floating Pill Navbar -->
+    <nav class="navbar-geist">
+        <!-- Left: Hamburger (Mobile) & Logo (Desktop) -->
+        <div class="d-flex align-items-center position-relative z-1">
+            <button class="navbar-mobile-toggle d-md-none me-3 btn btn-light rounded-circle shadow-sm border border-light-subtle d-flex align-items-center justify-content-center transition" style="width: 44px; height: 44px;" aria-label="Toggle Menu">
+                <i class="bi bi-list text-primary-navy" style="font-size: 1.5rem;"></i>
+            </button>
+            <a href="{{ url('/') }}" class="navbar-brand text-decoration-none d-none d-md-flex align-items-center font-cinzel text-primary-navy fw-bold tracking-wide">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" style="margin-right: 8px;">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2L2 19.5H22L12 2Z" fill="#1E3A5F"/>
+                </svg>
+                THE IMPERIAL
+            </a>
+        </div>
+        
+        <!-- Desktop Nav Links -->
+        <ul class="nav-links d-none d-md-flex mb-0 mx-auto position-relative z-1">
+            <li><a href="{{ url('/') }}" class="nav-link">Home</a></li>
+            <li><a href="{{ route('about') }}" class="nav-link">About</a></li>
+            <li><a href="{{ route('services') }}" class="nav-link">Services</a></li>
+            <li><a href="{{ route('flats-for-sale') }}" class="nav-link active">Properties</a></li>
+        </ul>
+
+        <!-- Mobile Centered Logo -->
+        <a href="{{ url('/') }}" class="navbar-brand text-decoration-none d-flex d-md-none align-items-center position-absolute top-50 start-50 translate-middle z-0 font-cinzel text-primary-navy fw-bold tracking-wide">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" style="margin-right: 6px;">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2L2 19.5H22L12 2Z" fill="#1E3A5F"/>
+            </svg>
+            IMPERIAL
+        </a>
+
+        <!-- Right: Actions -->
+        <div class="d-flex align-items-center gap-2 position-relative z-1">
+            <a href="{{ route('login') }}" class="btn-geist-secondary d-none d-sm-block text-uppercase fw-bold" style="padding: 0.5rem 1.2rem; font-size: 0.75rem; letter-spacing: 1px;">Portal</a>
+            <a href="{{ route('contact') }}" class="btn-geist text-uppercase fw-bold" style="padding: 0.5rem 1.2rem; font-size: 0.75rem; letter-spacing: 1px;">Inquiry</a>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay d-lg-none">
+        <button class="navbar-mobile-toggle position-absolute top-0 end-0 m-4 btn btn-outline-light rounded-circle shadow-lg d-flex align-items-center justify-content-center" style="width: 48px; height: 48px; border-width: 2px;" aria-label="Close Menu">
+            <i class="bi bi-x-lg fs-5"></i>
+        </button>
+        
+        <!-- Elegant Crest inside menu -->
+        <div class="mb-5 text-center mobile-nav-link" style="transition-delay: 0.1s;">
+            <svg width="42" height="42" viewBox="0 0 24 24" fill="none" class="mb-3 drop-shadow">
+                 <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2L2 19.5H22L12 2Z" fill="#ffffff"/>
+            </svg>
+            <div class="font-cinzel text-white fs-4 tracking-wide fw-bold">THE IMPERIAL</div>
+            <div class="text-white-50 mt-1" style="font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase;">Residences & Suites</div>
+        </div>
+
+        <div class="d-flex flex-column align-items-center flex-grow-1 justify-content-center w-100">
+            <a href="{{ url('/') }}" class="mobile-nav-link" style="transition-delay: 0.1s;">Home</a>
+            <a href="{{ route('about') }}" class="mobile-nav-link" style="transition-delay: 0.2s;">About</a>
+            <a href="{{ route('services') }}" class="mobile-nav-link" style="transition-delay: 0.3s;">Services</a>
+            <a href="{{ route('flats-for-sale') }}" class="mobile-nav-link" style="transition-delay: 0.4s;">Properties</a>
+            <a href="{{ route('contact') }}" class="mobile-nav-link" style="transition-delay: 0.5s;">Contact</a>
+        </div>
+
+        <div class="w-100 px-4 pb-5 mobile-nav-link" style="transition-delay: 0.6s; max-width: 320px;">
+            <a href="{{ route('contact') }}" class="btn btn-light rounded-pill py-3 fw-bold border-0 shadow-lg w-100 text-primary-navy tracking-wide mb-3">SCHEDULE VIEWING</a>
+            <a href="{{ route('login') }}" class="btn btn-outline-light rounded-pill py-3 fw-bold w-100 tracking-wide border-2 bg-dark bg-opacity-25 backdrop-blur">RESIDENT PORTAL</a>
+        </div>
+    </div>
+
+    <!-- Page Header & Gallery -->
+    <section class="detail-header-section">
+        <div class="container">
+            <!-- Breadcrumb -->
+            <nav aria-label="breadcrumb" class="mb-4" data-aos="fade-down">
+                <ol class="breadcrumb font-mono small">
+                    <li class="breadcrumb-item"><a href="{{ url('/') }}" class="text-muted text-decoration-none">HOME</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('commercial-spaces') }}" class="text-muted text-decoration-none">COMMERCIAL</a></li>
+                    <li class="breadcrumb-item active text-primary-navy fw-bold" aria-current="page">DHANMONDI CORPORATE HUB</li>
+                </ol>
+            </nav>
+
+            <div class="row align-items-end mb-5">
+                <div class="col-lg-8" data-aos="fade-right">
+                    <div class="d-flex align-items-center gap-2 mb-3">
+                        <span class="geist-badge" style="background:#f3e8ff;color:#7e22ce;border-color:#d8b4fe;">COMMERCIAL SPACE</span>
+                        <span class="geist-badge-success" style="background:#1e3a5f;color:#fff;">GRADE A TOWER</span>
+                    </div>
+                    <h1 class="display-4 fw-extrabold text-primary-navy mb-0">Dhanmondi Corporate Hub</h1>
+                    <p class="text-muted fs-5 mt-2"><i class="bi bi-geo-alt me-2" style="color:#7e22ce;"></i>Satmasjid Road, Dhanmondi, Dhaka</p>
+                </div>
+                <div class="col-lg-4 text-lg-end" data-aos="fade-left">
+                    <div class="price-tag" style="color:#7e22ce;">৳1.5 Lakh <span class="fs-4 text-muted">/mo</span></div>
+                    <p class="text-muted font-mono small mb-0">LONG TERM LEASE AVAILABLE</p>
+                </div>
+            </div>
+
+            <!-- Cinematic Gallery -->
+            <div class="gallery-grid mb-5" data-aos="zoom-in">
+                <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80" alt="Main View" class="gallery-item gallery-main">
+                <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=800&q=80" alt="Interior 1" class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1497215840673-81e050682fa0?auto=format&fit=crop&w=800&q=80" alt="Interior 2" class="gallery-item">
+            </div>
+        </div>
+    </section>
+
+    <div class="container pb-5">
+        <div class="row g-5">
+            <!-- Main Content -->
+            <div class="col-lg-8">
+                
+                <!-- Quick Specs Grid -->
+                <div class="stats-grid" data-aos="fade-up">
+                    <div class="stat-box">
+                        <i class="bi bi-door-closed"></i>
+                        <div class="stat-value">Open</div>
+                        <div class="stat-label">Floor Plan</div>
+                    </div>
+                    <div class="stat-box">
+                        <i class="bi bi-diagram-3"></i>
+                        <div class="stat-value">High</div>
+                        <div class="stat-label">Load Capacity</div>
+                    </div>
+                    <div class="stat-box">
+                        <i class="bi bi-bounding-box"></i>
+                        <div class="stat-value">3,000</div>
+                        <div class="stat-label">SqFt Area</div>
+                    </div>
+                    <div class="stat-box">
+                        <i class="bi bi-building"></i>
+                        <div class="stat-value">G+12</div>
+                        <div class="stat-label">Tower Grade</div>
+                    </div>
+                </div>
+
+                <!-- Description Section -->
+                <div class="mb-5" data-aos="fade-up">
+                    <h4 class="fw-bold text-primary-navy mb-4">Enterprise Grade Facilities</h4>
+                    <div class="text-muted lh-lg">
+                        <p>Strategically located in the business artery of Dhanmondi, this premium open-floor commercial space is engineered for maximum productivity. Designed for enterprise HQs, tech startups, and financial institutions.</p>
+                        <p>The space features CAT-6 structural cabling, industrial HVAC, and a reinforced core for heavy IT infrastructure. Enjoy uninterrupted operations with our 100% synchronized diesel generator backup.</p>
+                    </div>
+                </div>
+
+                <!-- Amenities -->
+                <div class="mb-5" data-aos="fade-up">
+                    <h4 class="fw-bold text-primary-navy mb-4">Commercial Amenities</h4>
+                    <div class="d-flex flex-wrap">
+                        <span class="amenity-chip"><i class="bi bi-wifi"></i> Fiber Optic Node</span>
+                        <span class="amenity-chip"><i class="bi bi-lightning-charge"></i> Industrial Backup</span>
+                        <span class="amenity-chip"><i class="bi bi-p-circle"></i> 2 Reserved Parking</span>
+                        <span class="amenity-chip"><i class="bi bi-shield-lock"></i> Digital Access Control</span>
+                        <span class="amenity-chip"><i class="bi bi-truck"></i> Freight Elevator</span>
+                        <span class="amenity-chip"><i class="bi bi-droplet"></i> Pantry Connection</span>
+                    </div>
+                </div>
+
+                <!-- Key Documents -->
+                <div class="card bg-light border-0 rounded-4 p-4" data-aos="fade-up">
+                    <h5 class="fw-bold text-primary-navy mb-3">Compliance & Tech Specs</h5>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center gap-3 p-3 bg-white rounded-3 border">
+                                <i class="bi bi-file-earmark-pdf fs-4 text-danger"></i>
+                                <div>
+                                    <div class="fw-bold small">Architectural Layout</div>
+                                    <div class="text-muted small">AutoCAD & PDF formats</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center gap-3 p-3 bg-white rounded-3 border">
+                                <i class="bi bi-file-earmark-text fs-4 text-primary"></i>
+                                <div>
+                                    <div class="fw-bold small">Fire Safety NOC</div>
+                                    <div class="text-muted small">FSCD Approved Building</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Sidebar -->
+            <div class="col-lg-4">
+                <!-- Financial Intelligence Card -->
+                <div class="detail-side-card shadow-sm mb-4" data-aos="fade-left" data-aos-delay="100">
+                    <h5 class="fw-bold text-primary-navy mb-4">Commercial Lease Overview</h5>
+                    <div class="row g-3 mb-4">
+                        <div class="col-6">
+                            <div class="p-3 bg-light rounded-4 text-center">
+                                <div class="extra-small text-muted uppercase mb-1">Base Price</div>
+                                <div class="fw-bold" style="color:#7e22ce;">৳50 / SqFt</div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="p-3 bg-light rounded-4 text-center">
+                                <div class="extra-small text-muted uppercase mb-1">Service Fee</div>
+                                <div class="fw-bold text-secondary">৳8 / SqFt</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-3 border rounded-4 bg-light-subtle">
+                        <div class="d-flex justify-content-between extra-small mb-2">
+                            <span>Minimum Lease:</span>
+                            <span class="fw-bold">3 Years</span>
+                        </div>
+                        <div class="d-flex justify-content-between extra-small">
+                            <span>Security Deposit:</span>
+                            <span class="fw-bold text-danger">6 Months Advance</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Secure Inquiry -->
+                <div class="detail-side-card shadow-sm" data-aos="fade-left" data-aos-delay="300">
+                    <h4 class="fw-bold text-primary-navy mb-4">Corporate Inquiry</h4>
+                    
+                    <div class="d-flex align-items-center gap-3 mb-4 p-3 bg-light rounded-3">
+                        <div class="bg-primary-navy text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 44px; height: 44px;">
+                            <i class="bi bi-briefcase-fill"></i>
+                        </div>
+                        <div>
+                            <div class="fw-bold small">B2B Escrow Available</div>
+                            <div class="text-muted small">Direct Developer Lease</div>
+                        </div>
+                    </div>
+
+                    <form>
+                        <div class="mb-3">
+                            <label class="form-label font-mono small text-muted">COMPANY NAME</label>
+                            <input type="text" class="form-control rounded-pill border-light-subtle" placeholder="Your enterprise...">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label font-mono small text-muted">CORPORATE EMAIL</label>
+                            <input type="email" class="form-control rounded-pill border-light-subtle" placeholder="ceo@company.com">
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label font-mono small text-muted">REQUIREMENTS (MOC, Custom Fit-out)</label>
+                            <textarea class="form-control rounded-4 border-light-subtle" rows="4" placeholder="Let us know your workspace needs..."></textarea>
+                        </div>
+                        <button type="submit" class="btn-geist w-100 py-3 mb-3" style="background:#7e22ce;border-color:#7e22ce;">Request Corporate Proposal</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Vercel Style Footer -->
+    <footer class="geist-footer">
+        <div class="container">
+            <div class="row align-items-start">
+                <div class="col-lg-4 mb-5 mb-lg-0">
+                    <a href="{{ url('/') }}" class="navbar-brand text-decoration-none d-flex align-items-center mb-3">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" style="margin-right: 8px;">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2L2 19.5H22L12 2Z" fill="#1E3A5F"/>
+                        </svg>
+                        The Imperial
+                    </a>
+                    <p class="text-muted small pe-lg-5">The enterprise operating system for luxury real estate, empowering admins with data-driven workflows and tenant administration.</p>
+                </div>
+                <div class="col-lg-2 col-6 mb-4">
+                    <h6 class="footer-title">Platform</h6>
+                    <a href="#" class="footer-link">Analytics</a>
+                    <a href="{{ route('flats-for-sale') }}" class="footer-link">Inventory</a>
+                    <a href="#" class="footer-link">Security App</a>
+                </div>
+                <div class="col-lg-2 col-6 mb-4">
+                    <h6 class="footer-title">Resources</h6>
+                    <a href="#" class="footer-link">Documentation</a>
+                    <a href="#" class="footer-link">API Reference</a>
+                    <a href="{{ route('faq') }}" class="footer-link">Support Desk</a>
+                </div>
+                <div class="col-lg-4 text-lg-end pt-3 pt-lg-0">
+                    <div class="d-inline-flex align-items-center bg-white border px-3 py-2 rounded-pill shadow-sm">
+                        <span class="spinner-grow spinner-grow-sm text-success me-2" role="status" aria-hidden="true"></span>
+                        <span class="font-mono small text-muted">ALL SYSTEMS OPERATIONAL</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center border-top mt-5 pt-4" style="border-color: var(--accents-2) !important;">
+                <p class="text-muted small mb-0">&copy; 2026 Imperial Inc.</p>
+                <div class="mt-3 mt-md-0 font-mono small d-flex gap-4">
+                    <a href="#" class="text-muted text-decoration-none flex-shrink-0">Privacy</a>
+                    <a href="#" class="text-muted text-decoration-none flex-shrink-0">Terms</a>
+                    <a href="#" class="text-muted text-decoration-none">GitHub</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="assets/js/main.js"></script>
+
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/8801711223344" class="wa-float" target="_blank" title="Chat on WhatsApp">
+        <span class="wa-tooltip">Chat with us!</span>
+        <i class="bi bi-whatsapp"></i>
+    </a>
+</body>
+</html>
+

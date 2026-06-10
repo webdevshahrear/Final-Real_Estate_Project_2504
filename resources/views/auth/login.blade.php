@@ -6,241 +6,13 @@
     <title>Sovereign Access - Imperial OS</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="assets/css/main.css">
-    <link rel="stylesheet" href="assets/css/responsive.css">
+    <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary-navy: #1E3A5F;
-            --accent-gold: #C5A059;
-            --cyber-blue: #00e5ff;
-            --deep-glass: rgba(255, 255, 255, 0.04);
-            --border-glass: rgba(255, 255, 255, 0.1);
-        }
 
-        body, html {
-            height: 100%;
-            margin: 0;
-            font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
-            background: #000;
-        }
-
-        .auth-container {
-            display: flex;
-            min-height: 100vh;
-        }
-
-        /* --- Visual Section: Cinematic & Dynamic --- */
-        .auth-visual-section {
-            flex: 1.3;
-            position: relative;
-            background: url('assets/images/login-bg.png') center/cover no-repeat;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 5rem;
-            overflow: hidden;
-        }
-
-        .mesh-overlay {
-            position: absolute;
-            inset: 0;
-            background: 
-                radial-gradient(at 0% 0%, rgba(30, 58, 95, 0.4) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(197, 160, 89, 0.2) 0px, transparent 50%),
-                radial-gradient(at 50% 50%, rgba(0, 0, 0, 0.4) 0px, transparent 100%);
-            mix-blend-mode: overlay;
-            animation: meshFlow 15s ease infinite alternate;
-        }
-
-        @keyframes meshFlow {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.1) rotate(2deg); }
-        }
-
-        .visual-overlay-dark {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to right, rgba(0,0,0,0.1), rgba(0,0,0,0.9));
-            z-index: 1;
-        }
-
-        .visual-content {
-            position: relative;
-            z-index: 10;
-            max-width: 650px;
-        }
-
-        .font-cinzel { font-family: 'Cinzel', serif; }
-
-        .floating-widget {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 24px;
-            padding: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-            animation: float 6s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
-        }
-
-        .auth-form-section {
-            flex: 0.7;
-            background: radial-gradient(circle at top right, #111827, #000);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 4rem;
-            border-left: 1px solid rgba(255,255,255,0.05);
-        }
-
-        .login-card-cyber {
-            width: 100%;
-            max-width: 440px;
-            margin: 0 auto;
-            position: relative;
-        }
-
-        .role-selector-cyber {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 8px;
-            margin-bottom: 2.5rem;
-        }
-
-        .role-chip {
-            aspect-ratio: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            border-radius: 16px;
-            border: 1px solid rgba(255,255,255,0.05);
-            background: rgba(255,255,255,0.02);
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            color: rgba(255,255,255,0.4);
-        }
-
-        .role-chip i { font-size: 1.2rem; margin-bottom: 4px; }
-        .role-chip span { font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; text-align: center; }
-
-        .role-chip:hover {
-            color: #fff;
-            background: rgba(255,255,255,0.1);
-            border-color: rgba(255,255,255,0.2);
-            transform: scale(1.05);
-        }
-
-        .role-chip.active {
-            background: var(--primary-navy);
-            color: #fff;
-            border-color: var(--cyber-blue);
-            box-shadow: 0 0 20px rgba(0, 229, 255, 0.3);
-        }
-
-        .cyber-input-group {
-            position: relative;
-            margin-bottom: 2rem;
-        }
-
-        .cyber-input {
-            width: 100%;
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 12px;
-            padding: 1.1rem 1.2rem;
-            color: #fff;
-            font-size: 0.95rem;
-            transition: all 0.3s;
-        }
-
-        .cyber-input:focus {
-            outline: none;
-            background: rgba(255,255,255,0.06);
-            border-color: var(--cyber-blue);
-            box-shadow: 0 0 15px rgba(0, 229, 255, 0.1);
-        }
-
-        .cyber-label {
-            display: block;
-            font-size: 0.65rem;
-            font-weight: 700;
-            color: rgba(255,255,255,0.4);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 8px;
-        }
-
-        .btn-access-cyber {
-            background: linear-gradient(135deg, var(--primary-navy), #2c5282);
-            color: #fff;
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 14px;
-            padding: 1.2rem;
-            width: 100%;
-            font-weight: 700;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            transition: all 0.4s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn-access-cyber:hover {
-            background: linear-gradient(135deg, #2c5282, var(--primary-navy));
-            box-shadow: 0 0 30px rgba(30, 58, 95, 0.4);
-            transform: translateY(-2px);
-        }
-
-        .btn-access-cyber::before {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%;
-            width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-            transition: 0.5s;
-        }
-
-        .btn-access-cyber:hover::before {
-            left: 100%;
-        }
-
-        .status-pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 8px 16px;
-            background: rgba(16, 185, 129, 0.1);
-            border: 1px solid rgba(16, 185, 129, 0.3);
-            border-radius: 100px;
-            color: #10b981;
-            font-size: 0.7rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-            margin-bottom: 2.5rem;
-        }
-
-        .dot-glow {
-            width: 8px; height: 8px;
-            background: #10b981;
-            border-radius: 50%;
-            box-shadow: 0 0 10px #10b981;
-        }
-
-    </style>
 </head>
-<body class="bg-black">
+<body class="bg-black-auth">
 
 
     <div class="auth-container">
@@ -287,7 +59,7 @@
         <div class="auth-form-section" data-aos="fade-left">
             <div class="login-card-cyber">
                 <div class="mb-5">
-                    <a href="index.html" class="text-decoration-none d-flex align-items-center gap-3">
+                    <a href="{{ url('/') }}" class="text-decoration-none d-flex align-items-center gap-3">
                         <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2L2 19.5H22L12 2Z" fill="#fff"/>
                         </svg>
@@ -387,7 +159,39 @@
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="assets/js/main.js"></script>
+    <script src="{{ asset('assets/js/main.js') }}"></script>
+    <script>
+        function setRole(element, role) {
+            document.querySelectorAll('.role-chip').forEach(chip => chip.classList.remove('active'));
+            element.classList.add('active');
+            
+            // Optional: Change UI based on role
+            const emailInput = document.querySelector('input[name="email"]');
+            if (role === 'admin') emailInput.placeholder = 'admin@imperial.ledger';
+            else if (role === 'manager') emailInput.placeholder = 'manager@imperial.ledger';
+            else emailInput.placeholder = role + '@imperial.ledger';
+        }
+
+        function handleLogin() {
+            // This function is called before form submission
+            // You can add validation or animation here
+            const btn = document.querySelector('.btn-access-cyber');
+            btn.innerHTML = 'INITIALIZING... <i class="bi bi-hourglass-split ms-2"></i>';
+        }
+
+        function handleRecovery(btn) {
+            const form = document.getElementById('recoverForm');
+            const success = document.getElementById('recoverySuccess');
+            
+            btn.disabled = true;
+            btn.innerHTML = 'DISPATCHING... <i class="bi bi-hourglass-split ms-2"></i>';
+            
+            setTimeout(() => {
+                form.classList.add('d-none');
+                success.classList.remove('d-none');
+            }, 1500);
+        }
+    </script>
     
 
     <!-- WhatsApp Floating Button -->
@@ -397,3 +201,4 @@
     </a>
 </body>
 </html>
+

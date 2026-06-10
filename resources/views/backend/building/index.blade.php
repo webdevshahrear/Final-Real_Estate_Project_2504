@@ -14,6 +14,19 @@
         </a>
     </div>
 
+    @if(session('success'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <i class="bi bi-check-circle-fill me-2"></i>{{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+    @endif
+
+    @if(session('error'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i>{{ session('error') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+    @endif
 
     <!-- Asset Intelligence Layer -->
     <div class="row g-4 mb-5" data-aos="fade-up">
@@ -132,7 +145,7 @@
                                 <i class="bi bi-three-dots-vertical"></i>
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end border-0 shadow-lg rounded-3 extra-small">
-                                <li><a class="dropdown-item py-2" href="#"><i class="bi bi-pencil me-2"></i> Edit
+                                <li><a class="dropdown-item py-2" href="{{ route('admin.building.edit', $building->id) }}"><i class="bi bi-pencil me-2"></i> Edit
                                         Details</a></li>
                                 <li>
                                     <a class="dropdown-item py-2 text-danger deleteBuilding"
@@ -224,7 +237,11 @@
 <script>
     $('.deleteBuilding').click(function(event){
         event.preventDefault();
-       $(this).next('form').submit()
+        var buildingName = $(this).closest('.col-md-6').find('h5').text().trim();
+        
+        if(confirm('Are you sure you want to delete "' + buildingName + '"? This action cannot be undone.')) {
+            $(this).next('form').submit();
+        }
     })
 </script>
 @endpush
