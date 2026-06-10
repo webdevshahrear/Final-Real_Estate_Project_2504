@@ -10,7 +10,13 @@ class PropertyController extends Controller
 {
     function index()
     {
-        $properties = Property::where('user_id', auth()->id())->latest()->get();
+        $query = Property::where('user_id', auth()->id());
+
+        if (request('type')) {
+            $query->where('type', request('type'));
+        }
+
+        $properties = $query->latest()->get();
         return view('backend.properties.index', compact('properties'));
     }
 
