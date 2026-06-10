@@ -1,8 +1,9 @@
 <?php
 
-
 use App\Http\Controllers\Backend\BuildingController;
+use App\Http\Controllers\Backend\CustomerController;
 use App\Http\Controllers\Backend\DashboardController;
+use App\Http\Controllers\Backend\PropertyController;
 use App\Http\Controllers\Backend\UnitController;
 use Illuminate\Support\Facades\Route;
 
@@ -70,7 +71,7 @@ Route::view('/user-roles', 'backend.user-roles.index')->name('user-roles');
 Route::view('/home', 'backend.dashboard.home')->name('home');
 
 // Building
-Route::prefix('/building')->name('building.')->controller(BuildingController::class)->group(function(){
+Route::prefix('/building')->name('building.')->controller(BuildingController::class)->group(function () {
     Route::get('/', 'index')->name('index');
     Route::get('/create', 'create')->name('create');
     Route::post('/store', 'store')->name('store');
@@ -82,12 +83,37 @@ Route::view('/buildings-manager', 'backend.building.manager')->name('building.ma
 Route::view('/buildings-owner', 'backend.building.owner')->name('building.owner');
 
 // Units
-Route::prefix('/units')->name('units.')->controller(UnitController::class)->group(function(){
+Route::prefix('/units')->name('units.')->controller(UnitController::class)->group(function () {
     Route::get('/', 'index')->name('index');
     Route::get('/create', 'create')->name('create');
     Route::post('/store', 'store')->name('store');
+    Route::get('/edit/{id}', 'edit')->name('edit');
+    Route::put('/update/{id}', 'update')->name('update');
     Route::delete('/delete/{id}', 'delete')->name('delete');
 });
+
+// Customers
+Route::prefix('/customers')->name('customers.')->controller(CustomerController::class)->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::get('/create', 'create')->name('create');
+    Route::post('/store', 'store')->name('store');
+    Route::get('/edit/{id}', 'edit')->name('edit');
+    Route::put('/update/{id}', 'update')->name('update');
+    Route::get('/verify/{id}', 'verify')->name('verify');
+    Route::get('/reject/{id}', 'reject')->name('reject');
+    Route::delete('/delete/{id}', 'delete')->name('delete');
+});
+
+// Properties
+Route::prefix('/properties')->name('properties.')->controller(PropertyController::class)->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::get('/create', 'create')->name('create');
+    Route::post('/store', 'store')->name('store');
+    Route::get('/edit/{id}', 'edit')->name('edit');
+    Route::put('/update/{id}', 'update')->name('update');
+    Route::delete('/delete/{id}', 'delete')->name('delete');
+});
+
 Route::view('/units-manager', 'backend.units.manager')->name('units.manager');
 Route::view('/units-owner', 'backend.units.owner')->name('units.owner');
 Route::view('/units-flat-owner', 'backend.units.flat-owner')->name('units.flat-owner');
