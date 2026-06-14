@@ -26,7 +26,7 @@
                     <p class="text-muted small">Add a new property for rent or sale.</p>
                 </header>
 
-                <form action="{{ route('admin.properties.store') }}" method="POST">
+                <form action="{{ route('admin.properties.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row g-4">
 
@@ -81,25 +81,7 @@
                             @enderror
                         </div>
 
-                        <div class="col-md-3">
-                            <label for="bedrooms" class="form-label">Bedrooms</label>
-                            <input type="number" class="form-control @error('bedrooms') is-invalid @enderror"
-                                id="bedrooms" name="bedrooms" value="{{ old('bedrooms') }}" placeholder="e.g. 3">
-                            @error('bedrooms')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <div class="col-md-3">
-                            <label for="bathrooms" class="form-label">Bathrooms</label>
-                            <input type="number" class="form-control @error('bathrooms') is-invalid @enderror"
-                                id="bathrooms" name="bathrooms" value="{{ old('bathrooms') }}" placeholder="e.g. 2">
-                            @error('bathrooms')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <label for="status" class="form-label">Status</label>
                             <select class="form-select @error('status') is-invalid @enderror" id="status" name="status">
                                 <option value="available" {{ old('status') == 'available' ? 'selected' : '' }}>Available</option>
@@ -107,6 +89,15 @@
                                 <option value="rented" {{ old('status') == 'rented' ? 'selected' : '' }}>Rented</option>
                             </select>
                             @error('status')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="col-12">
+                            <label for="images" class="form-label">Images <span class="text-muted small">(Multiple select allowed)</span></label>
+                            <input type="file" class="form-control @error('images') is-invalid @enderror"
+                                id="images" name="images[]" accept="image/*" multiple>
+                            @error('images')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
