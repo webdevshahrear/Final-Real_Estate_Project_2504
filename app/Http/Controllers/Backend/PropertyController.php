@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Models\Property;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PropertyController extends Controller
 {
@@ -33,7 +34,16 @@ class PropertyController extends Controller
             'location'    => 'required',
             'price'       => 'required',
             'description' => 'required',
+            'images.*'    => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
+
+        $images = [];
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $path = $image->store('properties', 'public');
+                $images[] = $path;
+            }
+        }
 
         Property::create([
             'title'       => $request->title,
@@ -41,9 +51,8 @@ class PropertyController extends Controller
             'location'    => $request->location,
             'price'       => $request->price,
             'size'        => $request->size,
-            'bedrooms'    => $request->bedrooms,
-            'bathrooms'   => $request->bathrooms,
             'description' => $request->description,
+            'images'      => $images,
             'status'      => $request->status ?? 'available',
             'user_id'     => auth()->id(),
         ]);
@@ -65,9 +74,18 @@ class PropertyController extends Controller
             'location'    => 'required',
             'price'       => 'required',
             'description' => 'required',
+            'images.*'    => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
         $property = Property::findOrFail($id);
+
+        $images = $property->images ?? [];
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $path = $image->store('properties', 'public');
+                $images[] = $path;
+            }
+        }
 
         $property->update([
             'title'       => $request->title,
@@ -75,9 +93,8 @@ class PropertyController extends Controller
             'location'    => $request->location,
             'price'       => $request->price,
             'size'        => $request->size,
-            'bedrooms'    => $request->bedrooms,
-            'bathrooms'   => $request->bathrooms,
             'description' => $request->description,
+            'images'      => $images,
             'status'      => $request->status ?? $property->status,
         ]);
 
@@ -86,7 +103,15 @@ class PropertyController extends Controller
 
     function delete($id)
     {
-        Property::findOrFail($id)->delete();
+        $property = Property::findOrFail($id);
+
+        if ($property->images) {
+            foreach ($property->images as $image) {
+                Storage::disk('public')->delete($image);
+            }
+        }
+
+        $property->delete();
         return redirect()->route('admin.properties.index')->with('success', 'Property deleted successfully!');
     }
 }

@@ -41,12 +41,12 @@
                     <thead class="table-light">
                         <tr>
                             <th>#</th>
+                            <th>Image</th>
                             <th>Title</th>
                             <th>Type</th>
                             <th>Location</th>
                             <th>Price</th>
-                            <th>Bedrooms</th>
-                            <th>Bathrooms</th>
+                            <th>Size</th>
                             <th>Status</th>
                             <th>Actions</th>
                         </tr>
@@ -55,6 +55,15 @@
                         @forelse($properties as $property)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
+                            <td>
+                                @if($property->images && count($property->images) > 0)
+                                <img src="{{ asset('storage/' . $property->images[0]) }}" width="60" height="60" class="rounded object-fit-cover border">
+                                @else
+                                <div class="bg-light rounded d-flex align-items-center justify-content-center" style="width:60px;height:60px;">
+                                    <i class="bi bi-house text-muted"></i>
+                                </div>
+                                @endif
+                            </td>
                             <td>{{ $property->title }}</td>
                             <td>
                                 @if($property->type == 'rent')
@@ -65,8 +74,7 @@
                             </td>
                             <td>{{ $property->location }}</td>
                             <td>${{ number_format($property->price, 2) }}</td>
-                            <td>{{ $property->bedrooms ?? 'N/A' }}</td>
-                            <td>{{ $property->bathrooms ?? 'N/A' }}</td>
+                            <td>{{ $property->size ?? 'N/A' }}</td>
                             <td>
                                 @if($property->status == 'available')
                                 <span class="badge bg-success">Available</span>
