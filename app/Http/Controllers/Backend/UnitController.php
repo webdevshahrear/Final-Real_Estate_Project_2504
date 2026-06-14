@@ -23,25 +23,21 @@ class UnitController extends Controller
 
     function store(Request $request)
     {
-
         $request->validate([
             'building_id' => 'required',
             'floor'       => 'required',
             'amount'      => 'required',
             'details'     => 'required',
-            'images.*'      => 'nullable|mimes:jpg,webp,png,jpeg'
         ]);
-       
-        $imagesPath = [];
-        // Image 
-        if(count($request->images ?? []) > 0){
-            foreach($request->images as $singleImg){
-                $path = $singleImg->store('units', 'public');
-                $imagesPath[] = $path;
+
+        $images = [];
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $path = $image->store('units', 'public');
+                $images[] = $path;
             }
         }
 
-        
         Unit::create([
             'building_id'      => $request->building_id,
             'floor'            => $request->floor,
@@ -51,7 +47,7 @@ class UnitController extends Controller
             'amount'           => $request->amount,
             'security_deposit' => $request->security_deposit,
             'details'          => $request->details,
-            'images'           => json_encode($imagesPath ?? []),
+            'images'           => $images,
             'status'           => $request->status ?? true,
         ]);
 
@@ -62,6 +58,11 @@ class UnitController extends Controller
     {
         $unit = Unit::findOrFail($id);
         $buildings = Building::where('user_id', auth()->id())->select('id', 'name')->get();
+
+        if ($unit->building->user_id !== auth()->id()) {
+            abort(403, 'Unauthorized action.');
+        }
+
         return view('backend.units.edit', compact('unit', 'buildings'));
     }
 
@@ -75,6 +76,10 @@ class UnitController extends Controller
         ]);
 
         $unit = Unit::findOrFail($id);
+
+        if ($unit->building->user_id !== auth()->id()) {
+            abort(403, 'Unauthorized action.');
+        }
 
         $images = $unit->images ?? [];
         if ($request->hasFile('images')) {
@@ -102,7 +107,13 @@ class UnitController extends Controller
 
     function delete($id)
     {
-        Unit::findOrFail($id)->delete();
+        $unit = Unit::findOrFail($id);
+
+        if ($unit->building->user_id !== auth()->id()) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $unit->delete();
         return redirect()->route('admin.units.index')->with('success', 'Unit deleted successfully!');
     }
 }

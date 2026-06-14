@@ -63,6 +63,11 @@ class PropertyController extends Controller
     function edit($id)
     {
         $property = Property::findOrFail($id);
+
+        if ($property->user_id !== auth()->id()) {
+            abort(403, 'Unauthorized action.');
+        }
+
         return view('backend.properties.edit', compact('property'));
     }
 
@@ -78,6 +83,10 @@ class PropertyController extends Controller
         ]);
 
         $property = Property::findOrFail($id);
+
+        if ($property->user_id !== auth()->id()) {
+            abort(403, 'Unauthorized action.');
+        }
 
         $images = $property->images ?? [];
         if ($request->hasFile('images')) {
@@ -104,6 +113,10 @@ class PropertyController extends Controller
     function delete($id)
     {
         $property = Property::findOrFail($id);
+
+        if ($property->user_id !== auth()->id()) {
+            abort(403, 'Unauthorized action.');
+        }
 
         if ($property->images) {
             foreach ($property->images as $image) {

@@ -49,6 +49,11 @@ class CustomerController extends Controller
     function edit($id)
     {
         $customer = Customer::findOrFail($id);
+
+        if ($customer->user_id !== auth()->id()) {
+            abort(403, 'Unauthorized action.');
+        }
+
         return view('backend.customers.edit', compact('customer'));
     }
 
@@ -61,6 +66,10 @@ class CustomerController extends Controller
         ]);
 
         $customer = Customer::findOrFail($id);
+
+        if ($customer->user_id !== auth()->id()) {
+            abort(403, 'Unauthorized action.');
+        }
 
         $photo = $customer->photo;
         if ($request->hasFile('photo')) {
@@ -82,6 +91,11 @@ class CustomerController extends Controller
     function verify($id)
     {
         $customer = Customer::findOrFail($id);
+
+        if ($customer->user_id !== auth()->id()) {
+            abort(403, 'Unauthorized action.');
+        }
+
         $customer->update(['status' => 'verified']);
         return redirect()->route('admin.customers.index')->with('success', 'Customer verified successfully!');
     }
@@ -89,13 +103,24 @@ class CustomerController extends Controller
     function reject($id)
     {
         $customer = Customer::findOrFail($id);
+
+        if ($customer->user_id !== auth()->id()) {
+            abort(403, 'Unauthorized action.');
+        }
+
         $customer->update(['status' => 'rejected']);
         return redirect()->route('admin.customers.index')->with('success', 'Customer rejected!');
     }
 
     function delete($id)
     {
-        Customer::findOrFail($id)->delete();
+        $customer = Customer::findOrFail($id);
+
+        if ($customer->user_id !== auth()->id()) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $customer->delete();
         return redirect()->route('admin.customers.index')->with('success', 'Customer deleted successfully!');
     }
 }
