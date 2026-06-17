@@ -41,73 +41,66 @@
 <div class="container py-5">
     <div class="row g-4">
         <div class="col-lg-3">
-            <div class="filter-panel" data-aos="fade-right">
-                <h6 class="fw-bold mb-4" style="font-size:0.95rem;color:#064e3b;">Refine Search</h6>
-                <div class="mb-4">
-                    <p class="filter-label">Location / Area</p>
-                    <div class="position-relative">
-                        <i class="bi bi-search position-absolute"
-                            style="top:50%;left:12px;transform:translateY(-50%);color:#9ca3af;font-size:0.8rem;"></i>
-                        <input type="text" class="filter-input" id="locSearch" placeholder="Gulshan, Banani..."
-                            style="padding-left:2rem;" oninput="applyFilters()">
+            <form action="{{ route('flats-for-rent') }}" method="GET">
+                <div class="filter-panel" data-aos="fade-right">
+                    <h6 class="fw-bold mb-4" style="font-size:0.95rem;color:#064e3b;">Refine Search</h6>
+                    <div class="mb-4">
+                        <p class="filter-label">Location / Area</p>
+                        <div class="position-relative">
+                            <i class="bi bi-search position-absolute"
+                                style="top:50%;left:12px;transform:translateY(-50%);color:#9ca3af;font-size:0.8rem;"></i>
+                            <input name="location" type="text" class="filter-input" id="locSearch" placeholder="Gulshan, Banani..."
+                                style="padding-left:2rem;" >
+                        </div>
                     </div>
-                </div>
-                <div class="mb-4">
-                    <p class="filter-label">Property Type</p>
-                    <select class="filter-input" id="typeFilter" onchange="applyFilters()">
-                        <option value="">All Types</option>
-                        <option value="apartment">Apartment / Flat</option>
-                        <option value="duplex">Duplex / Penthouse</option>
-                        <option value="furnished">Fully Furnished</option>
-                        <option value="serviced">Serviced Apartment</option>
-                    </select>
-                </div>
-                <div class="mb-4">
-                    <p class="filter-label">Bedrooms</p>
-                    <div class="d-flex gap-2">
-                        <button class="bed-btn" onclick="setBed(this,'1')">1+</button>
-                        <button class="bed-btn" onclick="setBed(this,'2')">2+</button>
-                        <button class="bed-btn active" onclick="setBed(this,'3')">3+</button>
-                        <button class="bed-btn" onclick="setBed(this,'4')">4+</button>
-                        <button class="bed-btn" onclick="setBed(this,'5')">5+</button>
+                    <div class="mb-4">
+                        <p class="filter-label">Property Type</p>
+                        <select class="filter-input" name="unit_type" id="typeFilter">
+                            <option value="">All Types</option>
+                            <option value="2BHK">2 Bed 1 Hall 1 Kitchen</option>
+                            <option value="3BHK">3 Bed 1 Hall 1 Kitchen</option>
+                            <option value="4BHK">4 Bed 1 Hall 1 Kitchen</option>
+                            <option value="5BHK">5 Bed 1 Hall 1 Kitchen</option>
+                            <option value="6BHK">6 Bed 1 Hall 1 Kitchen</option>
+                
+                        </select>
                     </div>
-                </div>
-                <div class="mb-4">
-                    <p class="filter-label">Monthly Rent Range (৳)</p>
-                    <div class="d-flex gap-2">
-                        <input type="number" class="filter-input" id="minPrice" placeholder="Min"
-                            oninput="applyFilters()">
-                        <input type="number" class="filter-input" id="maxPrice" placeholder="Max"
-                            oninput="applyFilters()">
+                  
+                    <div class="mb-4">
+                        <p class="filter-label">Monthly Rent Range (৳)</p>
+                        <div class="d-flex gap-2">
+                            <input name="min_rent" type="number" class="filter-input" id="minPrice" placeholder="Min"
+                                >
+                            <input name="max_rent" type="number" class="filter-input" id="maxPrice" placeholder="Max"
+                                >
+                        </div>
                     </div>
-                </div>
-                <div class="mb-4">
-                    <p class="filter-label">Availability</p>
-                    <select class="filter-input" onchange="applyFilters()">
-                        <option>Available Now</option>
-                        <option>Within 1 Month</option>
-                        <option>Within 3 Months</option>
-                        <option>Any Date</option>
-                    </select>
-                </div>
-                <div class="mb-4">
-                    <p class="filter-label">Preferences</p>
-                    <div class="d-flex flex-column gap-2">
-                        <label class="d-flex align-items-center gap-2 extra-small" style="cursor:pointer;"><input
-                                type="checkbox" class="form-check-input m-0"> Pet Friendly</label>
-                        <label class="d-flex align-items-center gap-2 extra-small" style="cursor:pointer;"><input
-                                type="checkbox" class="form-check-input m-0"> Furnished</label>
-                        <label class="d-flex align-items-center gap-2 extra-small" style="cursor:pointer;"><input
-                                type="checkbox" class="form-check-input m-0"> Gym / Fitness</label>
-                        <label class="d-flex align-items-center gap-2 extra-small" style="cursor:pointer;"><input
-                                type="checkbox" class="form-check-input m-0"> Rooftop Access</label>
-                        <label class="d-flex align-items-center gap-2 extra-small" style="cursor:pointer;"><input
-                                type="checkbox" class="form-check-input m-0"> Parking Included</label>
+                    <div class="mb-4">
+                        <p class="filter-label">Availability</p>
+                        <select class="filter-input" name="status">
+                            <option value="1">Available Now</option>
+                            <option value="0">Not Available</option>
+                        </select>
                     </div>
+                    <div class="mb-4">
+                        <p class="filter-label">Preferences</p>
+                        <div class="d-flex flex-column gap-2">
+                            <label class="d-flex align-items-center gap-2 extra-small" style="cursor:pointer;"><input
+                                    type="checkbox" class="form-check-input m-0"> Pet Friendly</label>
+                            <label class="d-flex align-items-center gap-2 extra-small" style="cursor:pointer;"><input
+                                    type="checkbox" class="form-check-input m-0"> Furnished</label>
+                            <label class="d-flex align-items-center gap-2 extra-small" style="cursor:pointer;"><input
+                                    type="checkbox" class="form-check-input m-0"> Gym / Fitness</label>
+                            <label class="d-flex align-items-center gap-2 extra-small" style="cursor:pointer;"><input
+                                    type="checkbox" class="form-check-input m-0"> Rooftop Access</label>
+                            <label class="d-flex align-items-center gap-2 extra-small" style="cursor:pointer;"><input
+                                    type="checkbox" class="form-check-input m-0"> Parking Included</label>
+                        </div>
+                    </div>
+                    <button class="btn-apply-filter">Apply Filters</button>
+                    <button class="btn-clear-filter">Clear All</button>
                 </div>
-                <button class="btn-apply-filter">Apply Filters</button>
-                <button class="btn-clear-filter" onclick="clearFilters()">Clear All</button>
-            </div>
+            </form>
         </div>
 
         <div class="col-lg-9">
@@ -129,8 +122,6 @@
 
             <div class="row g-4" id="propGrid">
                 @foreach ($units as $unit)
-
-
                 <div class="col-md-6" data-aos="fade-up" data-location="gulshan" data-beds="3" data-price="45000"
                     data-type="apartment">
                     <a href="{{ route('property-detail-rent') }}" class="prop-card">
@@ -142,9 +133,10 @@
                             </div>
                             <div class="prop-avail">Available Now</div>
                             <div class="prop-verified"><i class="bi bi-patch-check-fill"></i> Managed</div>
-                            
+                            @if (isset(json_decode($unit->images)[0]))
                             <img src="{{ asset('storage/' . json_decode($unit->images)[0]) }}"
-                                alt="Gulshan Apartment">
+                            alt="Gulshan Apartment">
+                            @endif
                         </div>
                         <div class="prop-body">
                             <div class="prop-price">৳{{ $unit->amount }} <span class="prop-price-sub">/month</span></div>

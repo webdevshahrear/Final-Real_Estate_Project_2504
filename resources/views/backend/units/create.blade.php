@@ -111,8 +111,13 @@
 
                         <div class="col-md-2">
                             <label for="unit_type" class="form-label">Unit Type</label>
-                            <input type="text" class="form-control @error('unit_type') is-invalid @enderror"
-                                id="unit_type" name="unit_type" value="{{ old('unit_type') }}" placeholder="e.g. 2BHK">
+                            <select name="unit_type" class="filter-input" id="typeFilter">
+                                <option value="2BHK">2 Bed 1 Hall 1 Kitchen</option>
+                                <option value="3BHK">3 Bed 1 Hall 1 Kitchen</option>
+                                <option value="4BHK">4 Bed 1 Hall 1 Kitchen</option>
+                                <option value="5BHK">5 Bed 1 Hall 1 Kitchen</option>
+                                <option value="6BHK">6 Bed 1 Hall 1 Kitchen</option>
+                            </select>
                             @error('unit_type')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -123,7 +128,7 @@
                             <label for="images" class="form-label">Unit Images</label>
                             <input id="images" name="images[]" type="file" accept=".jpg,.jpeg,.webp,.png" multiple
                                 class="form-control">
-                                
+
                             @if($errors->has('images.*'))
                             <div class="invalid-feedback d-block">
                                 {{ $errors->first('images.*') }}

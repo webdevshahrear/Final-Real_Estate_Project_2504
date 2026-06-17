@@ -17,7 +17,13 @@ return new class extends Migration
             $table->string('floor');
             $table->string('unit_num')->nullable();
             $table->string('sq_size')->nullable();
-            $table->string('unit_type')->nullable();
+            $table->enum('unit_type', [
+                '2BHK',
+                '3BHK',
+                '4BHK',
+                '5BHK',
+                '6BHK',
+            ])->default('2BHK');
             $table->float('amount')->default(0);
             $table->float('security_deposit')->default(0);
             $table->mediumText('details');
