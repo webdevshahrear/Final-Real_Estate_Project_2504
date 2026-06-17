@@ -15,6 +15,18 @@
         border-radius: 8px;
         box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
     }
+    .pref-label {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        cursor: pointer;
+        font-size: 0.9rem;
+        padding: 0.4rem 0;
+    }
+    .section-divider {
+        border-top: 2px dashed #e5e7eb;
+        margin: 1rem 0;
+    }
 </style>
 
 <div class="container py-4">
@@ -26,14 +38,20 @@
                     <p class="text-muted small">Update the unit information below.</p>
                 </header>
 
-                <form action="{{ route('admin.units.update', $unit->id) }}" method="POST">
+                <form action="{{ route('admin.units.update', $unit->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div class="row g-4">
 
+                        {{-- ══ BASIC INFO ══ --}}
+                        <div class="col-12">
+                            <p class="fw-semibold text-muted mb-0" style="font-size:0.78rem;text-transform:uppercase;letter-spacing:.08em;">Basic Information</p>
+                            <div class="section-divider"></div>
+                        </div>
+
                         {{-- Building Assignment --}}
                         <div class="col-md-6">
-                            <label for="building_id" class="form-label">Parent Building</label>
+                            <label for="building_id" class="form-label">Parent Building <span class="text-danger">*</span></label>
                             <select class="form-select @error('building_id') is-invalid @enderror" id="building_id" name="building_id">
                                 <option selected disabled>Select Building</option>
                                 @foreach($buildings as $building)
@@ -49,7 +67,7 @@
 
                         {{-- Floor Level --}}
                         <div class="col-md-3">
-                            <label for="floor" class="form-label">Floor Level</label>
+                            <label for="floor" class="form-label">Floor Level <span class="text-danger">*</span></label>
                             <input type="text" class="form-control @error('floor') is-invalid @enderror" id="floor"
                                 name="floor" value="{{ old('floor', $unit->floor) }}" placeholder="e.g. 4th Floor">
                             @error('floor')
@@ -67,11 +85,56 @@
                             @enderror
                         </div>
 
-                        {{-- Financials --}}
+                        {{-- ══ SPECS ══ --}}
+                        <div class="col-12">
+                            <p class="fw-semibold text-muted mb-0" style="font-size:0.78rem;text-transform:uppercase;letter-spacing:.08em;">Unit Specs</p>
+                            <div class="section-divider"></div>
+                        </div>
+
+                        {{-- Bedrooms --}}
+                        <div class="col-md-2">
+                            <label for="bedrooms" class="form-label">Bedrooms <span class="text-danger">*</span></label>
+                            <select class="form-select @error('bedrooms') is-invalid @enderror" id="bedrooms" name="bedrooms">
+                                @foreach([1,2,3,4,5] as $b)
+                                <option value="{{ $b }}" {{ old('bedrooms', $unit->bedrooms) == $b ? 'selected' : '' }}>{{ $b }} BHK</option>
+                                @endforeach
+                            </select>
+                            @error('bedrooms')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        {{-- Size --}}
+                        <div class="col-md-2">
+                            <label for="sq_size" class="form-label">Size (Sq Ft)</label>
+                            <input type="text" class="form-control @error('sq_size') is-invalid @enderror" id="sq_size"
+                                name="sq_size" value="{{ old('sq_size', $unit->sq_size) }}" placeholder="e.g. 1200">
+                            @error('sq_size')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        {{-- Unit Type --}}
+                        <div class="col-md-2">
+                            <label for="unit_type" class="form-label">Unit Type</label>
+                            <input type="text" class="form-control @error('unit_type') is-invalid @enderror"
+                                id="unit_type" name="unit_type" value="{{ old('unit_type', $unit->unit_type) }}" placeholder="e.g. Apartment">
+                            @error('unit_type')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        {{-- ══ FINANCIALS ══ --}}
+                        <div class="col-12">
+                            <p class="fw-semibold text-muted mb-0" style="font-size:0.78rem;text-transform:uppercase;letter-spacing:.08em;">Financial Details</p>
+                            <div class="section-divider"></div>
+                        </div>
+
+                        {{-- Monthly Rent --}}
                         <div class="col-md-4">
-                            <label for="amount" class="form-label">Monthly Rent/Amount</label>
+                            <label for="amount" class="form-label">Monthly Rent <span class="text-danger">*</span></label>
                             <div class="input-group">
-                                <span class="input-group-text">$</span>
+                                <span class="input-group-text">৳</span>
                                 <input type="number" step="0.01"
                                     class="form-control @error('amount') is-invalid @enderror" id="amount" name="amount"
                                     value="{{ old('amount', $unit->amount) }}">
@@ -81,10 +144,11 @@
                             @enderror
                         </div>
 
+                        {{-- Security Deposit --}}
                         <div class="col-md-4">
                             <label for="security_deposit" class="form-label">Security Deposit</label>
                             <div class="input-group">
-                                <span class="input-group-text">$</span>
+                                <span class="input-group-text">৳</span>
                                 <input type="number" step="0.01"
                                     class="form-control @error('security_deposit') is-invalid @enderror"
                                     id="security_deposit" name="security_deposit"
@@ -95,38 +159,14 @@
                             @enderror
                         </div>
 
-                        {{-- Specs --}}
-                        <div class="col-md-2">
-                            <label for="sq_size" class="form-label">Size (Sq Ft)</label>
-                            <input type="text" class="form-control @error('sq_size') is-invalid @enderror" id="sq_size"
-                                name="sq_size" value="{{ old('sq_size', $unit->sq_size) }}">
-                            @error('sq_size')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <div class="col-md-2">
-                            <label for="unit_type" class="form-label">Unit Type</label>
-                            <input type="text" class="form-control @error('unit_type') is-invalid @enderror"
-                                id="unit_type" name="unit_type" value="{{ old('unit_type', $unit->unit_type) }}" placeholder="e.g. 2BHK">
-                            @error('unit_type')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        {{-- Details --}}
+                        {{-- ══ AVAILABILITY ══ --}}
                         <div class="col-12">
-                            <label for="details" class="form-label">Unit Specifications & Details</label>
-                            <textarea class="form-control @error('details') is-invalid @enderror" id="details"
-                                name="details" rows="4"
-                                placeholder="Describe the unit condition, fixtures, etc.">{{ old('details', $unit->details) }}</textarea>
-                            @error('details')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
+                            <p class="fw-semibold text-muted mb-0" style="font-size:0.78rem;text-transform:uppercase;letter-spacing:.08em;">Availability</p>
+                            <div class="section-divider"></div>
                         </div>
 
-                        {{-- Availability Status --}}
-                        <div class="col-md-4">
+                        {{-- Leasing Status --}}
+                        <div class="col-md-3">
                             <label for="status" class="form-label">Leasing Status</label>
                             <select class="form-select @error('status') is-invalid @enderror" id="status" name="status">
                                 <option value="1" {{ old('status', $unit->status) == '1' ? 'selected' : '' }}>Available</option>
@@ -137,10 +177,100 @@
                             @enderror
                         </div>
 
-                        <div class="col-md-8 d-flex align-items-end justify-content-end gap-3">
+                        {{-- Available From Date --}}
+                        <div class="col-md-3">
+                            <label for="available_from" class="form-label">Available From <small class="text-muted">(optional)</small></label>
+                            <input type="date" class="form-control @error('available_from') is-invalid @enderror"
+                                id="available_from" name="available_from"
+                                value="{{ old('available_from', $unit->available_from ? $unit->available_from->format('Y-m-d') : '') }}">
+                            <small class="text-muted">Leave blank = available immediately</small>
+                            @error('available_from')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        {{-- ══ PREFERENCES / AMENITIES ══ --}}
+                        <div class="col-12">
+                            <p class="fw-semibold text-muted mb-0" style="font-size:0.78rem;text-transform:uppercase;letter-spacing:.08em;">Preferences & Amenities</p>
+                            <div class="section-divider"></div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="row g-3">
+                                <div class="col-md-2 col-sm-4 col-6">
+                                    <label class="pref-label">
+                                        <input type="checkbox" class="form-check-input m-0" name="pet_friendly" value="1"
+                                            {{ old('pet_friendly', $unit->pet_friendly) ? 'checked' : '' }}>
+                                        <i class="bi bi-paw-fill text-muted"></i> Pet Friendly
+                                    </label>
+                                </div>
+                                <div class="col-md-2 col-sm-4 col-6">
+                                    <label class="pref-label">
+                                        <input type="checkbox" class="form-check-input m-0" name="is_furnished" value="1"
+                                            {{ old('is_furnished', $unit->is_furnished) ? 'checked' : '' }}>
+                                        <i class="bi bi-couch-fill text-muted"></i> Furnished
+                                    </label>
+                                </div>
+                                <div class="col-md-2 col-sm-4 col-6">
+                                    <label class="pref-label">
+                                        <input type="checkbox" class="form-check-input m-0" name="has_gym" value="1"
+                                            {{ old('has_gym', $unit->has_gym) ? 'checked' : '' }}>
+                                        <i class="bi bi-heart-pulse-fill text-muted"></i> Gym / Fitness
+                                    </label>
+                                </div>
+                                <div class="col-md-2 col-sm-4 col-6">
+                                    <label class="pref-label">
+                                        <input type="checkbox" class="form-check-input m-0" name="has_rooftop" value="1"
+                                            {{ old('has_rooftop', $unit->has_rooftop) ? 'checked' : '' }}>
+                                        <i class="bi bi-building-up text-muted"></i> Rooftop Access
+                                    </label>
+                                </div>
+                                <div class="col-md-2 col-sm-4 col-6">
+                                    <label class="pref-label">
+                                        <input type="checkbox" class="form-check-input m-0" name="has_parking" value="1"
+                                            {{ old('has_parking', $unit->has_parking) ? 'checked' : '' }}>
+                                        <i class="bi bi-p-circle-fill text-muted"></i> Parking Included
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        {{-- ══ MEDIA ══ --}}
+                        <div class="col-12">
+                            <p class="fw-semibold text-muted mb-0" style="font-size:0.78rem;text-transform:uppercase;letter-spacing:.08em;">Update Images</p>
+                            <div class="section-divider"></div>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="images" class="form-label">Add More Images <small class="text-muted">(existing images are kept)</small></label>
+                            <input id="images" name="images[]" type="file" accept=".jpg,.jpeg,.webp,.png" multiple
+                                class="form-control">
+                            @if($unit->images && count($unit->images) > 0)
+                            <div class="d-flex flex-wrap gap-2 mt-2">
+                                @foreach($unit->images as $img)
+                                <img src="{{ asset('storage/' . $img) }}" class="rounded" style="height:70px;width:100px;object-fit:cover;">
+                                @endforeach
+                            </div>
+                            @endif
+                        </div>
+
+                        {{-- Details --}}
+                        <div class="col-12">
+                            <label for="details" class="form-label">Unit Specifications & Details <span class="text-danger">*</span></label>
+                            <textarea class="form-control @error('details') is-invalid @enderror" id="details"
+                                name="details" rows="4"
+                                placeholder="Describe the unit condition, fixtures, etc.">{{ old('details', $unit->details) }}</textarea>
+                            @error('details')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        {{-- Submit --}}
+                        <div class="col-12 d-flex align-items-end justify-content-end gap-3 mt-2">
                             <a href="{{ route('admin.units.index') }}" class="btn btn-link text-decoration-none text-muted">Cancel</a>
                             <button type="submit" class="btn btn-primary px-4">Update Unit</button>
                         </div>
+
                     </div>
                 </form>
             </div>

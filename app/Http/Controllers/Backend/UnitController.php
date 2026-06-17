@@ -28,6 +28,7 @@ class UnitController extends Controller
             'floor'       => 'required',
             'amount'      => 'required',
             'details'     => 'required',
+            'bedrooms'    => 'required|integer|min:1',
         ]);
 
         $images = [];
@@ -44,11 +45,18 @@ class UnitController extends Controller
             'unit_num'         => $request->unit_num,
             'sq_size'          => $request->sq_size,
             'unit_type'        => $request->unit_type,
+            'bedrooms'         => $request->bedrooms,
             'amount'           => $request->amount,
             'security_deposit' => $request->security_deposit,
             'details'          => $request->details,
             'images'           => json_encode($images),
             'status'           => $request->status ?? true,
+            'available_from'   => $request->available_from ?: null,
+            'pet_friendly'     => $request->boolean('pet_friendly'),
+            'is_furnished'     => $request->boolean('is_furnished'),
+            'has_gym'          => $request->boolean('has_gym'),
+            'has_rooftop'      => $request->boolean('has_rooftop'),
+            'has_parking'      => $request->boolean('has_parking'),
         ]);
 
         return redirect()->route('admin.units.index')->with('success', 'Unit created successfully!');
@@ -73,6 +81,7 @@ class UnitController extends Controller
             'floor'       => 'required',
             'amount'      => 'required',
             'details'     => 'required',
+            'bedrooms'    => 'required|integer|min:1',
         ]);
 
         $unit = Unit::findOrFail($id);
@@ -95,11 +104,18 @@ class UnitController extends Controller
             'unit_num'         => $request->unit_num,
             'sq_size'          => $request->sq_size,
             'unit_type'        => $request->unit_type,
+            'bedrooms'         => $request->bedrooms,
             'amount'           => $request->amount,
             'security_deposit' => $request->security_deposit,
             'details'          => $request->details,
             'images'           => $images,
             'status'           => $request->status ?? $unit->status,
+            'available_from'   => $request->available_from ?: null,
+            'pet_friendly'     => $request->boolean('pet_friendly'),
+            'is_furnished'     => $request->boolean('is_furnished'),
+            'has_gym'          => $request->boolean('has_gym'),
+            'has_rooftop'      => $request->boolean('has_rooftop'),
+            'has_parking'      => $request->boolean('has_parking'),
         ]);
 
         return redirect()->route('admin.units.index')->with('success', 'Unit updated successfully!');
