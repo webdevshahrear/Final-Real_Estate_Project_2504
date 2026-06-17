@@ -100,23 +100,23 @@
                         <div class="d-flex flex-column gap-2">
                             <label class="d-flex align-items-center gap-2 extra-small" style="cursor:pointer;">
                                 <input type="checkbox" class="form-check-input m-0" name="pet_friendly" value="1"
-                                    {{ request('pet_friendly') ? 'checked' : '' }}> 🐾 Pet Friendly
+                                    {{ request('pet_friendly') ? 'checked' : '' }}> <i class="bi bi-paw-fill text-muted"></i> Pet Friendly
                             </label>
                             <label class="d-flex align-items-center gap-2 extra-small" style="cursor:pointer;">
                                 <input type="checkbox" class="form-check-input m-0" name="is_furnished" value="1"
-                                    {{ request('is_furnished') ? 'checked' : '' }}> 🛋️ Furnished
+                                    {{ request('is_furnished') ? 'checked' : '' }}> <i class="bi bi-couch-fill text-muted"></i> Furnished
                             </label>
                             <label class="d-flex align-items-center gap-2 extra-small" style="cursor:pointer;">
                                 <input type="checkbox" class="form-check-input m-0" name="has_gym" value="1"
-                                    {{ request('has_gym') ? 'checked' : '' }}> 🏋️ Gym / Fitness
+                                    {{ request('has_gym') ? 'checked' : '' }}> <i class="bi bi-heart-pulse-fill text-muted"></i> Gym / Fitness
                             </label>
                             <label class="d-flex align-items-center gap-2 extra-small" style="cursor:pointer;">
                                 <input type="checkbox" class="form-check-input m-0" name="has_rooftop" value="1"
-                                    {{ request('has_rooftop') ? 'checked' : '' }}> 🌆 Rooftop Access
+                                    {{ request('has_rooftop') ? 'checked' : '' }}> <i class="bi bi-building-up text-muted"></i> Rooftop Access
                             </label>
                             <label class="d-flex align-items-center gap-2 extra-small" style="cursor:pointer;">
                                 <input type="checkbox" class="form-check-input m-0" name="has_parking" value="1"
-                                    {{ request('has_parking') ? 'checked' : '' }}> 🚗 Parking Included
+                                    {{ request('has_parking') ? 'checked' : '' }}> <i class="bi bi-p-circle-fill text-muted"></i> Parking Included
                             </label>
                         </div>
                     </div>
@@ -184,19 +184,19 @@
                             @if($unit->pet_friendly || $unit->is_furnished || $unit->has_gym || $unit->has_rooftop || $unit->has_parking)
                             <div class="d-flex flex-wrap gap-1 mt-2">
                                 @if($unit->pet_friendly)
-                                    <span class="badge rounded-pill" style="background:#ecfdf5;color:#065f46;font-size:0.7rem;font-weight:500;">🐾 Pet OK</span>
+                                    <span class="badge rounded-pill" style="background:#ecfdf5;color:#065f46;font-size:0.7rem;font-weight:500;"><i class="bi bi-paw-fill me-1"></i>Pet OK</span>
                                 @endif
                                 @if($unit->is_furnished)
-                                    <span class="badge rounded-pill" style="background:#eff6ff;color:#1e40af;font-size:0.7rem;font-weight:500;">🛋️ Furnished</span>
+                                    <span class="badge rounded-pill" style="background:#eff6ff;color:#1e40af;font-size:0.7rem;font-weight:500;"><i class="bi bi-couch-fill me-1"></i>Furnished</span>
                                 @endif
                                 @if($unit->has_gym)
-                                    <span class="badge rounded-pill" style="background:#fdf4ff;color:#7e22ce;font-size:0.7rem;font-weight:500;">🏋️ Gym</span>
+                                    <span class="badge rounded-pill" style="background:#fdf4ff;color:#7e22ce;font-size:0.7rem;font-weight:500;"><i class="bi bi-heart-pulse-fill me-1"></i>Gym</span>
                                 @endif
                                 @if($unit->has_rooftop)
-                                    <span class="badge rounded-pill" style="background:#fff7ed;color:#c2410c;font-size:0.7rem;font-weight:500;">🌆 Rooftop</span>
+                                    <span class="badge rounded-pill" style="background:#fff7ed;color:#c2410c;font-size:0.7rem;font-weight:500;"><i class="bi bi-building-up me-1"></i>Rooftop</span>
                                 @endif
                                 @if($unit->has_parking)
-                                    <span class="badge rounded-pill" style="background:#f0fdf4;color:#166534;font-size:0.7rem;font-weight:500;">🚗 Parking</span>
+                                    <span class="badge rounded-pill" style="background:#f0fdf4;color:#166534;font-size:0.7rem;font-weight:500;"><i class="bi bi-p-circle-fill me-1"></i>Parking</span>
                                 @endif
                             </div>
                             @endif

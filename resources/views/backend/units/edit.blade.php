@@ -201,35 +201,35 @@
                                     <label class="pref-label">
                                         <input type="checkbox" class="form-check-input m-0" name="pet_friendly" value="1"
                                             {{ old('pet_friendly', $unit->pet_friendly) ? 'checked' : '' }}>
-                                        🐾 Pet Friendly
+                                        <i class="bi bi-paw-fill text-muted"></i> Pet Friendly
                                     </label>
                                 </div>
                                 <div class="col-md-2 col-sm-4 col-6">
                                     <label class="pref-label">
                                         <input type="checkbox" class="form-check-input m-0" name="is_furnished" value="1"
                                             {{ old('is_furnished', $unit->is_furnished) ? 'checked' : '' }}>
-                                        🛋️ Furnished
+                                        <i class="bi bi-couch-fill text-muted"></i> Furnished
                                     </label>
                                 </div>
                                 <div class="col-md-2 col-sm-4 col-6">
                                     <label class="pref-label">
                                         <input type="checkbox" class="form-check-input m-0" name="has_gym" value="1"
                                             {{ old('has_gym', $unit->has_gym) ? 'checked' : '' }}>
-                                        🏋️ Gym / Fitness
+                                        <i class="bi bi-heart-pulse-fill text-muted"></i> Gym / Fitness
                                     </label>
                                 </div>
                                 <div class="col-md-2 col-sm-4 col-6">
                                     <label class="pref-label">
                                         <input type="checkbox" class="form-check-input m-0" name="has_rooftop" value="1"
                                             {{ old('has_rooftop', $unit->has_rooftop) ? 'checked' : '' }}>
-                                        🌆 Rooftop Access
+                                        <i class="bi bi-building-up text-muted"></i> Rooftop Access
                                     </label>
                                 </div>
                                 <div class="col-md-2 col-sm-4 col-6">
                                     <label class="pref-label">
                                         <input type="checkbox" class="form-check-input m-0" name="has_parking" value="1"
                                             {{ old('has_parking', $unit->has_parking) ? 'checked' : '' }}>
-                                        🚗 Parking Included
+                                        <i class="bi bi-p-circle-fill text-muted"></i> Parking Included
                                     </label>
                                 </div>
                             </div>
