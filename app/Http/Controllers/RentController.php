@@ -10,14 +10,15 @@ class RentController extends Controller
 {
     function showFlatsForRent(Request $request)
     {
+        
         $query = Unit::with('building')->where('status', 1);
 
         // Filter: Location / Area (searches building name or address)
         if ($request->filled('location')) {
             $loc = $request->location;
             $query->whereHas('building', function ($q) use ($loc) {
-                $q->where('name', 'like', "%$loc%")
-                  ->orWhere('address', 'like', "%$loc%");
+                $q->whereLike('name', "%$loc%")
+                  ->orWhereLike('address',  "%$loc%");
             });
         }
 
@@ -81,5 +82,11 @@ class RentController extends Controller
         $units = $query->latest()->get();
 
         return view('frontend.flats-for-rent', compact('units'));
+    }
+
+
+    function singleRentUnit($id){
+        $unit = Unit::with('building')->find($id);
+        return view('frontend.property-detail-rent', compact('unit'));
     }
 }

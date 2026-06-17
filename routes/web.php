@@ -14,6 +14,7 @@ Route::view('/services', 'frontend.services')->name('services');
 Route::view('/flats-for-sale', 'frontend.flats-for-sale')->name('flats-for-sale');
 
 Route::get('/flats-for-rent', [RentController::class,'showFlatsForRent'])->name('flats-for-rent');
+Route::get('/flats-for-rent/{id}', [RentController::class, 'singleRentUnit'])->name('flats-for-rent.single');
 // Units Searching
 
 

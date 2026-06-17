@@ -145,7 +145,7 @@
             <div class="row g-4" id="propGrid">
                 @forelse ($units as $unit)
                 <div class="col-md-6" data-aos="fade-up">
-                    <a href="{{ route('property-detail-rent') }}" class="prop-card">
+                    <a href="{{ route('flats-for-rent.single', $unit->id) }}" class="prop-card">
                         <div class="prop-img-wrap">
                             <span class="prop-badge badge-rent">For Rent</span>
                             <div class="prop-wish"
@@ -162,8 +162,8 @@
 
                             <div class="prop-verified"><i class="bi bi-patch-check-fill"></i> Managed</div>
 
-                            @if($unit->images && count($unit->images) > 0)
-                                <img src="{{ asset('storage/' . $unit->images[0]) }}" alt="{{ $unit->building->name }}">
+                            @if($unit->images && count(json_decode($unit->images)) > 0)
+                                <img src="{{ asset('storage/' . json_decode($unit->images)[0]) }}" alt="{{ $unit->building->name }}">
                             @else
                                 <img src="{{ asset('images/placeholder.jpg') }}" alt="{{ $unit->building->name }}">
                             @endif

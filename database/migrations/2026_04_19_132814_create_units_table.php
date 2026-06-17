@@ -29,6 +29,7 @@ return new class extends Migration
             $table->mediumText('details');
             $table->json('images')->nullable();
             $table->boolean('status')->default(true);
+            $table->date('available_from')->default(today());
             $table->timestamps();
         });
     }

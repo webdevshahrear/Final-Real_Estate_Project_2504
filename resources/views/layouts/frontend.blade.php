@@ -9,7 +9,7 @@
         content="Find verified luxury rental apartments in Gulshan, Banani, Dhanmondi and Uttara. Managed by The Imperial's professional team.">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
