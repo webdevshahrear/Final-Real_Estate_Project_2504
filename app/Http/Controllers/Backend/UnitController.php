@@ -49,7 +49,7 @@ class UnitController extends Controller
             'amount'           => $request->amount,
             'security_deposit' => $request->security_deposit,
             'details'          => $request->details,
-            'images'           => $images,
+            'images'           => json_encode($images),
             'status'           => $request->status ?? true,
             'available_from'   => $request->available_from ?: null,
             'pet_friendly'     => $request->boolean('pet_friendly'),
