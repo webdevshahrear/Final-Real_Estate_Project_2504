@@ -29,6 +29,7 @@ class UnitController extends Controller
             'amount'      => 'required',
             'details'     => 'required',
             'bedrooms'    => 'required|integer|min:1',
+            'bathrooms'   => 'required|integer|min:1',
         ]);
 
         $images = [];
@@ -46,17 +47,22 @@ class UnitController extends Controller
             'sq_size'          => $request->sq_size,
             'unit_type'        => $request->unit_type,
             'bedrooms'         => $request->bedrooms,
+            'bathrooms'        => $request->bathrooms,
             'amount'           => $request->amount,
             'security_deposit' => $request->security_deposit,
             'details'          => $request->details,
-            'images'           => json_encode($images),
+            'images'           => $images,
             'status'           => $request->status ?? true,
             'available_from'   => $request->available_from ?: null,
             'pet_friendly'     => $request->boolean('pet_friendly'),
             'is_furnished'     => $request->boolean('is_furnished'),
             'has_gym'          => $request->boolean('has_gym'),
             'has_rooftop'      => $request->boolean('has_rooftop'),
-            'has_parking'      => $request->boolean('has_parking'),
+            'has_parking'          => $request->boolean('has_parking'),
+            'has_security'         => $request->boolean('has_security'),
+            'has_generator'        => $request->boolean('has_generator'),
+            'has_ac'               => $request->boolean('has_ac'),
+            'has_free_maintenance' => $request->boolean('has_free_maintenance'),
         ]);
 
         return redirect()->route('admin.units.index')->with('success', 'Unit created successfully!');
@@ -82,6 +88,7 @@ class UnitController extends Controller
             'amount'      => 'required',
             'details'     => 'required',
             'bedrooms'    => 'required|integer|min:1',
+            'bathrooms'   => 'required|integer|min:1',
         ]);
 
         $unit = Unit::findOrFail($id);
@@ -105,6 +112,7 @@ class UnitController extends Controller
             'sq_size'          => $request->sq_size,
             'unit_type'        => $request->unit_type,
             'bedrooms'         => $request->bedrooms,
+            'bathrooms'        => $request->bathrooms,
             'amount'           => $request->amount,
             'security_deposit' => $request->security_deposit,
             'details'          => $request->details,
@@ -115,7 +123,11 @@ class UnitController extends Controller
             'is_furnished'     => $request->boolean('is_furnished'),
             'has_gym'          => $request->boolean('has_gym'),
             'has_rooftop'      => $request->boolean('has_rooftop'),
-            'has_parking'      => $request->boolean('has_parking'),
+            'has_parking'          => $request->boolean('has_parking'),
+            'has_security'         => $request->boolean('has_security'),
+            'has_generator'        => $request->boolean('has_generator'),
+            'has_ac'               => $request->boolean('has_ac'),
+            'has_free_maintenance' => $request->boolean('has_free_maintenance'),
         ]);
 
         return redirect()->route('admin.units.index')->with('success', 'Unit updated successfully!');
