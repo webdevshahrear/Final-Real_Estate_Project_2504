@@ -59,6 +59,19 @@
                         </div>
                     </div>
 
+                    {{-- Property Type --}}
+                    <div class="mb-4">
+                        <p class="filter-label">Property Type</p>
+                        <select class="filter-input" name="unit_type" id="typeFilter">
+                            <option value="">All Types</option>
+                            <option value="2BHK" {{ request('unit_type') == '2BHK' ? 'selected' : '' }}>2 Bed 1 Hall 1 Kitchen (2BHK)</option>
+                            <option value="3BHK" {{ request('unit_type') == '3BHK' ? 'selected' : '' }}>3 Bed 1 Hall 1 Kitchen (3BHK)</option>
+                            <option value="4BHK" {{ request('unit_type') == '4BHK' ? 'selected' : '' }}>4 Bed 1 Hall 1 Kitchen (4BHK)</option>
+                            <option value="5BHK" {{ request('unit_type') == '5BHK' ? 'selected' : '' }}>5 Bed 1 Hall 1 Kitchen (5BHK)</option>
+                            <option value="6BHK" {{ request('unit_type') == '6BHK' ? 'selected' : '' }}>6 Bed 1 Hall 1 Kitchen (6BHK)</option>
+                        </select>
+                    </div>
+
                     {{-- Bedrooms --}}
                     <div class="mb-4">
                         <p class="filter-label">Bedrooms</p>
@@ -100,11 +113,11 @@
                         <div class="d-flex flex-column gap-2">
                             <label class="d-flex align-items-center gap-2 extra-small" style="cursor:pointer;">
                                 <input type="checkbox" class="form-check-input m-0" name="pet_friendly" value="1"
-                                    {{ request('pet_friendly') ? 'checked' : '' }}> <i class="bi bi-paw-fill text-muted"></i> Pet Friendly
+                                    {{ request('pet_friendly') ? 'checked' : '' }}> <i class="bi bi-heart-fill text-muted"></i> Pet Friendly
                             </label>
                             <label class="d-flex align-items-center gap-2 extra-small" style="cursor:pointer;">
                                 <input type="checkbox" class="form-check-input m-0" name="is_furnished" value="1"
-                                    {{ request('is_furnished') ? 'checked' : '' }}> <i class="bi bi-couch-fill text-muted"></i> Furnished
+                                    {{ request('is_furnished') ? 'checked' : '' }}> <i class="bi bi-lamp-fill text-muted"></i> Furnished
                             </label>
                             <label class="d-flex align-items-center gap-2 extra-small" style="cursor:pointer;">
                                 <input type="checkbox" class="form-check-input m-0" name="has_gym" value="1"
@@ -117,6 +130,22 @@
                             <label class="d-flex align-items-center gap-2 extra-small" style="cursor:pointer;">
                                 <input type="checkbox" class="form-check-input m-0" name="has_parking" value="1"
                                     {{ request('has_parking') ? 'checked' : '' }}> <i class="bi bi-p-circle-fill text-muted"></i> Parking Included
+                            </label>
+                            <label class="d-flex align-items-center gap-2 extra-small" style="cursor:pointer;">
+                                <input type="checkbox" class="form-check-input m-0" name="has_security" value="1"
+                                    {{ request('has_security') ? 'checked' : '' }}> <i class="bi bi-shield-check text-muted"></i> 24/7 Security
+                            </label>
+                            <label class="d-flex align-items-center gap-2 extra-small" style="cursor:pointer;">
+                                <input type="checkbox" class="form-check-input m-0" name="has_generator" value="1"
+                                    {{ request('has_generator') ? 'checked' : '' }}> <i class="bi bi-lightning-charge-fill text-muted"></i> Generator Backup
+                            </label>
+                            <label class="d-flex align-items-center gap-2 extra-small" style="cursor:pointer;">
+                                <input type="checkbox" class="form-check-input m-0" name="has_ac" value="1"
+                                    {{ request('has_ac') ? 'checked' : '' }}> <i class="bi bi-snow text-muted"></i> Central AC
+                            </label>
+                            <label class="d-flex align-items-center gap-2 extra-small" style="cursor:pointer;">
+                                <input type="checkbox" class="form-check-input m-0" name="has_free_maintenance" value="1"
+                                    {{ request('has_free_maintenance') ? 'checked' : '' }}> <i class="bi bi-tools text-muted"></i> Free Maintenance
                             </label>
                         </div>
                     </div>
@@ -162,8 +191,11 @@
 
                             <div class="prop-verified"><i class="bi bi-patch-check-fill"></i> Managed</div>
 
-                            @if($unit->images && count(json_decode($unit->images)) > 0)
-                                <img src="{{ asset('storage/' . json_decode($unit->images)[0]) }}" alt="{{ $unit->building->name }}">
+                            @php
+                                $unitImages = is_array($unit->images) ? $unit->images : json_decode($unit->images, true);
+                            @endphp
+                            @if(is_array($unitImages) && count($unitImages) > 0)
+                                <img src="{{ asset('storage/' . $unitImages[0]) }}" alt="{{ $unit->building->name }}">
                             @else
                                 <img src="{{ asset('images/placeholder.jpg') }}" alt="{{ $unit->building->name }}">
                             @endif
@@ -181,13 +213,13 @@
                             </div>
 
                             {{-- Preference badges --}}
-                            @if($unit->pet_friendly || $unit->is_furnished || $unit->has_gym || $unit->has_rooftop || $unit->has_parking)
+                            @if($unit->pet_friendly || $unit->is_furnished || $unit->has_gym || $unit->has_rooftop || $unit->has_parking || $unit->has_security || $unit->has_generator || $unit->has_ac || $unit->has_free_maintenance)
                             <div class="d-flex flex-wrap gap-1 mt-2">
                                 @if($unit->pet_friendly)
-                                    <span class="badge rounded-pill" style="background:#ecfdf5;color:#065f46;font-size:0.7rem;font-weight:500;"><i class="bi bi-paw-fill me-1"></i>Pet OK</span>
+                                    <span class="badge rounded-pill" style="background:#ecfdf5;color:#065f46;font-size:0.7rem;font-weight:500;"><i class="bi bi-heart-fill me-1"></i>Pet OK</span>
                                 @endif
                                 @if($unit->is_furnished)
-                                    <span class="badge rounded-pill" style="background:#eff6ff;color:#1e40af;font-size:0.7rem;font-weight:500;"><i class="bi bi-couch-fill me-1"></i>Furnished</span>
+                                    <span class="badge rounded-pill" style="background:#eff6ff;color:#1e40af;font-size:0.7rem;font-weight:500;"><i class="bi bi-lamp-fill me-1"></i>Furnished</span>
                                 @endif
                                 @if($unit->has_gym)
                                     <span class="badge rounded-pill" style="background:#fdf4ff;color:#7e22ce;font-size:0.7rem;font-weight:500;"><i class="bi bi-heart-pulse-fill me-1"></i>Gym</span>
@@ -197,6 +229,18 @@
                                 @endif
                                 @if($unit->has_parking)
                                     <span class="badge rounded-pill" style="background:#f0fdf4;color:#166534;font-size:0.7rem;font-weight:500;"><i class="bi bi-p-circle-fill me-1"></i>Parking</span>
+                                @endif
+                                @if($unit->has_security)
+                                    <span class="badge rounded-pill" style="background:#f0f9ff;color:#0369a1;font-size:0.7rem;font-weight:500;"><i class="bi bi-shield-check me-1"></i>Security</span>
+                                @endif
+                                @if($unit->has_generator)
+                                    <span class="badge rounded-pill" style="background:#fffbeb;color:#b45309;font-size:0.7rem;font-weight:500;"><i class="bi bi-lightning-charge-fill me-1"></i>Generator</span>
+                                @endif
+                                @if($unit->has_ac)
+                                    <span class="badge rounded-pill" style="background:#f0f9ff;color:#0e7490;font-size:0.7rem;font-weight:500;"><i class="bi bi-snow me-1"></i>AC</span>
+                                @endif
+                                @if($unit->has_free_maintenance)
+                                    <span class="badge rounded-pill" style="background:#f7fee7;color:#3f6212;font-size:0.7rem;font-weight:500;"><i class="bi bi-tools me-1"></i>Free Maint.</span>
                                 @endif
                             </div>
                             @endif

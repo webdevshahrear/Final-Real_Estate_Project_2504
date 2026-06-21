@@ -104,6 +104,19 @@
                             @enderror
                         </div>
 
+                        {{-- Bathrooms --}}
+                        <div class="col-md-2">
+                            <label for="bathrooms" class="form-label">Bathrooms <span class="text-danger">*</span></label>
+                            <select class="form-select @error('bathrooms') is-invalid @enderror" id="bathrooms" name="bathrooms">
+                                @foreach([1,2,3,4,5] as $b)
+                                <option value="{{ $b }}" {{ old('bathrooms', $unit->bathrooms) == $b ? 'selected' : '' }}>{{ $b }} Bath</option>
+                                @endforeach
+                            </select>
+                            @error('bathrooms')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
                         {{-- Size --}}
                         <div class="col-md-2">
                             <label for="sq_size" class="form-label">Size (Sq Ft)</label>
@@ -201,14 +214,14 @@
                                     <label class="pref-label">
                                         <input type="checkbox" class="form-check-input m-0" name="pet_friendly" value="1"
                                             {{ old('pet_friendly', $unit->pet_friendly) ? 'checked' : '' }}>
-                                        <i class="bi bi-paw-fill text-muted"></i> Pet Friendly
+                                        <i class="bi bi-heart-fill text-muted"></i> Pet Friendly
                                     </label>
                                 </div>
                                 <div class="col-md-2 col-sm-4 col-6">
                                     <label class="pref-label">
                                         <input type="checkbox" class="form-check-input m-0" name="is_furnished" value="1"
                                             {{ old('is_furnished', $unit->is_furnished) ? 'checked' : '' }}>
-                                        <i class="bi bi-couch-fill text-muted"></i> Furnished
+                                        <i class="bi bi-lamp-fill text-muted"></i> Furnished
                                     </label>
                                 </div>
                                 <div class="col-md-2 col-sm-4 col-6">
@@ -232,6 +245,34 @@
                                         <i class="bi bi-p-circle-fill text-muted"></i> Parking Included
                                     </label>
                                 </div>
+                                <div class="col-md-2 col-sm-4 col-6">
+                                    <label class="pref-label">
+                                        <input type="checkbox" class="form-check-input m-0" name="has_security" value="1"
+                                            {{ old('has_security', $unit->has_security) ? 'checked' : '' }}>
+                                        <i class="bi bi-shield-check text-muted"></i> 24/7 Security
+                                    </label>
+                                </div>
+                                <div class="col-md-2 col-sm-4 col-6">
+                                    <label class="pref-label">
+                                        <input type="checkbox" class="form-check-input m-0" name="has_generator" value="1"
+                                            {{ old('has_generator', $unit->has_generator) ? 'checked' : '' }}>
+                                        <i class="bi bi-lightning-charge-fill text-muted"></i> Generator Backup
+                                    </label>
+                                </div>
+                                <div class="col-md-2 col-sm-4 col-6">
+                                    <label class="pref-label">
+                                        <input type="checkbox" class="form-check-input m-0" name="has_ac" value="1"
+                                            {{ old('has_ac', $unit->has_ac) ? 'checked' : '' }}>
+                                        <i class="bi bi-snow text-muted"></i> Central AC
+                                    </label>
+                                </div>
+                                <div class="col-md-2 col-sm-4 col-6">
+                                    <label class="pref-label">
+                                        <input type="checkbox" class="form-check-input m-0" name="has_free_maintenance" value="1"
+                                            {{ old('has_free_maintenance', $unit->has_free_maintenance) ? 'checked' : '' }}>
+                                        <i class="bi bi-tools text-muted"></i> Free Maintenance
+                                    </label>
+                                </div>
                             </div>
                         </div>
 
@@ -245,9 +286,12 @@
                             <label for="images" class="form-label">Add More Images <small class="text-muted">(existing images are kept)</small></label>
                             <input id="images" name="images[]" type="file" accept=".jpg,.jpeg,.webp,.png" multiple
                                 class="form-control">
-                            @if($unit->images && count($unit->images) > 0)
+                            @php
+                                $unitImages = is_array($unit->images) ? $unit->images : json_decode($unit->images, true);
+                            @endphp
+                            @if(is_array($unitImages) && count($unitImages) > 0)
                             <div class="d-flex flex-wrap gap-2 mt-2">
-                                @foreach($unit->images as $img)
+                                @foreach($unitImages as $img)
                                 <img src="{{ asset('storage/' . $img) }}" class="rounded" style="height:70px;width:100px;object-fit:cover;">
                                 @endforeach
                             </div>

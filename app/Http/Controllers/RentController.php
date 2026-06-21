@@ -22,6 +22,11 @@ class RentController extends Controller
             });
         }
 
+        // Filter: Property Type
+        if ($request->filled('unit_type')) {
+            $query->where('unit_type', $request->unit_type);
+        }
+
         // Filter: Bedrooms (min)
         if ($request->filled('bedrooms')) {
             $query->where('bedrooms', '>=', (int) $request->bedrooms);
@@ -78,6 +83,18 @@ class RentController extends Controller
         if ($request->boolean('has_parking')) {
             $query->where('has_parking', true);
         }
+        if ($request->boolean('has_security')) {
+            $query->where('has_security', true);
+        }
+        if ($request->boolean('has_generator')) {
+            $query->where('has_generator', true);
+        }
+        if ($request->boolean('has_ac')) {
+            $query->where('has_ac', true);
+        }
+        if ($request->boolean('has_free_maintenance')) {
+            $query->where('has_free_maintenance', true);
+        }
 
         $units = $query->latest()->get();
 
@@ -86,7 +103,7 @@ class RentController extends Controller
 
 
     function singleRentUnit($id){
-        $unit = Unit::with('building')->find($id);
+        $unit = Unit::with('building')->findOrFail($id);
         return view('frontend.property-detail-rent', compact('unit'));
     }
 }

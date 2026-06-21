@@ -31,6 +31,13 @@
         border-top: 2px dashed #e5e7eb;
         margin: 1rem 0;
     }
+
+    .section-heading {
+        font-size: 0.78rem;
+        text-transform: uppercase;
+        letter-spacing: .08em;
+        font-weight: 600;
+    }
 </style>
 
 <div class="container py-4">
@@ -48,28 +55,23 @@
 
                         {{-- ══ BASIC INFO ══ --}}
                         <div class="col-12">
-                            <p class="fw-semibold text-muted mb-0"
-                                style="font-size:0.78rem;text-transform:uppercase;letter-spacing:.08em;">Basic
-                                Information</p>
+                            <p class="fw-semibold text-muted mb-0 section-heading">Basic Information</p>
                             <div class="section-divider"></div>
                         </div>
 
-                        {{-- Building Assignment --}}
+                        {{-- Parent Building --}}
                         <div class="col-md-6">
-                            <label for="building_id" class="form-label">Parent Building <span
-                                    class="text-danger">*</span></label>
-                            <select class="form-select @error('building_id') is-invalid @enderror" id="building_id"
-                                name="building_id">
+                            <label for="building_id" class="form-label">Parent Building <span class="text-danger">*</span></label>
+                            <select class="form-select @error('building_id') is-invalid @enderror" id="building_id" name="building_id">
                                 <option selected disabled>Select Building</option>
                                 @foreach($buildings as $building)
-                                <option value="{{ $building->id }}" {{ old('building_id')==$building->id ? 'selected' :
-                                    '' }}>
-                                    {{ $building->name }}
-                                </option>
+                                    <option value="{{ $building->id }}" {{ old('building_id') == $building->id ? 'selected' : '' }}>
+                                        {{ $building->name }}
+                                    </option>
                                 @endforeach
                             </select>
                             @error('building_id')
-                            <div class="invalid-feedback">{{ $message }}</div>
+                                <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
 
@@ -79,7 +81,7 @@
                             <input type="text" class="form-control @error('floor') is-invalid @enderror" id="floor"
                                 name="floor" value="{{ old('floor') }}" placeholder="e.g. 4th Floor">
                             @error('floor')
-                            <div class="invalid-feedback">{{ $message }}</div>
+                                <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
 
@@ -89,29 +91,39 @@
                             <input type="text" class="form-control @error('unit_num') is-invalid @enderror"
                                 id="unit_num" name="unit_num" value="{{ old('unit_num') }}" placeholder="e.g. A-402">
                             @error('unit_num')
-                            <div class="invalid-feedback">{{ $message }}</div>
+                                <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
 
-                        {{-- ══ SPECS ══ --}}
+                        {{-- ══ UNIT SPECS ══ --}}
                         <div class="col-12">
-                            <p class="fw-semibold text-muted mb-0"
-                                style="font-size:0.78rem;text-transform:uppercase;letter-spacing:.08em;">Unit Specs</p>
+                            <p class="fw-semibold text-muted mb-0 section-heading">Unit Specs</p>
                             <div class="section-divider"></div>
                         </div>
 
                         {{-- Bedrooms --}}
                         <div class="col-md-2">
                             <label for="bedrooms" class="form-label">Bedrooms <span class="text-danger">*</span></label>
-                            <select class="form-select @error('bedrooms') is-invalid @enderror" id="bedrooms"
-                                name="bedrooms">
+                            <select class="form-select @error('bedrooms') is-invalid @enderror" id="bedrooms" name="bedrooms">
                                 @foreach([1,2,3,4,5] as $b)
-                                <option value="{{ $b }}" {{ old('bedrooms', 1)==$b ? 'selected' : '' }}>{{ $b }} BHK
-                                </option>
+                                    <option value="{{ $b }}" {{ old('bedrooms', 1) == $b ? 'selected' : '' }}>{{ $b }} BHK</option>
                                 @endforeach
                             </select>
                             @error('bedrooms')
-                            <div class="invalid-feedback">{{ $message }}</div>
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        {{-- Bathrooms --}}
+                        <div class="col-md-2">
+                            <label for="bathrooms" class="form-label">Bathrooms <span class="text-danger">*</span></label>
+                            <select class="form-select @error('bathrooms') is-invalid @enderror" id="bathrooms" name="bathrooms">
+                                @foreach([1,2,3,4,5] as $b)
+                                    <option value="{{ $b }}" {{ old('bathrooms', 1) == $b ? 'selected' : '' }}>{{ $b }} Bath</option>
+                                @endforeach
+                            </select>
+                            @error('bathrooms')
+                                <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
 
@@ -121,33 +133,34 @@
                             <input type="text" class="form-control @error('sq_size') is-invalid @enderror" id="sq_size"
                                 name="sq_size" value="{{ old('sq_size') }}" placeholder="e.g. 1200">
                             @error('sq_size')
-                            <div class="invalid-feedback">{{ $message }}</div>
+                                <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
 
                         {{-- Unit Type --}}
-                        <div class="col-md-2">
+                        <div class="col-md-3">
                             <label for="unit_type" class="form-label">Unit Type</label>
-                            <input type="text" class="form-control @error('unit_type') is-invalid @enderror"
-                                id="unit_type" name="unit_type" value="{{ old('unit_type') }}"
-                                placeholder="e.g. Apartment">
+                            <select class="form-select @error('unit_type') is-invalid @enderror" id="unit_type" name="unit_type">
+                                <option value="2BHK" {{ old('unit_type') == '2BHK' ? 'selected' : '' }}>2 Bed 1 Hall 1 Kitchen</option>
+                                <option value="3BHK" {{ old('unit_type') == '3BHK' ? 'selected' : '' }}>3 Bed 1 Hall 1 Kitchen</option>
+                                <option value="4BHK" {{ old('unit_type') == '4BHK' ? 'selected' : '' }}>4 Bed 1 Hall 1 Kitchen</option>
+                                <option value="5BHK" {{ old('unit_type') == '5BHK' ? 'selected' : '' }}>5 Bed 1 Hall 1 Kitchen</option>
+                                <option value="6BHK" {{ old('unit_type') == '6BHK' ? 'selected' : '' }}>6 Bed 1 Hall 1 Kitchen</option>
+                            </select>
                             @error('unit_type')
-                            <div class="invalid-feedback">{{ $message }}</div>
+                                <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
 
-                        {{-- ══ FINANCIALS ══ --}}
+                        {{-- ══ FINANCIAL DETAILS ══ --}}
                         <div class="col-12">
-                            <p class="fw-semibold text-muted mb-0"
-                                style="font-size:0.78rem;text-transform:uppercase;letter-spacing:.08em;">Financial
-                                Details</p>
+                            <p class="fw-semibold text-muted mb-0 section-heading">Financial Details</p>
                             <div class="section-divider"></div>
                         </div>
 
                         {{-- Monthly Rent --}}
                         <div class="col-md-4">
-                            <label for="amount" class="form-label">Monthly Rent <span
-                                    class="text-danger">*</span></label>
+                            <label for="amount" class="form-label">Monthly Rent <span class="text-danger">*</span></label>
                             <div class="input-group">
                                 <span class="input-group-text">৳</span>
                                 <input type="number" step="0.01"
@@ -155,7 +168,7 @@
                                     value="{{ old('amount', 0) }}">
                             </div>
                             @error('amount')
-                            <div class="invalid-feedback">{{ $message }}</div>
+                                <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
 
@@ -170,15 +183,13 @@
                                     value="{{ old('security_deposit', 0) }}">
                             </div>
                             @error('security_deposit')
-                            <div class="invalid-feedback">{{ $message }}</div>
+                                <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
 
                         {{-- ══ AVAILABILITY ══ --}}
                         <div class="col-12">
-                            <p class="fw-semibold text-muted mb-0"
-                                style="font-size:0.78rem;text-transform:uppercase;letter-spacing:.08em;">Availability
-                            </p>
+                            <p class="fw-semibold text-muted mb-0 section-heading">Availability</p>
                             <div class="section-divider"></div>
                         </div>
 
@@ -186,126 +197,133 @@
                         <div class="col-md-3">
                             <label for="status" class="form-label">Leasing Status</label>
                             <select class="form-select @error('status') is-invalid @enderror" id="status" name="status">
-                                <option value="1" {{ old('status', '1' )=='1' ? 'selected' : '' }}>Available</option>
-                                <option value="0" {{ old('status')=='0' ? 'selected' : '' }}>Occupied / Unavailable
-                                </option>
+                                <option value="1" {{ old('status', '1') == '1' ? 'selected' : '' }}>Available</option>
+                                <option value="0" {{ old('status') == '0' ? 'selected' : '' }}>Occupied / Unavailable</option>
                             </select>
                             @error('status')
-                            <div class="invalid-feedback">{{ $message }}</div>
+                                <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
 
                         {{-- Available From Date --}}
                         <div class="col-md-3">
-                            <label for="available_from" class="form-label">Available From <small
-                                    class="text-muted">(optional)</small></label>
+                            <label for="available_from" class="form-label">Available From <small class="text-muted">(optional)</small></label>
                             <input type="date" class="form-control @error('available_from') is-invalid @enderror"
                                 id="available_from" name="available_from" value="{{ old('available_from') }}">
                             <small class="text-muted">Leave blank = available immediately</small>
                             @error('available_from')
-                            <div class="invalid-feedback">{{ $message }}</div>
+                                <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
 
-                        <div class="col-md-2">
-                            <label for="unit_type" class="form-label">Unit Type</label>
-                            <select name="unit_type" class="filter-input" id="typeFilter">
-                                <option value="2BHK">2 Bed 1 Hall 1 Kitchen</option>
-                                <option value="3BHK">3 Bed 1 Hall 1 Kitchen</option>
-                                <option value="4BHK">4 Bed 1 Hall 1 Kitchen</option>
-                                <option value="5BHK">5 Bed 1 Hall 1 Kitchen</option>
-                                <option value="6BHK">6 Bed 1 Hall 1 Kitchen</option>
-                            </select>
-                            @error('unit_type')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
+                        {{-- ══ PREFERENCES & AMENITIES ══ --}}
+                        <div class="col-12">
+                            <p class="fw-semibold text-muted mb-0 section-heading">Preferences &amp; Amenities</p>
+                            <div class="section-divider"></div>
+                        </div>
 
-                            {{-- ══ PREFERENCES / AMENITIES ══ --}}
-                            <div class="col-12">
-                                <p class="fw-semibold text-muted mb-0"
-                                    style="font-size:0.78rem;text-transform:uppercase;letter-spacing:.08em;">Preferences
-                                    & Amenities</p>
-                                <div class="section-divider"></div>
-                            </div>
-
-                            <div class="col-12">
-                                <div class="row g-3">
-                                    <div class="col-md-2 col-sm-4 col-6">
-                                        <label class="pref-label">
-                                            <input type="checkbox" class="form-check-input m-0" name="pet_friendly"
-                                                value="1" {{ old('pet_friendly') ? 'checked' : '' }}>
-                                            <i class="bi bi-paw-fill text-muted"></i> Pet Friendly
-                                        </label>
-                                    </div>
-                                    <div class="col-md-2 col-sm-4 col-6">
-                                        <label class="pref-label">
-                                            <input type="checkbox" class="form-check-input m-0" name="is_furnished"
-                                                value="1" {{ old('is_furnished') ? 'checked' : '' }}>
-                                            <i class="bi bi-couch-fill text-muted"></i> Furnished
-                                        </label>
-                                    </div>
-                                    <div class="col-md-2 col-sm-4 col-6">
-                                        <label class="pref-label">
-                                            <input type="checkbox" class="form-check-input m-0" name="has_gym" value="1"
-                                                {{ old('has_gym') ? 'checked' : '' }}>
-                                            <i class="bi bi-heart-pulse-fill text-muted"></i> Gym / Fitness
-                                        </label>
-                                    </div>
-                                    <div class="col-md-2 col-sm-4 col-6">
-                                        <label class="pref-label">
-                                            <input type="checkbox" class="form-check-input m-0" name="has_rooftop"
-                                                value="1" {{ old('has_rooftop') ? 'checked' : '' }}>
-                                            <i class="bi bi-building-up text-muted"></i> Rooftop Access
-                                        </label>
-                                    </div>
-                                    <div class="col-md-2 col-sm-4 col-6">
-                                        <label class="pref-label">
-                                            <input type="checkbox" class="form-check-input m-0" name="has_parking"
-                                                value="1" {{ old('has_parking') ? 'checked' : '' }}>
-                                            <i class="bi bi-p-circle-fill text-muted"></i> Parking Included
-                                        </label>
-                                    </div>
+                        <div class="col-12">
+                            <div class="row g-3">
+                                <div class="col-md-2 col-sm-4 col-6">
+                                    <label class="pref-label">
+                                        <input type="checkbox" class="form-check-input m-0" name="pet_friendly"
+                                            value="1" {{ old('pet_friendly') ? 'checked' : '' }}>
+                                        <i class="bi bi-heart-fill text-muted"></i> Pet Friendly
+                                    </label>
+                                </div>
+                                <div class="col-md-2 col-sm-4 col-6">
+                                    <label class="pref-label">
+                                        <input type="checkbox" class="form-check-input m-0" name="is_furnished"
+                                            value="1" {{ old('is_furnished') ? 'checked' : '' }}>
+                                        <i class="bi bi-lamp-fill text-muted"></i> Furnished
+                                    </label>
+                                </div>
+                                <div class="col-md-2 col-sm-4 col-6">
+                                    <label class="pref-label">
+                                        <input type="checkbox" class="form-check-input m-0" name="has_gym" value="1"
+                                            {{ old('has_gym') ? 'checked' : '' }}>
+                                        <i class="bi bi-heart-pulse-fill text-muted"></i> Gym / Fitness
+                                    </label>
+                                </div>
+                                <div class="col-md-2 col-sm-4 col-6">
+                                    <label class="pref-label">
+                                        <input type="checkbox" class="form-check-input m-0" name="has_rooftop"
+                                            value="1" {{ old('has_rooftop') ? 'checked' : '' }}>
+                                        <i class="bi bi-building-up text-muted"></i> Rooftop Access
+                                    </label>
+                                </div>
+                                <div class="col-md-2 col-sm-4 col-6">
+                                    <label class="pref-label">
+                                        <input type="checkbox" class="form-check-input m-0" name="has_parking"
+                                            value="1" {{ old('has_parking') ? 'checked' : '' }}>
+                                        <i class="bi bi-p-circle-fill text-muted"></i> Parking Included
+                                    </label>
+                                </div>
+                                <div class="col-md-2 col-sm-4 col-6">
+                                    <label class="pref-label">
+                                        <input type="checkbox" class="form-check-input m-0" name="has_security"
+                                            value="1" {{ old('has_security') ? 'checked' : '' }}>
+                                        <i class="bi bi-shield-check text-muted"></i> 24/7 Security
+                                    </label>
+                                </div>
+                                <div class="col-md-2 col-sm-4 col-6">
+                                    <label class="pref-label">
+                                        <input type="checkbox" class="form-check-input m-0" name="has_generator"
+                                            value="1" {{ old('has_generator') ? 'checked' : '' }}>
+                                        <i class="bi bi-lightning-charge-fill text-muted"></i> Generator Backup
+                                    </label>
+                                </div>
+                                <div class="col-md-2 col-sm-4 col-6">
+                                    <label class="pref-label">
+                                        <input type="checkbox" class="form-check-input m-0" name="has_ac"
+                                            value="1" {{ old('has_ac') ? 'checked' : '' }}>
+                                        <i class="bi bi-snow text-muted"></i> Central AC
+                                    </label>
+                                </div>
+                                <div class="col-md-2 col-sm-4 col-6">
+                                    <label class="pref-label">
+                                        <input type="checkbox" class="form-check-input m-0" name="has_free_maintenance"
+                                            value="1" {{ old('has_free_maintenance') ? 'checked' : '' }}>
+                                        <i class="bi bi-tools text-muted"></i> Free Maintenance
+                                    </label>
                                 </div>
                             </div>
+                        </div>
 
-                            {{-- ══ MEDIA & DETAILS ══ --}}
-                            <div class="col-12">
-                                <p class="fw-semibold text-muted mb-0"
-                                    style="font-size:0.78rem;text-transform:uppercase;letter-spacing:.08em;">Media &
-                                    Details</p>
-                                <div class="section-divider"></div>
-                            </div>
+                        {{-- ══ MEDIA & DETAILS ══ --}}
+                        <div class="col-12">
+                            <p class="fw-semibold text-muted mb-0 section-heading">Media &amp; Details</p>
+                            <div class="section-divider"></div>
+                        </div>
 
-                            <div class="col-12">
-                                <label for="images" class="form-label">Unit Images</label>
-                                <input id="images" name="images[]" type="file" accept=".jpg,.jpeg,.webp,.png" multiple
-                                    class="form-control">
-                                @if($errors->has('images.*'))
+                        <div class="col-md-6">
+                            <label for="images" class="form-label">Unit Images</label>
+                            <input id="images" name="images[]" type="file" accept=".jpg,.jpeg,.webp,.png" multiple
+                                class="form-control">
+                            @if($errors->has('images.*'))
                                 <div class="invalid-feedback d-block">
                                     {{ $errors->first('images.*') }}
                                 </div>
-                                @endif
-                            </div>
-
-                            <div class="col-12">
-                                <label for="details" class="form-label">Unit Specifications & Details <span
-                                        class="text-danger">*</span></label>
-                                <textarea class="form-control @error('details') is-invalid @enderror" id="details"
-                                    name="details" rows="4"
-                                    placeholder="Describe the unit condition, fixtures, etc.">{{ old('details') }}</textarea>
-                                @error('details')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            {{-- Submit --}}
-                            <div class="col-12 d-flex align-items-end justify-content-end gap-3 mt-2">
-                                <button type="reset" class="btn btn-link text-decoration-none text-muted">Clear
-                                    Form</button>
-                                <button type="submit" class="btn btn-primary px-4">Register Unit</button>
-                            </div>
-
+                            @endif
                         </div>
+
+                        <div class="col-12">
+                            <label for="details" class="form-label">Unit Specifications &amp; Details <span class="text-danger">*</span></label>
+                            <textarea class="form-control @error('details') is-invalid @enderror" id="details"
+                                name="details" rows="4"
+                                placeholder="Describe the unit condition, fixtures, etc.">{{ old('details') }}</textarea>
+                            @error('details')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        {{-- Submit --}}
+                        <div class="col-12 d-flex align-items-end justify-content-end gap-3 mt-2">
+                            <button type="reset" class="btn btn-link text-decoration-none text-muted">Clear Form</button>
+                            <button type="submit" class="btn btn-primary px-4">Register Unit</button>
+                        </div>
+
+                    </div>
                 </form>
             </div>
         </div>
