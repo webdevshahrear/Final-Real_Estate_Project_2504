@@ -1,11 +1,13 @@
 <?php
+
+use App\Http\Middleware\IsTennantMiddleware;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Support\Facades\Route;
 
 $app = new Application(dirname(__DIR__));
-$app->useBootstrapPath(dirname(__DIR__).'/storage/bootstrap-cache');
+$app->useBootstrapPath(dirname(__DIR__) . '/storage/bootstrap-cache');
 
 return (new Illuminate\Foundation\Configuration\ApplicationBuilder($app))
     ->withKernels()
@@ -30,6 +32,10 @@ return (new Illuminate\Foundation\Configuration\ApplicationBuilder($app))
             guests: '/login',
             users: '/admin/dashboard'
         );
+
+        $middleware->alias([
+            'cus' => IsTennantMiddleware::class
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

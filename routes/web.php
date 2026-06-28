@@ -1,12 +1,14 @@
 <?php
 
+use App\Http\Controllers\Auth\UserAuthController;
 use App\Http\Controllers\RentController;
+use App\Http\Controllers\TennantController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('frontend.index');
-});
+})->name('home');
 
 Route::view('/about', 'frontend.about')->name('about');
 Route::view('/contact', 'frontend.contact')->name('contact');
@@ -31,6 +33,19 @@ Route::view('/store', 'frontend.store')->name('store');
 Route::view('/welcome', 'frontend.welcome')->name('welcome');
 
 Auth::routes();
+
+
+// User Login
+Route::get('/sign-in', [UserAuthController::class, 'signIn'])->name('user.signin');
+Route::get('/sign-up', [UserAuthController::class, 'signUp'])->name('user.signup');
+
+Route::get('/google/login', [UserAuthController::class, 'googleLogin'])->name('user.google.login');
+Route::get('/google/redirect', [UserAuthController::class, 'googleRedirect'])->name('user.google.redirect');
+
+
+
+//# Tennant Dashboard
+Route::get('/tennant/dashboard', [TennantController::class, 'dashboard'])->name('tennant.dashboard')->middleware('cus');
 
 Route::middleware('auth')->prefix('admin')->group(function () {
 
