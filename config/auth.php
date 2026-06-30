@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Tennant;
+use App\Models\Tenant;
 use App\Models\User;
 
 return [
@@ -43,9 +43,9 @@ return [
             'driver' => 'session', // Admin
             'provider' => 'users',
         ],
-        'tennant' => [ 
+        'tenant' => [ 
             'driver' => 'session', // Admin
-            'provider' => 'tennants',
+            'provider' => 'tenants',
         ],
     ],
 
@@ -71,9 +71,9 @@ return [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', User::class),
         ],
-        'tennants' => [
+        'tenants' => [
             'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', Tennant::class),
+            'model' => env('AUTH_MODEL', Tenant::class),
         ],
 
         // 'users' => [

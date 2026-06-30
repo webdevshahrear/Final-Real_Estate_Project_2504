@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class IsTennantMiddleware
+class IsTenantMiddleware
 {
     /**
      * Handle an incoming request.
@@ -16,11 +16,11 @@ class IsTennantMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(Auth::guard('tennant')->check()){
+        if(Auth::guard('tenant')->check()){
             return $next($request);
         } else{
             Auth::logout();
-            Auth::guard('tennant')->logout();
+            Auth::guard('tenant')->logout();
             return to_route('home');
         }
     }
