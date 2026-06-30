@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\Auth\UserAuthController;
 use App\Http\Controllers\RentController;
-use App\Http\Controllers\TennantController;
+use App\Http\Controllers\TenantController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -44,8 +44,8 @@ Route::get('/google/redirect', [UserAuthController::class, 'googleRedirect'])->n
 
 
 
-//# Tennant Dashboard
-Route::get('/tennant/dashboard', [TennantController::class, 'dashboard'])->name('tennant.dashboard')->middleware('cus');
+//# Tenant Dashboard
+Route::get('/tenant/dashboard', [TenantController::class, 'dashboard'])->name('tenant.dashboard')->middleware('cus');
 
 Route::middleware('auth')->prefix('admin')->group(function () {
 

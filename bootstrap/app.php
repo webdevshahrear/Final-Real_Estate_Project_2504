@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Middleware\IsTennantMiddleware;
+use App\Http\Middleware\IsTenantMiddleware;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -34,7 +34,7 @@ return (new Illuminate\Foundation\Configuration\ApplicationBuilder($app))
         );
 
         $middleware->alias([
-            'cus' => IsTennantMiddleware::class
+            'cus' => IsTenantMiddleware::class
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

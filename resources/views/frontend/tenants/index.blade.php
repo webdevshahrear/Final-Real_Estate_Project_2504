@@ -1,4 +1,4 @@
-@extends('layouts.tennant')
+@extends('layouts.tenant')
 @section('content')
         <!-- Main Content -->
         <div class="container-fluid py-4">

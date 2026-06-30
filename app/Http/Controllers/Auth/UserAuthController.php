@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\Tennant;
+use App\Models\Tenant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -30,7 +30,7 @@ class UserAuthController extends Controller
         $user = Socialite::driver('google')->user();
 
         if ($user) {
-            $tennant =    Tennant::updateOrCreate([
+            $tenant =    Tenant::updateOrCreate([
                 'email' => $user->email,
             ], [
                 'name' => $user->name,
@@ -38,8 +38,8 @@ class UserAuthController extends Controller
                 'password' => Hash::make(uniqid()),
             ]);
 
-           Auth::guard('tennant')->login($tennant);
-           return to_route('tennant.dashboard');
+           Auth::guard('tenant')->login($tenant);
+           return to_route('tenant.dashboard');
         }
     }
 }

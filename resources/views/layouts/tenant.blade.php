@@ -44,10 +44,10 @@
 
             <div class="sidebar-profile">
                 <div class="d-flex align-items-center gap-3">
-                    <div class="profile-avatar">{{ substr(auth()->guard('tennant')->user()->name, 0,1) }}</div>
+                    <div class="profile-avatar">{{ substr(auth()->guard('tenant')->user()->name, 0,1) }}</div>
                     <div class="flex-grow-1 overflow-hidden">
-                        <h6 class="profile-name">{{ auth()->guard('tennant')->user()->name }}</h6>
-                        <p class="profile-role">Tennant</p>
+                        <h6 class="profile-name">{{ auth()->guard('tenant')->user()->name }}</h6>
+                        <p class="profile-role">Tenant</p>
                     </div>
                 </div>
                 <button class="logout-btn" id="logoutBtn" title="Sign Out">
