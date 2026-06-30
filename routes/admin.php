@@ -4,71 +4,70 @@ use App\Http\Controllers\Backend\BuildingController;
 use App\Http\Controllers\Backend\CustomerController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\PropertyController;
+use App\Http\Controllers\Backend\TenantManagementController;
 use App\Http\Controllers\Backend\UnitController;
 use Illuminate\Support\Facades\Route;
 
 // Dashboard
 Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
-Route::view('/dashboard-manager', 'backend.dashboard.manager')->name('dashboard.manager');
-Route::view('/dashboard-owner', 'backend.dashboard.owner')->name('dashboard.owner');
-Route::view('/dashboard-tenant', 'backend.dashboard.tenant')->name('dashboard.tenant');
-Route::view('/dashboard-flat-owner', 'backend.dashboard.flat-owner')->name('dashboard.flat-owner');
+Route::view('/dashboard-manager', 'backend.manager.dashboard.index')->name('dashboard.manager');
+Route::view('/dashboard-owner', 'backend.prop-owner.dashboard.index')->name('dashboard.owner');
+Route::view('/dashboard-flat-owner', 'backend.flat-owner.dashboard.index')->name('dashboard.flat-owner');
 
 // Management Routes
-Route::view('/billing', 'backend.billing.index')->name('billing');
-Route::view('/billing-manager', 'backend.billing.manager')->name('billing.manager');
-Route::view('/billing-owner', 'backend.billing.owner')->name('billing.owner');
-Route::view('/billing-tenant', 'backend.billing.tenant')->name('billing.tenant');
+Route::view('/billing', 'backend.admin.billing.index')->name('billing');
+Route::view('/billing-manager', 'backend.manager.billing.index')->name('billing.manager');
+Route::view('/billing-owner', 'backend.prop-owner.billing.index')->name('billing.owner');
 
-Route::view('/accounts', 'backend.accounts.index')->name('accounts');
-Route::view('/accounts-manager', 'backend.accounts.manager')->name('accounts.manager');
-Route::view('/accounts-tenant', 'backend.accounts.tenant')->name('accounts.tenant');
+Route::view('/accounts', 'backend.admin.accounts.index')->name('accounts');
+Route::view('/accounts-manager', 'backend.manager.accounts.index')->name('accounts.manager');
 
-Route::view('/owners', 'backend.owners.index')->name('owners');
-Route::view('/owners-manager', 'backend.owners.manager')->name('owners.manager');
+Route::view('/owners', 'backend.admin.owners.index')->name('owners');
+Route::view('/owners-manager', 'backend.manager.owners.index')->name('owners.manager');
 
-Route::view('/tenants', 'backend.tenants.index')->name('tenants');
-Route::view('/tenants-manager', 'backend.tenants.manager')->name('tenants.manager');
-Route::view('/tenants-owner', 'backend.tenants.owner')->name('tenants.owner');
+// Tenant Management (Admin)
+Route::get('/tenants', [TenantManagementController::class, 'index'])->name('tenants');
+Route::post('/tenants/{id}/approve', [TenantManagementController::class, 'approve'])->name('tenants.approve');
+Route::post('/tenants/{id}/reject', [TenantManagementController::class, 'reject'])->name('tenants.reject');
+Route::post('/tenants/generate-bills', [TenantManagementController::class, 'generateMonthlyBills'])->name('tenants.generate-bills');
 
-Route::view('/reports', 'backend.reports.index')->name('reports');
-Route::view('/reports-manager', 'backend.reports.manager')->name('reports.manager');
+Route::view('/tenants-manager', 'backend.manager.tenants.index')->name('tenants.manager');
+Route::view('/tenants-owner', 'backend.prop-owner.tenants.index')->name('tenants.owner');
 
-Route::view('/settings', 'backend.settings.index')->name('settings');
-Route::view('/settings-manager', 'backend.settings.manager')->name('settings.manager');
-Route::view('/settings-owner', 'backend.settings.owner')->name('settings.owner');
-Route::view('/settings-tenant', 'backend.settings.tenant')->name('settings.tenant');
-Route::view('/settings-flat-owner', 'backend.settings.flat-owner')->name('settings.flat-owner');
+Route::view('/reports', 'backend.admin.reports.index')->name('reports');
+Route::view('/reports-manager', 'backend.manager.reports.index')->name('reports.manager');
 
-Route::view('/documents', 'backend.documents.index')->name('documents');
-Route::view('/documents-manager', 'backend.documents.manager')->name('documents.manager');
-Route::view('/documents-owner', 'backend.documents.owner')->name('documents.owner');
-Route::view('/documents-tenant', 'backend.documents.tenant')->name('documents.tenant');
-Route::view('/documents-flat-owner', 'backend.documents.flat-owner')->name('documents.flat-owner');
+Route::view('/settings', 'backend.admin.settings.index')->name('settings');
+Route::view('/settings-manager', 'backend.manager.settings.index')->name('settings.manager');
+Route::view('/settings-owner', 'backend.prop-owner.settings.index')->name('settings.owner');
+Route::view('/settings-flat-owner', 'backend.flat-owner.settings.index')->name('settings.flat-owner');
 
-Route::view('/maintenance', 'backend.maintenance.index')->name('maintenance');
-Route::view('/maintenance-manager', 'backend.maintenance.manager')->name('maintenance.manager');
-Route::view('/maintenance-owner', 'backend.maintenance.owner')->name('maintenance.owner');
-Route::view('/maintenance-tenant', 'backend.maintenance.tenant')->name('maintenance.tenant');
+Route::view('/documents', 'backend.admin.documents.index')->name('documents');
+Route::view('/documents-manager', 'backend.manager.documents.index')->name('documents.manager');
+Route::view('/documents-owner', 'backend.prop-owner.documents.index')->name('documents.owner');
+Route::view('/documents-flat-owner', 'backend.flat-owner.documents.index')->name('documents.flat-owner');
 
-Route::view('/notices', 'backend.notices.index')->name('notices');
-Route::view('/notices-manager', 'backend.notices.manager')->name('notices.manager');
-Route::view('/notices-owner', 'backend.notices.owner')->name('notices.owner');
-Route::view('/notices-tenant', 'backend.notices.tenant')->name('notices.tenant');
-Route::view('/notices-flat-owner', 'backend.notices.flat-owner')->name('notices.flat-owner');
+Route::view('/maintenance', 'backend.admin.maintenance.index')->name('maintenance');
+Route::view('/maintenance-manager', 'backend.manager.maintenance.index')->name('maintenance.manager');
+Route::view('/maintenance-owner', 'backend.prop-owner.maintenance.index')->name('maintenance.owner');
 
-Route::view('/transfers', 'backend.transfers.index')->name('transfers');
-Route::view('/transfers-manager', 'backend.transfers.manager')->name('transfers.manager');
-Route::view('/transfers-flat-owner', 'backend.transfers.flat-owner')->name('transfers.flat-owner');
-Route::view('/statements-owner', 'backend.statements.owner')->name('statements.owner');
-Route::view('/statements-flat-owner', 'backend.statements.flat-owner')->name('statements.flat-owner');
+Route::view('/notices', 'backend.admin.notices.index')->name('notices');
+Route::view('/notices-manager', 'backend.manager.notices.index')->name('notices.manager');
+Route::view('/notices-owner', 'backend.prop-owner.notices.index')->name('notices.owner');
+Route::view('/notices-flat-owner', 'backend.flat-owner.notices.index')->name('notices.flat-owner');
 
-Route::view('/visitors', 'backend.visitors.index')->name('visitors');
-Route::view('/visitors-manager', 'backend.visitors.manager')->name('visitors.manager');
+Route::view('/transfers', 'backend.admin.transfers.index')->name('transfers');
+Route::view('/transfers-manager', 'backend.manager.transfers.index')->name('transfers.manager');
+Route::view('/transfers-flat-owner', 'backend.flat-owner.transfers.index')->name('transfers.flat-owner');
+Route::view('/statements-owner', 'backend.prop-owner.statements.index')->name('statements.owner');
+Route::view('/statements-flat-owner', 'backend.flat-owner.statements.index')->name('statements.flat-owner');
 
-Route::view('/parking', 'backend.parking.index')->name('parking');
-Route::view('/user-roles', 'backend.user-roles.index')->name('user-roles');
-Route::view('/home', 'backend.dashboard.home')->name('home');
+Route::view('/visitors', 'backend.admin.visitors.index')->name('visitors');
+Route::view('/visitors-manager', 'backend.manager.visitors.index')->name('visitors.manager');
+
+Route::view('/parking', 'backend.admin.parking.index')->name('parking');
+Route::view('/user-roles', 'backend.admin.user-roles.index')->name('user-roles');
+Route::view('/home', 'backend.admin.dashboard.home')->name('home');
 
 // Building
 Route::prefix('/building')->name('building.')->controller(BuildingController::class)->group(function () {
@@ -79,8 +78,8 @@ Route::prefix('/building')->name('building.')->controller(BuildingController::cl
     Route::put('/update/{id}', 'update')->name('update');
     Route::delete('/delete/{id}', 'delete')->name('delete');
 });
-Route::view('/buildings-manager', 'backend.building.manager')->name('building.manager');
-Route::view('/buildings-owner', 'backend.building.owner')->name('building.owner');
+Route::view('/buildings-manager', 'backend.manager.building.index')->name('building.manager');
+Route::view('/buildings-owner', 'backend.prop-owner.building.index')->name('building.owner');
 
 // Units
 Route::prefix('/units')->name('units.')->controller(UnitController::class)->group(function () {
@@ -114,6 +113,6 @@ Route::prefix('/properties')->name('properties.')->controller(PropertyController
     Route::delete('/delete/{id}', 'delete')->name('delete');
 });
 
-Route::view('/units-manager', 'backend.units.manager')->name('units.manager');
-Route::view('/units-owner', 'backend.units.owner')->name('units.owner');
-Route::view('/units-flat-owner', 'backend.units.flat-owner')->name('units.flat-owner');
+Route::view('/units-manager', 'backend.manager.units.index')->name('units.manager');
+Route::view('/units-owner', 'backend.prop-owner.units.index')->name('units.owner');
+Route::view('/units-flat-owner', 'backend.flat-owner.units.index')->name('units.flat-owner');

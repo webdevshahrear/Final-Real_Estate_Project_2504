@@ -18,12 +18,12 @@ class PropertyController extends Controller
         }
 
         $properties = $query->latest()->get();
-        return view('backend.properties.index', compact('properties'));
+        return view('backend.admin.properties.index', compact('properties'));
     }
 
     function create()
     {
-        return view('backend.properties.create');
+        return view('backend.admin.properties.create');
     }
 
     function store(Request $request)
@@ -68,7 +68,7 @@ class PropertyController extends Controller
             abort(403, 'Unauthorized action.');
         }
 
-        return view('backend.properties.edit', compact('property'));
+        return view('backend.admin.properties.edit', compact('property'));
     }
 
     function update(Request $request, $id)

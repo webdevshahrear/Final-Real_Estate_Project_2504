@@ -15,12 +15,12 @@ class BuildingController extends Controller
     {
         $buildings = Building::where('user_id', auth()->id())->orderBy('status', 'desc')->get();
 
-        return view('backend.building.index', compact('buildings'));
+        return view('backend.admin.building.index', compact('buildings'));
     }
 
     function create()
     {
-        return view('backend.building.create');
+        return view('backend.admin.building.create');
     }
 
     function store(StoreBuildingRequest $request)
@@ -52,7 +52,7 @@ class BuildingController extends Controller
     function edit($id)
     {
         $building = Building::where('user_id', auth()->id())->findOrFail($id);
-        return view('backend.building.edit', compact('building'));
+        return view('backend.admin.building.edit', compact('building'));
     }
 
     function update(StoreBuildingRequest $request, $id)

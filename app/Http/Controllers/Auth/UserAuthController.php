@@ -39,7 +39,7 @@ class UserAuthController extends Controller
             ]);
 
            Auth::guard('tennant')->login($tennant);
-           return to_route('tennant.dashboard');
+           return to_route('admin.dashboard.tenant');
         }
     }
 }

@@ -10,7 +10,7 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}">
-    
+
     @stack('css')
 </head>
 
@@ -40,11 +40,12 @@
                 </a>
             </div>
             {{-- Sidebar Body --}}
-            @include('layouts.utils.SidebarBody')
+            @include('layouts.utils.TennantSidebarBody')
+
 
             <div class="sidebar-profile">
                 <div class="d-flex align-items-center gap-3">
-                    <div class="profile-avatar">{{ substr(auth()->guard('tennant')->user()->name, 0,1) }}</div>
+                    <div class="profile-avatar">{{ substr(auth()->guard('tennant')->user()->name, 0, 1) }}</div>
                     <div class="flex-grow-1 overflow-hidden">
                         <h6 class="profile-name">{{ auth()->guard('tennant')->user()->name }}</h6>
                         <p class="profile-role">Tennant</p>
@@ -67,30 +68,31 @@
 
     <!-- Mobile Bottom Navigation -->
     <nav class="mobile-bottom-nav d-lg-none">
-        <a href="{{ route('admin.dashboard') }}" class="bottom-nav-item active">
+        <a href="{{ route('admin.dashboard.tenant') }}" class="bottom-nav-item active">
             <i class="bi bi-grid-1x2-fill"></i>
             <span>Overview</span>
         </a>
-        <a href="{{ route('admin.building.index') }}" class="bottom-nav-item">
-            <i class="bi bi-buildings"></i>
-            <span>Properties</span>
-        </a>
-        <a href="{{ route('admin.billing') }}" class="bottom-nav-item">
+        <a href="{{ route('admin.billing.tenant') }}" class="bottom-nav-item">
             <i class="bi bi-receipt"></i>
-            <span>Finance</span>
+            <span>Billing</span>
         </a>
-        <a href="{{ route('admin.maintenance') }}" class="bottom-nav-item">
+        <a href="{{ route('admin.maintenance.tenant') }}" class="bottom-nav-item">
             <i class="bi bi-tools"></i>
-            <span>Ops</span>
+            <span>Maintenance</span>
         </a>
-        <a href="{{ route('admin.settings') }}" class="bottom-nav-item">
+        <a href="{{ route('admin.documents.tenant') }}" class="bottom-nav-item">
+            <i class="bi bi-folder2"></i>
+            <span>Docs</span>
+        </a>
+        <a href="{{ route('admin.settings.tenant') }}" class="bottom-nav-item">
             <i class="bi bi-person-circle"></i>
-            <span>Profile</span>
+            <span>Settings</span>
         </a>
     </nav>
-    <form id="logoutForm" action="{{ route('logout') }}" method="POST">
+    <form id="logoutForm" action="{{ route('tenant.logout') }}" method="POST">
         @csrf
     </form>
+
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>

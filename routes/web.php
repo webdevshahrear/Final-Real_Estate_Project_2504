@@ -44,8 +44,29 @@ Route::get('/google/redirect', [UserAuthController::class, 'googleRedirect'])->n
 
 
 
-//# Tennant Dashboard
-Route::get('/tennant/dashboard', [TennantController::class, 'dashboard'])->name('tennant.dashboard')->middleware('cus');
+// ─── Schedule Viewing (from property-detail-rent) ───────────────────
+Route::post('/schedule-viewing', [TennantController::class, 'scheduleViewing'])->name('schedule.viewing');
+
+// ─── Tenant Auth ─────────────────────────────────────────────────────
+Route::get('/tenant/register', [TennantController::class, 'showRegister'])->name('tenant.register');
+Route::post('/tenant/register', [TennantController::class, 'register'])->name('tenant.register.post');
+Route::get('/tenant/login', [TennantController::class, 'showLogin'])->name('tenant.login');
+Route::post('/tenant/login', [TennantController::class, 'login'])->name('tenant.login.post');
+Route::post('/tenant/logout', [TennantController::class, 'logout'])->name('tenant.logout');
+
+//# Tennant Dashboard (protected)
+Route::middleware('cus')->prefix('tenant')->group(function () {
+    Route::get('/dashboard', [TennantController::class, 'dashboard'])->name('admin.dashboard.tenant');
+    Route::post('/pay/{billId}', [TennantController::class, 'payNow'])->name('tennant.pay');
+
+    // Tenant feature views
+    Route::view('/billing', 'backend.tenant.billing.index')->name('admin.billing.tenant');
+    Route::view('/maintenance', 'backend.tenant.maintenance.index')->name('admin.maintenance.tenant');
+    Route::view('/payment-history', 'backend.tenant.billing.payment-history')->name('admin.payment-history.tenant');
+    Route::view('/documents', 'backend.tenant.documents.index')->name('admin.documents.tenant');
+    Route::view('/notices', 'backend.tenant.notices.index')->name('admin.notices.tenant');
+    Route::view('/settings', 'backend.tenant.settings.index')->name('admin.settings.tenant');
+});
 
 Route::middleware('auth')->prefix('admin')->group(function () {
 

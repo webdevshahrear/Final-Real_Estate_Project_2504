@@ -11,12 +11,12 @@ class CustomerController extends Controller
     function index()
     {
         $customers = Customer::where('user_id', auth()->id())->latest()->get();
-        return view('backend.customers.index', compact('customers'));
+        return view('backend.admin.customers.index', compact('customers'));
     }
 
     function create()
     {
-        return view('backend.customers.create');
+        return view('backend.admin.customers.create');
     }
 
     function store(Request $request)
@@ -54,7 +54,7 @@ class CustomerController extends Controller
             abort(403, 'Unauthorized action.');
         }
 
-        return view('backend.customers.edit', compact('customer'));
+        return view('backend.admin.customers.edit', compact('customer'));
     }
 
     function update(Request $request, $id)

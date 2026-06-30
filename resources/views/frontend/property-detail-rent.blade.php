@@ -300,19 +300,31 @@
                     </div>
                 </div>
 
-                <form>
+                <form action="{{ route('schedule.viewing') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="unit_id" value="{{ $unit->id }}">
+
                     <div class="mb-3">
                         <label class="form-label font-mono small text-muted">FULL NAME</label>
-                        <input type="text" class="form-control rounded-pill border-light-subtle"
-                            placeholder="Identify yourself...">
+                        <input type="text" name="name" class="form-control rounded-pill border-light-subtle"
+                            placeholder="Identify yourself..." value="{{ old('name') }}" required>
+                        @error('name')
+                            <div class="text-danger extra-small mt-1">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="mb-3">
                         <label class="form-label font-mono small text-muted">SECURE TELEPHONE</label>
-                        <input type="tel" class="form-control rounded-pill border-light-subtle" placeholder="+880">
+                        <input type="tel" name="phone" class="form-control rounded-pill border-light-subtle"
+                            placeholder="+880" value="{{ old('phone') }}" required>
+                        @error('phone')
+                            <div class="text-danger extra-small mt-1">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="mb-4">
                         <label class="form-label font-mono small text-muted">PREFERRED MOVE-IN DATE</label>
-                        <input type="date" class="form-control rounded-pill border-light-subtle">
+                        <input type="date" name="preferred_move_in_date"
+                            class="form-control rounded-pill border-light-subtle"
+                            value="{{ old('preferred_move_in_date') }}">
                     </div>
                     <button type="submit" class="btn-geist w-100 py-3 mb-3 bg-success border-success">Book Viewing
                         Appointment</button>
@@ -321,6 +333,7 @@
                                 style="color:#25D366;"></i> Quick Connect Via WhatsApp</a>
                     </div>
                 </form>
+
             </div>
         </div>
     </div>

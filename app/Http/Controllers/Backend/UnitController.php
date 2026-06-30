@@ -12,13 +12,13 @@ class UnitController extends Controller
     function index()
     {
         $units = Unit::with('building')->latest()->get();
-        return view('backend.units.index', compact('units'));
+        return view('backend.admin.units.index', compact('units'));
     }
 
     function create()
     {
         $buildings = Building::where('user_id', auth()->id())->select('id', 'name')->get();
-        return view('backend.units.create', compact('buildings'));
+        return view('backend.admin.units.create', compact('buildings'));
     }
 
     function store(Request $request)
@@ -77,7 +77,7 @@ class UnitController extends Controller
             abort(403, 'Unauthorized action.');
         }
 
-        return view('backend.units.edit', compact('unit', 'buildings'));
+        return view('backend.admin.units.edit', compact('unit', 'buildings'));
     }
 
     function update(Request $request, $id)
