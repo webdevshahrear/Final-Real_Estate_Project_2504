@@ -2,6 +2,74 @@
 @section('content')
         <!-- Main Content -->
         <div class="container-fluid py-4">
+
+            {{-- Payment Section --}}
+            <div class="row g-4 mb-5">
+                <div class="col-12">
+                    <div class="bg-white border rounded-4 shadow-sm p-4">
+                        <h5 class="fw-bold mb-3"><i class="bi bi-wallet2 me-2"></i>Payment</h5>
+
+                        @if(session('success'))
+                            <div class="alert alert-success">{{ session('success') }}</div>
+                        @endif
+
+                        <form action="{{ route('payment.request') }}" method="POST" class="d-flex gap-2 mb-4">
+                            @csrf
+                            <input type="number" name="amount" class="form-control"
+                                placeholder="Enter amount (৳)" required min="1" style="max-width: 250px;">
+                            <button type="submit" class="btn btn-primary rounded-4 px-4">
+                                <i class="bi bi-send me-2"></i>Request Payment
+                            </button>
+                        </form>
+
+                        @if(isset($payments) && $payments->count() > 0)
+                            <table class="table align-middle">
+                                <thead>
+                                    <tr>
+                                        <th>Amount</th>
+                                        <th>Status</th>
+                                        <th>Requested At</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($payments as $payment)
+                                        <tr>
+                                            <td>৳{{ number_format($payment->amount, 2) }}</td>
+                                            <td>
+                                                @if($payment->status === 'pending')
+                                                    <span class="badge bg-warning text-dark">Pending</span>
+                                                @elseif($payment->status === 'approved')
+                                                    <span class="badge bg-success">Approved</span>
+                                                @elseif($payment->status === 'rejected')
+                                                    <span class="badge bg-danger">Rejected</span>
+                                                @elseif($payment->status === 'paid')
+                                                    <span class="badge bg-primary">Paid</span>
+                                                @endif
+                                            </td>
+                                            <td>{{ $payment->created_at->format('d M Y, h:i A') }}</td>
+                                            <td>
+                                                @if($payment->status === 'approved')
+                                                    <form action="{{ route('payment.pay', $payment->id) }}" method="POST">
+                                                        @csrf
+                                                        <button type="submit" class="btn btn-success btn-sm rounded-4">
+                                                            <i class="bi bi-credit-card me-1"></i>Pay Now
+                                                        </button>
+                                                    </form>
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        @else
+                            <p class="text-muted mb-0">No payment requests yet.</p>
+                        @endif
+                    </div>
+                </div>
+            </div>
+            {{-- End Payment Section --}}
+
             <div class="d-flex justify-content-between align-items-center mb-5">
                 <div data-aos="fade-right">
                     <h2 class="fw-bold mb-1">Tenant Registry</h2>
@@ -17,9 +85,7 @@
                 </div>
             </div>
 
-            <!-- Resident Intelligence Layer -->
             <div class="row g-4 mb-5" data-aos="fade-up">
-                <!-- Resident Life-Cycle Pulse -->
                 <div class="col-lg-8">
                     <div class="bg-white border rounded-4 shadow-sm h-100 p-0 overflow-hidden">
                         <div class="p-4 border-bottom d-flex justify-content-between align-items-center">
@@ -31,24 +97,24 @@
                                 <div class="mb-4">
                                     <h6 class="extra-small text-muted fw-bold uppercase mb-2">Portfolio Retention Rate</h6>
                                     <div class="display-5 fw-bold text-primary-navy">92.4%</div>
-                                    <p class="extra-small text-success mb-0"><i class="bi bi-graph-up-arrow"></i> +4.2% YoY (Improved Community Engagement)</p>
+                                    <p class="extra-small text-success mb-0"><i class="bi bi-graph-up-arrow"></i> +4.2% YoY</p>
                                 </div>
                                 <div class="row g-2 mb-4">
                                     <div class="col-6">
-                                        <div class="p-3 border rounded-4 bg-light shadow-sm-hover transition">
+                                        <div class="p-3 border rounded-4 bg-light">
                                             <span class="extra-small text-muted d-block mb-1">Avg. Tenure</span>
                                             <span class="fw-bold text-primary">2.4 Years</span>
                                         </div>
                                     </div>
                                     <div class="col-6">
-                                        <div class="p-3 border rounded-4 bg-light shadow-sm-hover transition">
+                                        <div class="p-3 border rounded-4 bg-light">
                                             <span class="extra-small text-muted d-block mb-1">Churn Risk (Low)</span>
                                             <span class="fw-bold text-success">3.8%</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-5 p-4 bg-light-subtle d-flex flex-column justify-content-center border-start">
+                            <div class="col-md-5 p-4 bg-light-subtle d-flex flex-column justify-content-center">
                                 <h6 class="fw-bold small mb-3">Community Interaction</h6>
                                 <div class="mb-3">
                                     <div class="d-flex justify-content-between extra-small mb-1"><span>App Adoption:</span><span class="fw-bold">88%</span></div>
@@ -62,7 +128,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- Occupancy Strength -->
                 <div class="col-lg-4">
                     <div class="bg-white border rounded-4 shadow-sm h-100 text-center p-4">
                         <h5 class="fw-bold mb-4 text-start">Household Density</h5>
@@ -79,7 +144,6 @@
                 </div>
             </div>
 
-            <!-- Tenants Table -->
             <div class="row g-4">
                 <div class="col-12">
                     <div class="bg-white border rounded-4 shadow-sm p-4">
@@ -119,10 +183,10 @@
                                         <td><span class="small">12 Jan 2024</span></td>
                                         <td>
                                             <div class="d-flex gap-2">
-                                                <button class="btn btn-sm btn-light border rounded-3 shadow-sm-hover" title="View Agreement" data-action="view" data-id="T-SJ-402"><i class="bi bi-eye"></i></button>
-                                                <button class="btn btn-sm btn-light border rounded-3 shadow-sm-hover" title="Edit Resident Info" data-action="edit" data-id="T-SJ-402"><i class="bi bi-pencil"></i></button>
-                                                <button class="btn btn-sm btn-light border rounded-3 shadow-sm-hover" title="Send Direct Message" data-action="message" data-id="T-SJ-402"><i class="bi bi-chat-left-dots"></i></button>
-                                                <button class="btn btn-sm btn-light-subtle border text-danger rounded-3 shadow-sm-hover" title="Terminate Lease" data-action="terminate" data-id="T-SJ-402"><i class="bi bi-trash"></i></button>
+                                                <button class="btn btn-sm btn-light border rounded-3" title="View"><i class="bi bi-eye"></i></button>
+                                                <button class="btn btn-sm btn-light border rounded-3" title="Edit"><i class="bi bi-pencil"></i></button>
+                                                <button class="btn btn-sm btn-light border rounded-3" title="Message"><i class="bi bi-chat-left-dots"></i></button>
+                                                <button class="btn btn-sm btn-light-subtle border text-danger rounded-3" title="Terminate"><i class="bi bi-trash"></i></button>
                                             </div>
                                         </td>
                                     </tr>
@@ -142,10 +206,10 @@
                                         <td><span class="small">05 May 2023</span></td>
                                         <td>
                                             <div class="d-flex gap-2">
-                                                <button class="btn btn-sm btn-light border rounded-3 shadow-sm-hover" title="View Agreement" data-action="view" data-id="T-JD-S12"><i class="bi bi-eye"></i></button>
-                                                <button class="btn btn-sm btn-light border rounded-3 shadow-sm-hover" title="Edit Resident Info" data-action="edit" data-id="T-JD-S12"><i class="bi bi-pencil"></i></button>
-                                                <button class="btn btn-sm btn-light border rounded-3 shadow-sm-hover" title="Send Direct Message" data-action="message" data-id="T-JD-S12"><i class="bi bi-chat-left-dots"></i></button>
-                                                <button class="btn btn-sm btn-light-subtle border text-danger rounded-3 shadow-sm-hover" title="Terminate Lease" data-action="terminate" data-id="T-JD-S12"><i class="bi bi-trash"></i></button>
+                                                <button class="btn btn-sm btn-light border rounded-3" title="View"><i class="bi bi-eye"></i></button>
+                                                <button class="btn btn-sm btn-light border rounded-3" title="Edit"><i class="bi bi-pencil"></i></button>
+                                                <button class="btn btn-sm btn-light border rounded-3" title="Message"><i class="bi bi-chat-left-dots"></i></button>
+                                                <button class="btn btn-sm btn-light-subtle border text-danger rounded-3" title="Terminate"><i class="bi bi-trash"></i></button>
                                             </div>
                                         </td>
                                     </tr>
@@ -154,5 +218,6 @@
                         </div>
                     </div>
                 </div>
+            </div>
         </div>
 @endsection
