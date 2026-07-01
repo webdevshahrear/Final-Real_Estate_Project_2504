@@ -5,6 +5,7 @@ use App\Http\Controllers\Backend\CustomerController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\PropertyController;
 use App\Http\Controllers\Backend\UnitController;
+use App\Http\Controllers\PaymentController;
 use Illuminate\Support\Facades\Route;
 
 // Dashboard
@@ -117,3 +118,10 @@ Route::prefix('/properties')->name('properties.')->controller(PropertyController
 Route::view('/units-manager', 'backend.units.manager')->name('units.manager');
 Route::view('/units-owner', 'backend.units.owner')->name('units.owner');
 Route::view('/units-flat-owner', 'backend.units.flat-owner')->name('units.flat-owner');
+
+// Payments (Admin)
+Route::prefix('/payments')->name('payments.')->controller(PaymentController::class)->group(function () {
+    Route::get('/', 'adminIndex')->name('index');
+    Route::post('/approve/{id}', 'approve')->name('approve');
+    Route::post('/reject/{id}', 'reject')->name('reject');
+});

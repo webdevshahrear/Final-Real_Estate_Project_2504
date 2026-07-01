@@ -67,4 +67,9 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::delete('/units/delete/{id}', [App\Http\Controllers\Backend\UnitController::class, 'delete'])->name('admin.units.delete');
 
 });
+// Payment Routes (Tenant)
+Route::middleware('cus')->group(function () {
+    Route::post('/payment/request', [App\Http\Controllers\PaymentController::class, 'request'])->name('payment.request');
+    Route::post('/payment/pay/{id}', [App\Http\Controllers\PaymentController::class, 'pay'])->name('payment.pay');
+});
 
